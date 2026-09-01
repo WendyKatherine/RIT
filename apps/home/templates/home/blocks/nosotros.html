@@ -1,0 +1,29 @@
+{% load icons %}
+<section class="section section--light" id="nosotros">
+  <div class="container">
+    <div class="nosotros-grid">
+      <div>
+        <span class="badge badge--bar rit-rv">01 · Nosotros</span>
+        <h2 class="h-display h-display--lg h-display--navy rit-rv" style="margin-top:20px">Expertos en TI, <span class="grad-text">aliados</span> de tu negocio</h2>
+      </div>
+      <div class="rit-rv" style="display:flex;flex-direction:column;gap:18px">
+        {% for p in self.leads %}
+        <p class="lead" style="margin:0">{{ p }}</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="value-cards">
+      {% for c in self.cards %}
+      <article class="vcard rit-rv">
+        <div class="vcard-icon">{% icon c.icon 48 %}</div>
+        <div class="vcard-num">{{ c.num }}</div>
+        <h3>{{ c.title }}</h3>
+        <div class="vcard-rule"></div>
+        <p>{{ c.body }}</p>
+        <span class="vcard-tab" aria-hidden="true">↗</span>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

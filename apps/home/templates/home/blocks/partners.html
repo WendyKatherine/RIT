@@ -1,0 +1,15 @@
+<section class="section section--light">
+  <div class="container" style="text-align:center">
+    <span class="badge badge--red rit-rv">03 · Aliados</span>
+    <h2 class="h-display h-display--lg h-display--navy rit-rv" style="margin:20px auto 0;max-width:24ch">Trabajamos con los <span class="grad-text">mejores</span> del mundo</h2>
+  </div>
+  <div class="partners" style="margin-top:44px">
+    <div class="partners-row partners-row--a">
+      {% for i in "12" %}{% for p in self.row_a %}<span class="partner-pill">{{ p }}</span>{% endfor %}{% endfor %}
+    </div>
+    <div class="partners-row partners-row--b">
+      {% for i in "12" %}{% for p in self.row_b %}<span class="partner-pill">{{ p }}</span>{% endfor %}{% endfor %}
+    </div>
+  </div>
+  <p class="partners-note rit-rv">PLACEHOLDER · REEMPLAZAR POR LOGOS OFICIALES EN SVG</p>
+</section>
