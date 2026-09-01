@@ -66,4 +66,4 @@ django_settings_module = "config.settings.dev"
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings.dev"
 pythonpath = ["."]
-testpaths = ["tests"]
+testpaths = ["tests", "apps"]
