@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    name: Calidad y tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: rit
+          POSTGRES_PASSWORD: rit
+          POSTGRES_DB: rit_website
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U rit -d rit_website"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 5
+    env:
+      # settings/base.py exige DATABASE_URL (sin default) — en CI apunta al servicio
+      DATABASE_URL: postgres://rit:rit@localhost:5432/rit_website
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup uv + Python
+        uses: astral-sh/setup-uv@v10.0.0
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Instalar dependencias (lock)
+        run: uv sync --frozen
+
+      - name: Lint y formato (ruff)
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Tipos (mypy)
+        run: uv run mypy .
+
+      - name: Migraciones al día
+        run: uv run python manage.py makemigrations --check --dry-run
+
+      - name: Tests (pytest + Postgres)
+        run: uv run pytest

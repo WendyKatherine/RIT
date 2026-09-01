@@ -1,0 +1,44 @@
+{% load icons %}
+<section class="section section--dark" id="servicios">
+  <div class="svc-bg" aria-hidden="true"></div>
+
+  {% for c in self.cards %}
+  <input type="radio" name="svc" id="s-{{ forloop.counter }}" class="hero-radio" {% if forloop.first %}checked{% endif %}>
+  {% endfor %}
+
+  <div class="svc-head">
+    <div>
+      <span class="badge badge--dark rit-rv">02 · Servicios</span>
+      <h2 class="h-display h-display--lg h-display--white rit-rv" style="margin-top:20px;max-width:22ch">Soluciones que <span class="grad-text--hero">impulsan</span> tu empresa</h2>
+    </div>
+    <div class="svc-pager rit-rv">
+      <span class="svc-index">
+        <span class="idx idx-1">01</span><span class="idx idx-2">02</span><span class="idx idx-3">03</span><span class="idx idx-4">04</span>
+        <span class="slash">/</span> 04
+      </span>
+      <div class="svc-arrows">
+        <label for="s-2" class="icon-btn icon-btn--ghost ar ar-1n" aria-label="Siguiente">→</label>
+        <label for="s-1" class="icon-btn icon-btn--ghost ar ar-2p" aria-label="Anterior">←</label>
+        <label for="s-3" class="icon-btn icon-btn--ghost ar ar-2n" aria-label="Siguiente">→</label>
+        <label for="s-2" class="icon-btn icon-btn--ghost ar ar-3p" aria-label="Anterior">←</label>
+        <label for="s-4" class="icon-btn icon-btn--ghost ar ar-3n" aria-label="Siguiente">→</label>
+        <label for="s-3" class="icon-btn icon-btn--ghost ar ar-4p" aria-label="Anterior">←</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="svc-view">
+    <div class="svc-rail">
+      {% for c in self.cards %}
+      <article class="svc-card">
+        <span class="svc-num">{{ c.n }}</span>
+        <div class="svc-icon">{% icon c.icon 48 %}</div>
+        <div class="svc-tag">{{ c.tag }}</div>
+        <h3>{{ c.title }}</h3>
+        <p>{{ c.body }}</p>
+        <a href="/que-hacemos" class="svc-link">Conocer más <span>→</span></a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

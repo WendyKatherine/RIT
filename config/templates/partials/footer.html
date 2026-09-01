@@ -1,0 +1,42 @@
+{% load static %}
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="{% static 'img/logo-rit-color.png' %}" alt="RIT Enterprise Solutions">
+      <p class="footer-tagline">Impulsamos la tecnología de tu empresa hacia el futuro.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <ul>
+        {% for item in footer_services %}
+        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Compañía</h4>
+      <ul>
+        {% for item in footer_company %}
+        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <form class="newsletter" action="/newsletter" method="post">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="tu@empresa.com" required aria-label="Email para newsletter">
+        <button type="submit">Suscribirme</button>
+        {% if news_msg %}<p class="flash flash--success" role="status">{{ news_msg }}</p>{% endif %}
+        {% if news_status == "error" and news_msg %}<p class="flash flash--error" role="alert">{{ news_msg }}</p>{% endif %}
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 RIT ENTERPRISE SOLUTIONS SAS · NIT 901.106.159-8</span>
+    <nav aria-label="Legal">
+      <a href="#top">AVISO DE PRIVACIDAD</a>
+      <a href="#top">TÉRMINOS</a>
+    </nav>
+  </div>
+</footer>

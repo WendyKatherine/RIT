@@ -1,18 +1,11 @@
+import contextlib
+
 from .base import *
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-4q-erqqlsl5rrw6nfg+obnim2o*=gb1gqx9g^b2p*dk*1pg&*d"
-
-# SECURITY WARNING: define the correct hosts in production!
-ALLOWED_HOSTS = ["*"]
-
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+SECRET_KEY = env("DJANGO_SECRET_KEY", default="django-insecure-solo-desarrollo")
+DEBUG = env.bool("DJANGO_DEBUG", default=True)
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 
 
-try:
+with contextlib.suppress(ImportError):
     from .local import *
-except ImportError:
-    pass

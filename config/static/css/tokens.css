@@ -1,0 +1,51 @@
+/* ============================================================
+   RIT Enterprise — Design Tokens
+   Colores oficiales: Manual de Marca RIT
+   ROJO #e30613 · AZUL #0069b4 · VIOLETA #312783
+   Neutros y estructura: Mockup V1 aprobado (SPEC)
+   Tipografía: Titillium Web (mockup V1)
+   ============================================================ */
+:root {
+  /* --- Marca (manual) --- */
+  --red: #e30613;
+  --red-dark: #b0050f;
+  --red-soft: #fdecec;
+  --blue: #0069b4;
+  --blue-light: #1e86c9;
+  --blue-soft: #e8f1f8;
+  --violet: #312783;
+  --violet-soft: #ede9f8;
+
+  /* --- Neutros (mockup V1) --- */
+  --navy-900: #001b3a;
+  --navy-800: #002a53;
+  --navy-700: #003a6b;
+  --cloud: #eff3f9;
+  --white: #ffffff;
+  --line: #e2e8f0;
+  --gray: #5a6b7a;
+
+  /* --- Gradientes de marca --- */
+  --grad-btn: linear-gradient(135deg, #e30613 0%, #b0050f 35%, #0069b4 70%, #312783 100%);
+  --grad-text: linear-gradient(90deg, #e30613, #0069b4);
+  --grad-hero: linear-gradient(180deg, #001b3a 0%, #002a53 55%, #003a6b 100%);
+  --grad-num: linear-gradient(90deg, #e30613, #0069b4);
+  --grad-hero-text: linear-gradient(90deg, #e30613 0%, #0069b4 45%, #e8f1f8 100%);
+  --grad-card: linear-gradient(135deg, #002a53, #0069b4);
+
+  /* --- Tipografía --- */
+  --font: 'Titillium Web', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* --- Forma y elevación --- */
+  --r-10: 10px;
+  --r-16: 16px;
+  --r-20: 20px;
+  --r-pill: 100px;
+  --sh-card: 0 4px 16px rgba(0, 42, 83, 0.08);
+  --sh-card-h: 0 16px 40px rgba(0, 42, 83, 0.15);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Layout --- */
+  --container: 1280px;
+  --gutter: 48px;
+}

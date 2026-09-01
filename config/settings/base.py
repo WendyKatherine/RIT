@@ -10,11 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+import os
 from pathlib import Path
+
+import environ
+from django.utils.translation import gettext_lazy as _
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = PROJECT_DIR.parent
+
+env = environ.Env(
+    DJANGO_DEBUG=(bool, False),
+    DJANGO_ALLOWED_HOSTS=(list, []),
+)
+environ.Env.read_env(BASE_DIR / ".env")
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,8 +33,10 @@ BASE_DIR = PROJECT_DIR.parent
 # Application definition
 
 INSTALLED_APPS = [
-    "home",
-    "search",
+    "apps.users",
+    "apps.home",
+    "apps.search",
+    "apps.common",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -37,6 +48,8 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail",
+    "wagtail.locales",
+    "wagtail.contrib.simple_translation",
     "modelcluster",
     "taggit",
     "django_filters",
@@ -48,9 +61,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+# AUTH_USER_MODEL usa app_label.ModelName (NO la ruta de módulo).
+# El label de apps/users es "users" aunque viva dentro de apps/.
+AUTH_USER_MODEL = "users.User"
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -74,6 +92,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "config.context_processors.global_nav",
             ],
         },
     },
@@ -85,11 +104,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Postgres es la base del proyecto (compose.yaml). Sin DATABASE_URL Django falla
+# al arrancar — mejor que caer silenciosamente en sqlite en producción.
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": env.db("DATABASE_URL"),
 }
 
 
@@ -115,7 +133,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+# Idioma principal del sitio (Colombia). Los demás idiomas se crean y
+# traducen desde el admin de Wagtail (WAGTAIL_CONTENT_LANGUAGES).
+LANGUAGE_CODE = "es"
+
+LANGUAGES = [
+    ("es", _("Español")),
+    ("en", _("English")),
+]
 
 TIME_ZONE = "UTC"
 
@@ -160,7 +185,20 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "config"
+WAGTAIL_SITE_NAME = "RIT Enterprise"
+
+# Internacionalización: las páginas se sirven con prefijo de idioma (/es/, /en/).
+WAGTAIL_I18N_ENABLED = True
+
+# Idiomas en los que se puede crear contenido desde el admin.
+WAGTAIL_CONTENT_LANGUAGES = [
+    ("es", "Español"),
+    ("en", "English"),
+]
+
+# Redirecciones: si un editor cambia el slug/URL de una página, Wagtail crea
+# un redirect automático desde la URL vieja (evita links rotos).
+WAGTAIL_REDIRECTS_AUTO_CREATE = True
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
@@ -171,14 +209,16 @@ WAGTAILSEARCH_BACKENDS = {
 }
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
-# e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://example.com"
+# e.g. in notification emails. Don't include '/admin' or a trailing slash.
+# En dev apunta a localhost; en producción se define por entorno
+# (https://ritenterprise.com.co).
+WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "http://localhost:8000")
 
 # Allowed file extensions for documents in the document library.
 # This can be omitted to allow all files, but note that this may present a security risk
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
-WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+WAGTAILDOCS_EXTENSIONS = ["csv", "docx", "key", "odt", "pdf", "pptx", "rtf", "txt", "xlsx", "zip"]
 
 # Maximum upload size for documents in bytes.
 WAGTAILDOCS_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB

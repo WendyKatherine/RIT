@@ -1,0 +1,53 @@
+{% load icons %}
+<section class="hero" id="top">
+  <div class="hero-bg-grid" aria-hidden="true"></div>
+  <div class="hero-bg-glow" aria-hidden="true"></div>
+  <svg class="hero-lines" viewBox="0 0 1400 880" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M300 -40 L-60 420" stroke="#e30613" stroke-width="2" fill="none" opacity=".85"/>
+    <path d="M120 900 L-40 700" stroke="#0069b4" stroke-width="2" fill="none" opacity=".9"/>
+  </svg>
+  <div class="hero-node" style="left:16%;top:26%"></div>
+  <div class="hero-node hero-node--blue" style="right:22%;top:58%"></div>
+
+  {% for s in self.slides %}
+  <input type="radio" name="hero" id="h-{{ forloop.counter }}" class="hero-radio" {% if forloop.first %}checked{% endif %}>
+  {% endfor %}
+
+  <div class="hero-slides">
+    {% for s in self.slides %}
+    <div class="hero-slide hs-{{ forloop.counter }}">
+      <span class="badge badge--dark"><span class="hero-badge-dot"></span>Soluciones TI empresariales</span>
+      <h1 class="h-display h-display--xl">{{ s.pre }}<span class="grad-text--hero">{{ s.hi }}</span></h1>
+      <p class="hero-kicker">{{ s.kicker }}</p>
+
+      <div class="hero-bottom">
+        <div class="hero-bottom-inner">
+          <div>
+            <div class="hero-pills">
+              {% for p in self.pills %}<span class="hero-pill">{{ p }}</span>{% endfor %}
+            </div>
+            <div class="hero-nav">
+              {% if not forloop.first %}
+              <label for="h-{{ forloop.counter|add:'-1' }}" class="icon-btn icon-btn--light nav-label" aria-label="Anterior">←</label>
+              {% endif %}
+              {% if not forloop.last %}
+              <label for="h-{{ forloop.counter|add:'1' }}" class="icon-btn icon-btn--light nav-label" aria-label="Siguiente">→</label>
+              {% endif %}
+            </div>
+          </div>
+          <div class="hero-side">
+            <div class="hero-index">{{ s.index }} <span class="slash">/</span> <span class="dim">03</span></div>
+            <p class="hero-sub">{{ s.sub }}</p>
+            <div class="hero-ctas">
+              <a href="/que-hacemos" class="btn btn--white btn--pill-icon">Conocer servicios <span class="btn-ico">→</span></a>
+              <a href="/contacto" class="btn btn--ghost">Hablar con un experto</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="hero-notch" aria-hidden="true"></div>
+</section>

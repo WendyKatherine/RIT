@@ -1,0 +1,27 @@
+<section class="section section--white" id="casos">
+  <div class="container">
+    <div class="cases-head">
+      <div>
+        <span class="badge badge--red rit-rv">05 · Casos de éxito</span>
+        <h2 class="h-display h-display--lg h-display--navy rit-rv" style="margin-top:20px">Proyectos que transforman negocios</h2>
+      </div>
+      <span class="rit-rv" style="font-size:14px;font-weight:600;color:var(--navy-800);display:flex;align-items:center;gap:6px">01 <span style="display:inline-block;transform:rotate(30deg);color:var(--gray)">/</span> 03</span>
+    </div>
+    <div class="cases-grid">
+      {% for cs in self.cases %}
+      <article class="case-card rit-rv">
+        <div class="case-media"><span class="ph">IMAGEN 16:9 · PLACEHOLDER</span></div>
+        <div class="case-body">
+          <div class="case-tag">{{ cs.tag }}</div>
+          <h3>{{ cs.title }}</h3>
+          <p>{{ cs.body }}</p>
+          <div class="case-foot">
+            <span class="case-result">{{ cs.result }}</span>
+            <a class="case-link" href="/casos">Leer más →</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

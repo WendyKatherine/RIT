@@ -1,0 +1,60 @@
+{% load icons %}
+<section class="section section--dark" id="contacto">
+  <div class="contact-glow" aria-hidden="true"></div>
+  <div class="contact-grid">
+    <div>
+      <span class="badge badge--dark rit-rv">06 · Contacto</span>
+      <h2 class="h-display h-display--lg h-display--white rit-rv" style="margin-top:20px;max-width:20ch">¿Listo para transformar tu tecnología?</h2>
+      <p class="rit-rv" style="margin:18px 0 0;max-width:44ch;font-size:17px;line-height:1.6;color:rgba(232,241,248,.75)">Cuéntanos tu reto y te respondemos en menos de 24 horas.</p>
+      <div class="contact-info">
+        {% for r in self.rows %}
+        <div class="contact-row rit-rv">
+          <span class="k">{{ r.k }}</span>
+          <span class="v">{{ r.v }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="contact-socials rit-rv">
+        <div class="socials">
+          <a href="#contacto" aria-label="LinkedIn">in</a>
+          <a href="#contacto" aria-label="WhatsApp">wa</a>
+        </div>
+      </div>
+    </div>
+
+    <form class="form-card rit-rv" action="/contacto" method="post" novalidate>
+      {% csrf_token %}
+      <label class="field field--half">
+        <span>Nombre *</span>
+        <input type="text" name="nombre" placeholder="Tu nombre" required>
+      </label>
+      <label class="field field--half">
+        <span>Empresa *</span>
+        <input type="text" name="empresa" placeholder="Tu empresa" required>
+      </label>
+      <label class="field field--half">
+        <span>Email *</span>
+        <input type="email" name="email" placeholder="tu@empresa.com" required>
+      </label>
+      <label class="field field--half">
+        <span>Teléfono</span>
+        <input type="tel" name="telefono" placeholder="+57 ...">
+      </label>
+      <label class="field">
+        <span>Servicio de interés</span>
+        <select name="servicio">
+          <option value="Ciberseguridad">Ciberseguridad</option>
+          <option value="Multicloud">Multicloud</option>
+          <option value="Estaciones">Estaciones</option>
+          <option value="Centro de Servicios">Centro de Servicios</option>
+          <option value="Comunicaciones">Comunicaciones</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Mensaje</span>
+        <textarea rows="4" name="mensaje" placeholder="Cuéntanos brevemente tu reto…"></textarea>
+      </label>
+      <button type="submit" class="btn">Enviar mensaje</button>
+    </form>
+  </div>
+</section>

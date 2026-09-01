@@ -1,0 +1,16 @@
+<section class="section section--deep">
+  <div class="stats-bg-dots" aria-hidden="true"></div>
+  <div class="stats-bg-glow" aria-hidden="true"></div>
+  <div class="container" style="position:relative">
+    <span class="badge badge--dark rit-rv">04 · Resultados</span>
+    <h2 class="h-display h-display--lg h-display--white rit-rv" style="margin-top:20px;max-width:24ch">Números que respaldan nuestra experiencia</h2>
+    <div class="stats-grid">
+      {% for st in self.stats %}
+      <div class="stat-card rit-rv">
+        <div class="stat-num c-{{ st.count }}" data-pre="{{ st.pre }}" data-post="{{ st.post }}"><span>{{ st.pre }}{{ st.count }}{{ st.post }}</span></div>
+        <div class="stat-label">{{ st.label }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
