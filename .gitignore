@@ -1,0 +1,18 @@
+# Python / uv
+__pycache__/
+*.py[cod]
+.venv/
+.uv/
+
+# Django
+db.sqlite3
+/static/          # salida de collectstatic (raíz del repo)
+/media/           # archivos subidos por usuarios (raíz del repo)
+
+# Entorno / secretos
+.env
+
+# IDE / SO
+.DS_Store
+.idea/
+.vscode/

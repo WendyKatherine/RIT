@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: rit-postgres
+    environment:
+      POSTGRES_USER: rit
+      POSTGRES_PASSWORD: rit
+      POSTGRES_DB: rit_website
+    ports:
+      - "5433:5432" # host 5433 para no chocar con el 5432 de travel-savings
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rit -d rit_website"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  pgdata:
