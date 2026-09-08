@@ -1,10 +1,15 @@
+# Postgres local de dev + sitio web.
+# La contraseña vive en UNA variable (POSTGRES_PASSWORD, default "rit") y se
+# interpola tanto en el init del contenedor como en la DATABASE_URL del web —
+# así nunca se desincronizan. Pásala por entorno o en el .env del proyecto si
+# quieres otra distinta.
 services:
   postgres:
     image: postgres:16-alpine
     container_name: rit-postgres
     environment:
       POSTGRES_USER: rit
-      POSTGRES_PASSWORD: rit
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-rit}
       POSTGRES_DB: rit_website
     ports:
       - "5433:5432" # host 5433 para no chocar con el 5432 de travel-savings
@@ -24,7 +29,7 @@ services:
         condition: service_healthy
     environment:
       # Dentro de la red de compose, el host de Postgres es el nombre del servicio
-      DATABASE_URL: postgres://rit:***@postgres:5432/rit_website
+      DATABASE_URL: postgres://rit:${POSTGRES_PASSWORD:-rit}@postgres:5432/rit_website
     ports:
       - "8000:8000"
     volumes:
