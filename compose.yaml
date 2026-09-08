@@ -16,5 +16,20 @@ services:
       timeout: 3s
       retries: 5
 
+  web:
+    build: .
+    container_name: rit-web
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Dentro de la red de compose, el host de Postgres es el nombre del servicio
+      DATABASE_URL: postgres://rit:***@postgres:5432/rit_website
+    ports:
+      - "8000:8000"
+    volumes:
+      - media:/app/media # uploads del admin persistidos (no dentro del contenedor)
+
 volumes:
   pgdata:
+  media:
