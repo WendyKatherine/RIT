@@ -1,39 +1,14 @@
-# Django project
+# Excluye del contexto de build (COPY . .) lo que no va en la imagen
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.git/
+.gitignore
+db.sqlite3
 /media/
-/static/
-*.sqlite3
-
-# Python and others
-__pycache__
-*.pyc
-.DS_Store
-*.swp
-/venv/
-/tmp/
-/.vagrant/
-/Vagrantfile.local
-node_modules/
-/npm-debug.log
-/.idea/
-.vscode
-coverage
-.python-version
-
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+/static/          # salida de collectstatic (la fuente está en config/static/)
+tests/
+.github/
+Makefile
+README.md
