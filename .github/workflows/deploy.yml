@@ -20,4 +20,4 @@ jobs:
           mkdir -p ~/.ssh
           echo "$KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${USER}@${HOST} 'cd /opt/rit-staging && git fetch origin main && git reset --hard origin/main && /root/.local/bin/uv sync --frozen && /root/.local/bin/uv run python manage.py collectstatic --noinput && systemctl restart rit-staging && echo DEPLOY_OK'
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${USER}@${HOST} 'cd /opt/rit-staging && git fetch origin main && git reset --hard origin/main && /root/.local/bin/uv sync --frozen && export DJANGO_SETTINGS_MODULE=config.settings.production && /root/.local/bin/uv run python manage.py migrate --noinput && /root/.local/bin/uv run python manage.py collectstatic --noinput && systemctl restart rit-staging && echo DEPLOY_OK'

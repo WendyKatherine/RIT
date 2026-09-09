@@ -11,6 +11,7 @@ db.sqlite3
 
 # Entorno / secretos
 .env
+env
 
 # IDE / SO
 .DS_Store
