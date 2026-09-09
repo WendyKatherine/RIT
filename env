@@ -1,8 +1,0 @@
-SECRET_KEY=$v3)br^(!#eb#&rmk(o7#is22mawwtxew6$$m5&qdtudr+vpt&
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-
-# URL base para links absolutos del admin de Wagtail (previews, correos).
-# En producción: https://ritenterprise.com.co
-WAGTAILADMIN_BASE_URL=http://localhost:8000
-DATABASE_URL=postgres://rit:rit@localhost:5433/rit_website
