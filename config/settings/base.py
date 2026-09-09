@@ -110,6 +110,12 @@ DATABASES = {
     "default": env.db("DATABASE_URL"),
 }
 
+# CSRF detrás de proxy: el Origin del navegador (público) no coincide con el
+# Host que ve Django → 403 "Origin checking failed". Lista los orígenes reales
+# por entorno (separados por coma):
+#   DJANGO_CSRF_TRUSTED_ORIGINS=https://staging.ritenterprise.com,https://ritenterprise.com.co
+CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
