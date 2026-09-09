@@ -28,6 +28,8 @@ services:
       postgres:
         condition: service_healthy
     environment:
+      # Dev local: sobreescribe el default seguro de la imagen (production)
+      DJANGO_SETTINGS_MODULE: config.settings.dev
       # Dentro de la red de compose, el host de Postgres es el nombre del servicio
       DATABASE_URL: postgres://rit:${POSTGRES_PASSWORD:-rit}@postgres:5432/rit_website
     ports:

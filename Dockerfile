@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1
 # Imagen del sitio RIT — dependencias con uv (lock reproducible).
-# Uso dev: docker compose up --build   (ver compose.yaml)
-# TODO deploy slice: hardening (usuario no-root, settings production, whitenoise/nginx)
+# Default SEGURO: settings de producción (si faltan env vars, falla al arrancar
+# en vez de exponer DEBUG=True). El dev local lo pide explícito en compose.yaml.
+# TODO deploy slice: hardening (usuario no-root, whitenoise/nginx)
 
 # ── Builder: compila/instala dependencias ──
 FROM python:3.12-slim-bookworm AS builder
@@ -37,13 +38,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  && rm -rf /var/lib/apt/lists/*
 
 ENV PATH="/app/.venv/bin:$PATH" \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    DJANGO_SETTINGS_MODULE=config.settings.production
 
 WORKDIR /app
 COPY --from=builder /app/ /app/
 
 EXPOSE 8000
 
-# Migra al arrancar y sirve con gunicorn (settings por defecto: dev; DATABASE_URL
-# debe venir del entorno — compose/CI/producción la inyectan)
+# Migra al arrancar y sirve con gunicorn. Los settings los define el entorno
+# (la imagen por defecto usa production; el dev local los sobreescribe a dev).
 CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:8000"]
