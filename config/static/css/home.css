@@ -7,15 +7,25 @@
    ------------------------------------------------------------ */
 .hero {
   position: relative;
-  margin: -62px auto 0;
+  /* Marco de tarjeta: misma sangría que el header (14px por lado) para que se
+     vea el fondo de la página alrededor. -62px arriba la mete bajo el header
+     flotante; 14px abajo dejan el respiro inferior. */
+  width: calc(100% - 28px);
   max-width: 1400px;
+  margin: -62px auto 14px;
   min-height: min(92vh, 880px);
   display: flex;
   flex-direction: column;
   padding: 120px 56px 56px;
-  border-radius: 44px;
+  border-radius: 10px;
   overflow: hidden;
   background: var(--grad-hero);
+  /* Cortes angulares en las esquinas inferiores (izq y der).
+     clip-path recorta solo la silueta: el border-radius superior se conserva
+     (los clips se intersectan). Si el hero lleva borde o sombra, va en un
+     contenedor padre — el recorte se los comería.
+     Números que se tocan: 97.4/2 = profundidad; 91.4/85 = altura del corte. */
+  clip-path: polygon(0 0, 100% 0, 100% 91.4%, 97.4% 100%, 2% 100%, 2% 89%, 0 85%);
 }
 .hero-bg-grid {
   position: absolute;
@@ -149,16 +159,6 @@
   transform: none;
 }
 
-/* Esquina recortada */
-.hero-notch {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 74px;
-  height: 74px;
-  background: var(--cloud);
-  border-top-right-radius: 34px;
-}
 
 /* ------------------------------------------------------------
    NOSOTROS — tarjetas de valor
@@ -510,10 +510,14 @@
 
   .section { padding: 72px 22px; }
   .hero {
-    margin: -46px auto 0;
-    border-radius: 28px;
+    /* Sangría de 10px por lado, alineada con el header en móvil */
+    width: calc(100% - 20px);
+    margin: -46px auto 10px;
+    border-radius: 10px; /* misma curva que desktop (antes 28px: más redondeado) */
     min-height: 0;
     padding: 110px 22px 40px;
+    /* El corte se deforma con la relación de aspecto → se apaga en móvil */
+    clip-path: none;
   }
   .hero-slide {
     position: static;
@@ -531,8 +535,8 @@
   .hero-bottom { padding-top: 48px; }
   .hero-bottom-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
   .hero-side { max-width: 100%; }
-  .hero-notch { width: 44px; height: 44px; border-top-right-radius: 20px; }
   .hero-kicker { font-size: 13px; }
+  .site-header { padding: 0 10px; } /* alineado con la sangría del hero en móvil */
 
   /* Servicios: apilados (sin carrusel) */
   .svc-view { padding: 0; }
@@ -554,4 +558,27 @@
   .cases-grid { grid-template-columns: 1fr; }
   .site-footer { padding: 48px 22px 0; }
   .footer-bottom { justify-content: center; text-align: center; }
+}
+
+/* ------------------------------------------------------------
+   Móvil pequeño (≤480px): sangría y escala más contenidas
+   ------------------------------------------------------------ */
+@media (max-width: 480px) {
+  .site-header { padding: 0 8px; }
+  .hero {
+    width: calc(100% - 16px); /* 8px por lado: más ancho útil */
+    padding: 96px 18px 34px;
+    border-radius: 8px;
+  }
+  /* El h1 de desktop usa clamp(38px, 5.4vw, 72px): en pantalla chica manda el mínimo */
+  .hero-slide h1 { font-size: clamp(30px, 9vw, 38px); }
+  .hero-kicker { font-size: 12.5px; }
+  .hero-sub { font-size: 15px; }
+  .hero-index { font-size: 14px; }
+  .hero-pill { font-size: 11px; padding: 8px 13px; }
+  .hero-bottom { padding-top: 36px; }
+  .hero-nav { margin-top: 20px; }
+  .hero-nav .icon-btn--light { width: 46px; height: 46px; }
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .hero-ctas .btn { justify-content: center; }
 }

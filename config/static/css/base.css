@@ -6,10 +6,10 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--navy-900);
+  background: var(--cloud);
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
-  color: var(--navy-800);
+  color: var(--cloud);
 }
 
 img { max-width: 100%; display: block; }
