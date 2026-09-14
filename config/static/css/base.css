@@ -60,10 +60,10 @@ ul, ol { list-style: none; }
   border: 0;
   padding: 0;
   gap: 14px;
-  font-weight: 900;
-  font-size: 13px;
+  font-weight: 100;
+  font-size: 15px;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
+  text-transform: capitalize;
   color: var(--navy-800);
 }
 .badge--bar::before {
@@ -76,10 +76,10 @@ ul, ol { list-style: none; }
 
 /* Títulos */
 .h-display {
-  font-weight: 900;
+  font-weight: 100;
   line-height: 1.06;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
+  text-transform: capitalize;
   text-wrap: balance;
 }
 .h-display--xl {
@@ -97,6 +97,7 @@ ul, ol { list-style: none; }
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
 .grad-text--hero {
   background: var(--grad-hero-text);
