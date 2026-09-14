@@ -54,17 +54,46 @@
   display: flex;
   align-items: center;
   gap: 32px;
-  background: rgba(0, 27, 58, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--r-pill);
-  animation: header-compact linear both;
-  animation-timeline: scroll();
-  animation-range: 0 160px;
+}
+/* Al hacer scroll el header se vuelve sólido claro (--cloud), se quita el glass
+   y la tinta pasa a azul oscuro. Scroll-driven: cero JS.
+   `forwards` (y no `both`) para que en el top manden los estilos base — con
+   `both` la animación pisaría también el hover de los links. */
+@supports (animation-timeline: scroll()) {
+  .site-header-inner {
+    animation: header-compact linear forwards;
+    animation-timeline: scroll();
+    animation-range: 0 160px;
+  }
+  .site-nav a,
+  .brand {
+    animation: header-ink linear forwards;
+    animation-timeline: scroll();
+    animation-range: 0 160px;
+  }
+  .nav-burger {
+    animation: header-burger linear forwards;
+    animation-timeline: scroll();
+    animation-range: 0 160px;
+  }
 }
 @keyframes header-compact {
-  to { padding-top: 7px; padding-bottom: 7px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28); }
+  to {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: var(--cloud);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    border-color: var(--line);
+    box-shadow: 0 12px 30px rgba(0, 42, 83, 0.14);
+  }
+}
+@keyframes header-ink {
+  to { color: var(--navy-800); }
+}
+@keyframes header-burger {
+  to { color: var(--navy-800); border-color: var(--line); }
 }
 
 .brand { display: flex; align-items: center; gap: 10px; color: #fff; }
@@ -96,6 +125,7 @@
   border-radius: 99px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   background: transparent;
+  color: #fff; /* las barras usan currentColor para que el scroll las tinte */
   cursor: pointer;
   flex-direction: column;
   align-items: center;
@@ -106,7 +136,7 @@
 .nav-burger span {
   width: 18px;
   height: 2px;
-  background: #fff;
+  background: currentColor;
   border-radius: 2px;
   transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
 }
