@@ -121,7 +121,7 @@ ul, ol { list-style: none; }
 .section--light { background: var(--cloud); }
 .section--white { background: #fff; }
 .section--dark { background: var(--navy-800); position: relative; overflow: hidden; }
-.section--deep { background: var(--navy-900); position: relative; overflow: hidden; }
+.section--deep { background: var(--cloud); position: relative; overflow: hidden; }
 
 /* Botones */
 .btn {

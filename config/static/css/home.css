@@ -451,6 +451,31 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* Variante clara del bloque de resultados: si la sección es clara, las tarjetas,
+   etiquetas y fondos decorativos se invierten para mantener el contraste. Así el
+   mismo bloque sirve en fondo oscuro, claro o blanco. */
+.section--light .stat-card,
+.section--white .stat-card {
+  background: #fff;
+  border-color: var(--line);
+}
+.section--light .stat-card:hover,
+.section--white .stat-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 42, 83, 0.12);
+}
+.section--light .stat-label,
+.section--white .stat-label {
+  color: var(--gray);
+}
+.section--light .stats-bg-dots,
+.section--white .stats-bg-dots {
+  opacity: 0.14; /* la retícula azul pega fuerte sobre claro */
+}
+.section--light .stats-bg-glow,
+.section--white .stats-bg-glow {
+  opacity: 0.5;
+}
+
 /* ------------------------------------------------------------
    CASOS
    ------------------------------------------------------------ */
