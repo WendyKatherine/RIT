@@ -89,7 +89,12 @@
   transform: none;
 }
 
-.hero-slide .badge { align-self: flex-start; }
+.hero-slide .badge { 
+  align-self: flex-start;
+  text-transform: capitalize;
+  font-size: 1rem;
+  font-weight: 400;
+}
 .hero-badge-dot {
   width: 6px;
   height: 6px;
@@ -100,13 +105,15 @@
 .hero-slide h1 {
   margin: 26px 0 0;
   position: relative;
-  max-width: 20ch;
+  max-width: 19ch;
   color: #fff;
+  font-weight: 100;
+  text-transform: capitalize;
 }
 .hero-kicker {
   margin: 22px 0 0;
   max-width: 52ch;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.06em;
   line-height: 1.7;

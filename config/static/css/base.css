@@ -50,7 +50,6 @@ ul, ol { list-style: none; }
   text-transform: uppercase;
 }
 .badge--dark {
-  border: 1px solid rgba(232, 241, 248, 0.35);
   color: var(--blue-soft);
 }
 .badge--red {
