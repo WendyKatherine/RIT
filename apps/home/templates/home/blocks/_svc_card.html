@@ -1,0 +1,22 @@
+{% load icons %}
+{% comment %}
+Tarjeta de servicio.
+
+`clone=1` la marca como copia decorativa de los extremos (las que hacen posible
+el loop infinito del slider): va oculta para lectores de pantalla y sin enlace,
+porque su gemela real ya existe en el riel.
+
+Contexto: `c` = datos de la tarjeta.
+{% endcomment %}
+<article class="svc-card{% if clone %} svc-card--clone{% endif %}"{% if clone %} aria-hidden="true"{% endif %}>
+  <span class="svc-num">{{ c.n }}</span>
+  <div class="svc-icon">{% icon c.icon 48 %}</div>
+  <div class="svc-tag">{{ c.tag }}</div>
+  <h3>{{ c.title }}</h3>
+  <p>{{ c.body }}</p>
+  {% if clone %}
+  <span class="svc-link">Conocer más <span>→</span></span>
+  {% else %}
+  <a href="/que-hacemos" class="svc-link">Conocer más <span>→</span></a>
+  {% endif %}
+</article>

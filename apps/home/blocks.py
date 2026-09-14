@@ -67,8 +67,8 @@ class ServicesBlock(blocks.StructBlock):
     cards = blocks.ListBlock(
         ServiceCardBlock(),
         min_num=1,
-        max_num=4,
-        help_text="Máx. 4 (carrusel CSS atado a 4)",
+        max_num=8,
+        help_text="El carrusel se adapta a la cantidad (1–8)",
     )
 
     class Meta:
