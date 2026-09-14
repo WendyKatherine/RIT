@@ -1,5 +1,5 @@
 {% load icons %}
-<section class="section section--light" id="nosotros">
+<section class="section section--light section--clip" id="nosotros">
   <div class="container">
     <div class="nosotros-grid">
       <div>
@@ -13,17 +13,23 @@
       </div>
     </div>
 
-    <div class="value-cards">
-      {% for c in self.cards %}
-      <article class="vcard rit-rv">
-        <div class="vcard-icon">{% icon c.icon 48 %}</div>
-        <div class="vcard-num">{{ c.num }}</div>
-        <h3>{{ c.title }}</h3>
-        <div class="vcard-rule"></div>
-        <p>{{ c.body }}</p>
-        <span class="vcard-tab" aria-hidden="true">↗</span>
-      </article>
-      {% endfor %}
+    {# Abanico de tarjetas: sin JS queda la grilla plana (ver css/fan-carousel.css) #}
+    <div class="fan" data-fan>
+      <div class="fan-track">
+        {% for c in self.cards %}
+        <article class="vcard fan-card">
+          <div class="vcard-icon">{% icon c.icon 48 %}</div>
+          <div class="vcard-num">{{ c.num }}</div>
+          <h3>{{ c.title }}</h3>
+          <div class="vcard-rule"></div>
+          <p>{{ c.body }}</p>
+          <span class="vcard-tab" aria-hidden="true">↗</span>
+          <a class="fan-card-link" href="#" aria-label="{{ c.title }}"></a>
+        </article>
+        {% endfor %}
+      </div>
+      <button class="fan-hit fan-hit--prev" type="button" aria-label="Tarjeta anterior"></button>
+      <button class="fan-hit fan-hit--next" type="button" aria-label="Tarjeta siguiente"></button>
     </div>
   </div>
 </section>

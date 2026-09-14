@@ -1,0 +1,187 @@
+/* ============================================================
+   Abanico de tarjetas (fan carousel) — componente reutilizable
+   ------------------------------------------------------------
+   Sin JS queda la grilla plana de siempre (.vcard). Con JS el contenedor
+   recibe .is-fan y las tarjetas se reparten en abanico 3D: una al frente
+   (tema oscuro) y dos a cada lado.
+
+   Geometría (derivada del diseño de referencia), con d = índice − centro:
+     X    =  80px · d
+     Y    =  25px · |d|
+     Z    = −50px · |d|
+     rotZ =  10° · d
+     scale = 1 − 0.05 · |d|
+   El JS escribe --d, --ad (|d|) y --org (pivote: right/left bottom).
+   ============================================================ */
+
+.fan {
+  position: relative;
+  margin-top: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 20px;
+  min-height: 420px;
+}
+
+.fan.is-fan {
+  display: block;
+  /* Paso horizontal del abanico: es LA perilla para abrirlo o cerrarlo.
+     300px ≈ referencia; se reduce en pantallas chicas (ver media queries). */
+  --fan-step: 300px;
+  height: 560px; /* tarjeta 460 + caída 50 + aire para la sombra */
+  min-height: 0;
+  perspective: 1600px;
+  perspective-origin: 50% 40%;
+}
+.fan-track {
+  position: absolute;
+  inset: 0;
+}
+.is-fan .fan-track {
+  transform-style: preserve-3d;
+}
+.is-fan .fan-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 350px;
+  height: 460px;
+  margin-left: -175px;
+  flex: none;
+  max-width: none;
+  transform-origin: var(--org, center) bottom;
+  transform: translate3d(calc(var(--fan-step, 300px) * var(--d, 0)), calc(25px * var(--ad, 0)), calc(-50px * var(--ad, 0)))
+    rotateZ(calc(10deg * var(--d, 0))) scale(calc(1 - 0.05 * var(--ad, 0)));
+  transition: transform 0.55s var(--ease), background 0.45s ease, color 0.45s ease;
+}
+
+/* La tarjeta del frente es la única "legible": tema oscuro y letra blanca */
+.is-fan .fan-card.is-center {
+  background: linear-gradient(150deg, var(--navy-700) 0%, var(--navy-800) 55%, var(--navy-900) 100%);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 28px 60px rgba(0, 42, 83, 0.28);
+}
+.is-fan .fan-card.is-center h3 { color: #fff; }
+.is-fan .fan-card.is-center p { color: rgba(232, 241, 248, 0.85); }
+.is-fan .fan-card.is-center .vcard-icon { color: #fff; }
+.is-fan .fan-card.is-center .vcard-num { color: rgba(255, 255, 255, 0.6); }
+.is-fan .fan-card.is-center .vcard-rule { background: var(--grad-text); }
+.is-fan .fan-card.is-center .vcard-tab {
+  background: var(--blue);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* Hover: solo brillo (nada de transform: la geometría manda) */
+.is-fan .fan-card:hover { filter: brightness(1.04); }
+
+/* Zonas de clic laterales: invisibles y libres de la tarjeta central */
+.fan-hit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(50% - 175px);
+  z-index: 20;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.fan-hit--prev {
+  left: 0;
+  /* Cursor propio (32×32 con hotspot en el centro) y `pointer` como fallback
+     si el SVG no carga */
+  cursor: url("../img/cursor-prev.svg") 16 16, pointer;
+}
+.fan-hit--next {
+  right: 0;
+  cursor: url("../img/cursor-next.svg") 16 16, pointer;
+}
+.fan-hit:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+.fan:not(.is-fan) .fan-hit { display: none; }
+
+/* Enlace estirado: solo activo en la tarjeta del frente */
+.fan-card-link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+}
+.fan:not(.is-fan) .fan-card-link { display: none; }
+.is-fan .fan-card:not(.is-center) .fan-card-link { pointer-events: none; }
+
+/* Modificador de sección: recorta el abanico contra el borde de la pantalla.
+   Las tarjetas extremas se cortan a propósito (igual que en la referencia). */
+.section--clip { overflow: hidden; }
+
+/* En pantallas más chicas el paso se achica para que el abanico no quede
+   casi entero fuera del marco (el móvil ya cae a la grilla apilada) */
+@media (max-width: 1400px) {
+  .fan.is-fan { --fan-step: 250px; }
+}
+@media (max-width: 1150px) {
+  .fan.is-fan { --fan-step: 200px; }
+}
+
+/* ------------------------------------------------------------
+   Responsive (≤1024px): el abanico 3D se apaga y la sección pasa a un
+   carrusel horizontal normal con scroll-snap — la tarjeta al frente y las
+   vecinas asomando cortadas en los bordes, como en la referencia.
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .fan.is-fan {
+    display: block;
+    height: auto;
+    min-height: 0;
+    perspective: none;
+  }
+  .fan-track {
+    position: static;
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+    /* El ancho de la tarjeta manda: el relleno lateral la centra y deja que
+       las vecinas asomen cortadas (el asomo = relleno − gap). */
+    --card-w: min(74%, 340px);
+    padding: 4px calc((100% - var(--card-w)) / 2) 26px;
+    scroll-padding-inline: calc((100% - var(--card-w)) / 2);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fan-track::-webkit-scrollbar { display: none; }
+  .is-fan .fan-card {
+    position: relative;
+    left: auto;
+    width: var(--card-w);
+    height: auto;
+    margin-left: 0;
+    flex: 0 0 auto;
+    transform: none;
+    scroll-snap-align: center;
+  }
+  /* Sin "tarjeta central": todas iguales, tema claro */
+  .is-fan .fan-card.is-center {
+    background: #fff;
+    border-color: var(--line);
+    color: var(--navy-800);
+    box-shadow: var(--sh-card);
+  }
+  .is-fan .fan-card.is-center h3 { color: var(--navy-800); }
+  .is-fan .fan-card.is-center p { color: var(--gray); }
+  .is-fan .fan-card.is-center .vcard-icon { color: var(--red); }
+  .is-fan .fan-card.is-center .vcard-num { color: var(--red); }
+  .is-fan .fan-card.is-center .vcard-rule { background: var(--line); }
+  .is-fan .fan-card.is-center .vcard-tab {
+    background: var(--navy-800);
+    color: #fff;
+    border-color: transparent;
+  }
+  /* En carrusel todas las tarjetas son tocables */
+  .is-fan .fan-card .fan-card-link { pointer-events: auto; }
+  .fan-hit { display: none; }
+}

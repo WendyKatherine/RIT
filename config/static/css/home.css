@@ -173,15 +173,8 @@
   gap: 56px;
   align-items: start;
 }
-.value-cards {
-  margin-top: 72px;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-wrap: wrap;
-  gap: 20px;
-  min-height: 420px;
-}
+/* Las tarjetas de valor viven en el componente de abanico:
+   ver css/fan-carousel.css (.fan = grilla plana sin JS · .fan.is-fan = abanico 3D) */
 .vcard {
   position: relative;
   flex: 1 1 230px;
@@ -221,7 +214,7 @@
 .vcard h3 {
   margin: 12px 0 0;
   font-size: clamp(16px, 1.7vw, 22px);
-  font-weight: 900;
+  font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--navy-800);
@@ -554,7 +547,6 @@
   .svc-card { width: 100%; max-width: 100%; }
   .svc-pager { display: none; }
 
-  .value-cards { min-height: 0; }
   .vcard { max-width: none; min-height: 0; }
 
   .form-card { padding: 28px 22px; }
