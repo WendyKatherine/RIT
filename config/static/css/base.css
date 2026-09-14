@@ -117,7 +117,7 @@ ul, ol { list-style: none; }
 .lead strong { color: var(--navy-800); }
 
 /* Secciones */
-.section { padding: 110px 48px; }
+.section { padding: 150px 48px; }
 .section--light { background: var(--cloud); }
 .section--white { background: #fff; }
 .section--dark { background: var(--navy-800); position: relative; overflow: hidden; }
