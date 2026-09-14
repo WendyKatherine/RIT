@@ -28,7 +28,7 @@
   /* --- Gradientes de marca --- */
   --grad-btn: linear-gradient(135deg, #e30613 0%, #b0050f 35%, #0069b4 70%, #312783 100%);
   --grad-text: linear-gradient(90deg, #e30613, #0069b4);
-  --grad-hero: linear-gradient(180deg, #001b3a 0%, #002a53 55%, #003a6b 100%);
+  --grad-hero: linear-gradient(rgb(0, 27, 58) 0% 0%, rgb(0 34 68) 55%, rgb(0 16 30) 100%);
   --grad-num: linear-gradient(90deg, #e30613, #0069b4);
   --grad-hero-text: linear-gradient(90deg, #e30613 0%, #0069b4 45%, #e8f1f8 100%);
   --grad-card: linear-gradient(135deg, #002a53, #0069b4);
