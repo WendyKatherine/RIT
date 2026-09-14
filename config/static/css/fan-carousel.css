@@ -126,22 +126,62 @@
   .fan.is-fan { --fan-step: 200px; }
 }
 
-/* Móvil/tablet chico: sin 3D — grilla apilada, igual que el fallback */
-@media (max-width: 768px) {
+/* ------------------------------------------------------------
+   Responsive (≤1024px): el abanico 3D se apaga y la sección pasa a un
+   carrusel horizontal normal con scroll-snap — la tarjeta al frente y las
+   vecinas asomando cortadas en los bordes, como en la referencia.
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
   .fan.is-fan {
-    display: flex;
+    display: block;
     height: auto;
+    min-height: 0;
     perspective: none;
   }
-  .is-fan .fan-track { position: static; }
+  .fan-track {
+    position: static;
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+    /* El ancho de la tarjeta manda: el relleno lateral la centra y deja que
+       las vecinas asomen cortadas (el asomo = relleno − gap). */
+    --card-w: min(74%, 340px);
+    padding: 4px calc((100% - var(--card-w)) / 2) 26px;
+    scroll-padding-inline: calc((100% - var(--card-w)) / 2);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fan-track::-webkit-scrollbar { display: none; }
   .is-fan .fan-card {
     position: relative;
     left: auto;
-    width: auto;
+    width: var(--card-w);
     height: auto;
     margin-left: 0;
+    flex: 0 0 auto;
     transform: none;
-    flex: 1 1 230px;
+    scroll-snap-align: center;
   }
+  /* Sin "tarjeta central": todas iguales, tema claro */
+  .is-fan .fan-card.is-center {
+    background: #fff;
+    border-color: var(--line);
+    color: var(--navy-800);
+    box-shadow: var(--sh-card);
+  }
+  .is-fan .fan-card.is-center h3 { color: var(--navy-800); }
+  .is-fan .fan-card.is-center p { color: var(--gray); }
+  .is-fan .fan-card.is-center .vcard-icon { color: var(--red); }
+  .is-fan .fan-card.is-center .vcard-num { color: var(--red); }
+  .is-fan .fan-card.is-center .vcard-rule { background: var(--line); }
+  .is-fan .fan-card.is-center .vcard-tab {
+    background: var(--navy-800);
+    color: #fff;
+    border-color: transparent;
+  }
+  /* En carrusel todas las tarjetas son tocables */
+  .is-fan .fan-card .fan-card-link { pointer-events: auto; }
   .fan-hit { display: none; }
 }
