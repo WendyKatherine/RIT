@@ -1,13 +1,10 @@
 {% load icons %}
 <section class="hero" id="top">
-  <div class="hero-bg-grid" aria-hidden="true"></div>
   <div class="hero-bg-glow" aria-hidden="true"></div>
-  <svg class="hero-lines" viewBox="0 0 1400 880" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M300 -40 L-60 420" stroke="#e30613" stroke-width="2" fill="none" opacity=".85"/>
-    <path d="M120 900 L-40 700" stroke="#0069b4" stroke-width="2" fill="none" opacity=".9"/>
-  </svg>
-  <div class="hero-node" style="left:16%;top:26%"></div>
-  <div class="hero-node hero-node--blue" style="right:22%;top:58%"></div>
+
+  {# Cordilleras ASCII: canvas 2D (config/static/js/hero-ascii.js) #}
+  <canvas class="hero-ascii-canvas" aria-hidden="true"></canvas>
+  <div class="hero-scrim" aria-hidden="true"></div>
 
   {% for s in self.slides %}
   <input type="radio" name="hero" id="h-{{ forloop.counter }}" class="hero-radio" {% if forloop.first %}checked{% endif %}>
