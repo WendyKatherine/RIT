@@ -500,3 +500,154 @@
 .case-result { font-size: 19px; font-weight: 900; color: var(--red); }
 .case-link { font-size: 14px; font-weight: 600; color: var(--blue); }
 .case-link:hover { color: var(--red); }
+
+/* ============================================================
+   Menú — dropdowns del árbol + grupos móviles
+   SOLO agrega el panel del dropdown. No altera tamaño de letra,
+   tipografía, márgenes, padding ni centrado del nav existente.
+   ============================================================ */
+.nav-item { position: relative; display: flex; align-items: center; }
+.nav-parent { cursor: pointer; }
+.nav-item .caret { margin-left: 6px; transition: transform 0.25s var(--ease); }
+.nav-item:hover .caret,
+.nav-item:focus-within .caret { transform: rotate(180deg); }
+
+.nav-drop {
+  position: absolute;
+  top: calc(100% + 20px);
+  left: 50%;
+  min-width: 290px;
+  padding: 10px;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(0, 27, 58, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s var(--ease), transform 0.22s var(--ease), visibility 0.22s;
+}
+.nav-item:hover .nav-drop,
+.nav-item:focus-within .nav-drop {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-drop a {
+  display: block;
+  padding: 9px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: rgba(232, 241, 248, 0.9);
+  border: 0;
+  white-space: nowrap;
+  animation: none; /* la tinta de scroll no debe teñir el panel oscuro */
+}
+.nav-drop a:hover { background: rgba(255, 255, 255, 0.07); color: #fff; border: 0; }
+.nav-drop a.active { color: #fff; background: linear-gradient(135deg, rgba(227, 6, 19, 0.32), rgba(0, 105, 180, 0.24)); }
+
+/* Grupos del menú móvil */
+.nav-panel .m-group { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.nav-panel .m-group .m-title {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--red);
+}
+.nav-panel .m-group a { font-size: 16px; font-weight: 700; text-transform: none; letter-spacing: 0; }
+
+/* ============================================================
+   Menú MÓVIL / responsivo (≤768px) — árbol completo, scrollable y
+   estético (tipografías legibles). SOLO aplica en móvil: el desktop
+   queda 100% intacto.
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Nav -> burger (global, no solo en el home) */
+  .site-nav { display: none; }
+  .nav-burger { display: flex; }
+  .site-header-inner .header-cta { display: none; }
+
+  /* Al abrir el menú, el fondo no hace scroll */
+  body:has(#nav-toggle:checked) { overflow: hidden; }
+
+  /* Overlay del menú: scrollable, alineado arriba (no centrado) */
+  .nav-panel {
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0;
+    padding: 96px 22px 48px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Enlaces directos (Inicio · Nosotros · Contacto) */
+  .nav-panel > a:not(.btn) {
+    width: 100%;
+    padding: 16px 2px;
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Grupos con dropdown (Soluciones · Productos · Servicios · Consultoría) */
+  .nav-panel .m-group {
+    width: 100%;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .nav-panel .m-toggle { position: absolute; opacity: 0; pointer-events: none; }
+  .nav-panel .m-group .m-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    padding: 16px 2px;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+  }
+  .nav-panel .m-group .m-title .caret { transition: transform 0.25s var(--ease); }
+  .nav-panel .m-toggle:checked ~ .m-title .caret { transform: rotate(180deg); }
+  /* Misma animación que el dropdown de desktop: fade + slide */
+  .nav-panel .m-group .m-drop {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: max-height 0.32s var(--ease), opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .nav-panel .m-toggle:checked ~ .m-drop {
+    max-height: 640px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .nav-panel .m-group .m-drop a {
+    width: 100%;
+    padding: 11px 2px 11px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+    color: rgba(232, 241, 248, 0.92);
+    border-bottom: 0;
+  }
+  .nav-panel .m-group .m-drop a:hover,
+  .nav-panel .m-group .m-drop a:active { color: var(--red); }
+
+  /* CTA al final del panel */
+  .nav-panel .btn { align-self: center; margin-top: 28px; }
+}

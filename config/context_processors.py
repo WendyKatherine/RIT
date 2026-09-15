@@ -1,21 +1,66 @@
 """Context processors globales — navegación y footer del sitio.
 
-TRANSICIÓN: estos datos viven hoy en Python (como en el front antiguo con
-data.py), para no perder el contenido editorial ya aprobado.
-
-El plan es migrarlos a Wagtail en slices posteriores:
-- Slice 4: el menú (NAV) saldrá del árbol de páginas de Wagtail.
-- Slice 5: el footer (contacto, links) saldrá de snippets/settings.
+El NAV sigue el árbol de navegación aprobado: ítems con dropdown (Soluciones ·
+Productos · Servicios · Consultoría) y enlaces directos (Inicio · Nosotros ·
+Contacto). El estilo del menú lo define components.css (base de Wendy).
 """
 
 NAV = [
     {"label": "Inicio", "href": "/", "route": "home"},
-    {"label": "Qué Hacemos", "href": "/que-hacemos", "route": "que_hacemos"},
-    {"label": "Industrias", "href": "/industrias", "route": "industrias"},
-    {"label": "Nosotros", "href": "/nosotros", "route": "nosotros"},
-    {"label": "Casos", "href": "/casos", "route": "casos"},
-    {"label": "Recursos", "href": "/recursos", "route": "recursos"},
-    {"label": "Contacto", "href": "/contacto", "route": "contacto"},
+    {
+        "label": "Soluciones",
+        "route": "soluciones",
+        "children": [
+            {
+                "label": "Multicloud e Infraestructura",
+                "href": "/soluciones/multicloud-infraestructura/",
+            },
+            {"label": "Ciberseguridad", "href": "/soluciones/ciberseguridad/"},
+            {"label": "Comunicaciones Avanzadas", "href": "/soluciones/comunicaciones-avanzadas/"},
+            {
+                "label": "Espacios de Trabajo Inteligentes",
+                "href": "/soluciones/espacios-de-trabajo/",
+            },
+            {"label": "Digitalización de Procesos", "href": "/soluciones/digitalizacion-procesos/"},
+        ],
+    },
+    {
+        "label": "Productos",
+        "route": "productos",
+        "children": [
+            {"label": "Centros de Datos", "href": "/productos/centros-de-datos/"},
+            {"label": "Usuario Final", "href": "/productos/usuario-final/"},
+            {"label": "Dell APEX", "href": "/productos/dell-apex/"},
+        ],
+    },
+    {
+        "label": "Servicios",
+        "route": "servicios",
+        "children": [
+            {"label": "Centro de Servicios", "href": "/servicios/centro-de-servicios/"},
+            {"label": "Monitoreo y Gestión", "href": "/servicios/monitoreo-gestion/"},
+            {"label": "Instalación e Implementación", "href": "/servicios/instalacion/"},
+            {"label": "Servicios Postventa", "href": "/servicios/postventa/"},
+        ],
+    },
+    {
+        "label": "Consultoría",
+        "route": "consultoria",
+        "children": [
+            {
+                "label": "Continuidad de Negocio (BCP/DRP)",
+                "href": "/consultoria/continuidad-negocio/",
+            },
+            {"label": "Plan Estratégico de TI", "href": "/consultoria/plan-estrategico/"},
+            {
+                "label": "Arquitectura e Integración",
+                "href": "/consultoria/arquitectura-integracion/",
+            },
+            {"label": "Migraciones SAP", "href": "/consultoria/migraciones-sap/"},
+        ],
+    },
+    {"label": "Nosotros", "href": "/nosotros/", "route": "nosotros"},
+    {"label": "Contacto", "href": "/contacto/", "route": "contacto"},
 ]
 
 FOOTER_SERVICES = [
