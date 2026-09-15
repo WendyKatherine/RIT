@@ -278,51 +278,52 @@
   gap: 6px;
 }
 .svc-index .slash { display: inline-block; transform: rotate(30deg); color: rgba(255, 255, 255, 0.5); }
-.svc-index .idx { display: none; }
-#s-1:checked ~ .svc-head .idx-1,
-#s-2:checked ~ .svc-head .idx-2,
-#s-3:checked ~ .svc-head .idx-3,
-#s-4:checked ~ .svc-head .idx-4 { display: inline; }
+/* El número actual lo actualiza el controlador del carrusel (js/carousel.js) */
+.svc-current { min-width: 2ch; }
+.svc-total { color: rgba(255, 255, 255, 0.55); }
 
+/* Flechas: botones reales (los alcanza el teclado y los lectores de pantalla) */
 .svc-arrows { display: flex; gap: 10px; }
-.svc-arrows .ar { display: none; }
-#s-1:checked ~ .svc-head .ar-1n,
-#s-2:checked ~ .svc-head .ar-2p,
-#s-2:checked ~ .svc-head .ar-2n,
-#s-3:checked ~ .svc-head .ar-3p,
-#s-3:checked ~ .svc-head .ar-3n,
-#s-4:checked ~ .svc-head .ar-4p { display: inline-flex; }
+.svc-arrows button { cursor: pointer; }
 
 .svc-view {
   position: relative;
   margin-top: 44px;
   padding: 0 var(--gutter);
-  overflow: hidden;
+  /* Sin JS: scroll horizontal nativo con snap (funciona con cualquier cantidad
+     de tarjetas). Con JS el riel se mueve con transform y esto se desactiva. */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  --svc-card: min(520px, 84vw);
+  --svc-gap: 24px;
+  --svc-step: calc(var(--svc-card) + var(--svc-gap));
 }
+.svc-view::-webkit-scrollbar { display: none; }
+.is-carousel .svc-view { overflow: hidden; }
 .svc-rail {
   display: flex;
-  gap: 24px;
-  transition: transform 0.6s var(--ease);
+  gap: var(--svc-gap);
+  transition: transform 0.5s var(--ease);
+  touch-action: pan-y; /* el arrastre horizontal es del carrusel; el vertical, de la página */
 }
-#s-1:checked ~ .svc-view .svc-rail { transform: translateX(0); }
-#s-2:checked ~ .svc-view .svc-rail { transform: translateX(calc(-100% - 24px)); }
-#s-3:checked ~ .svc-view .svc-rail { transform: translateX(calc(-200% - 48px)); }
-#s-4:checked ~ .svc-view .svc-rail { transform: translateX(calc(-300% - 72px)); }
+.svc-rail.is-instant { transition: none; }
 
 .svc-card {
   position: relative;
   flex: none;
-  width: 520px;
-  max-width: 84vw;
+  width: var(--svc-card);
   background: var(--navy-700);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--r-20);
   padding: 32px;
   overflow: hidden;
-  scroll-snap-align: center;
+  scroll-snap-align: start;
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
 .svc-card:hover { border-color: rgba(227, 6, 19, 0.5); transform: translateY(-4px); }
+/* Copias decorativas del loop: no reciben el puntero */
+.svc-card--clone { pointer-events: none; }
 .svc-num {
   position: absolute;
   top: -25px;
@@ -427,7 +428,7 @@
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--r-16);
-  padding: 30px;
+  padding: 40px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .stat-card:hover {
@@ -436,7 +437,7 @@
 }
 .stat-num {
   font-size: clamp(44px, 4.6vw, 64px);
-  font-weight: 900;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--red);
@@ -448,6 +449,30 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
+}
+
+/* Variante clara del bloque de resultados: si la sección es clara, las tarjetas,
+   etiquetas y fondos decorativos se invierten para mantener el contraste. Así el
+   mismo bloque sirve en fondo oscuro, claro o blanco. */
+.section--light .stat-card,
+.section--white .stat-card {
+  border-color: var(--line);
+}
+.section--light .stat-card:hover,
+.section--white .stat-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 42, 83, 0.12);
+}
+.section--light .stat-label,
+.section--white .stat-label {
+  color: var(--gray);
+}
+.section--light .stats-bg-dots,
+.section--white .stats-bg-dots {
+  opacity: 0.14; /* la retícula azul pega fuerte sobre claro */
+}
+.section--light .stats-bg-glow,
+.section--white .stats-bg-glow {
+  opacity: 0.5;
 }
 
 /* ------------------------------------------------------------
@@ -536,16 +561,8 @@
   .site-header { padding: 0 10px; } /* alineado con la sangría del hero en móvil */
   .hero-ascii--far { display: none; } /* la capa de fondo en móvil no aporta */
 
-  /* Servicios: apilados (sin carrusel) */
-  .svc-view { padding: 0; }
-  .svc-rail {
-    display: grid;
-    grid-template-columns: 1fr;
-    transform: none !important;
-    gap: 20px;
-  }
-  .svc-card { width: 100%; max-width: 100%; }
-  .svc-pager { display: none; }
+  /* Servicios: el mismo carrusel (más cómodo que apilar tarjetas en el celular) */
+  .svc-view { --svc-card: min(320px, 82vw); }
 
   .vcard { max-width: none; min-height: 0; }
 
