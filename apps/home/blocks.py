@@ -68,7 +68,9 @@ class ServicesBlock(blocks.StructBlock):
         ServiceCardBlock(),
         min_num=1,
         max_num=8,
-        help_text="El carrusel se adapta a la cantidad (1–8)",
+        # El guion de rango (–) es la tipografía correcta; cambiarlo obligaría a
+        # otra migración porque help_text es parte de la definición del bloque.
+        help_text="El carrusel se adapta a la cantidad (1–8)",  # noqa: RUF001
     )
 
     class Meta:
