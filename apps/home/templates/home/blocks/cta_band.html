@@ -1,0 +1,8 @@
+<section class="cta-band">
+  <div class="cta-band-glow" aria-hidden="true"></div>
+  <div class="container cta-band-inner">
+    <h2 class="h-display h-display--lg h-display--white">{{ value.title }}</h2>
+    {% if value.body %}<p>{{ value.body }}</p>{% endif %}
+    <a class="btn" href="{{ value.cta_href }}">{{ value.cta_label }}</a>
+  </div>
+</section>

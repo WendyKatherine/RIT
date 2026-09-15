@@ -96,3 +96,13 @@
   .stat-num::after { content: none; }
   .preloader { display: none; }
 }
+
+/* Contadores — página Nosotros (600 · 60 · 11 · 18) */
+.stat-num.c-600 { animation-name: rit-count-600; }
+.stat-num.c-60 { animation-name: rit-count-60; }
+.stat-num.c-11 { animation-name: rit-count-11; }
+.stat-num.c-18 { animation-name: rit-count-18; }
+@keyframes rit-count-600 { from { --rit-num: 0; } to { --rit-num: 600; } }
+@keyframes rit-count-60 { from { --rit-num: 0; } to { --rit-num: 60; } }
+@keyframes rit-count-11 { from { --rit-num: 0; } to { --rit-num: 11; } }
+@keyframes rit-count-18 { from { --rit-num: 0; } to { --rit-num: 18; } }

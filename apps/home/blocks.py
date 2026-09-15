@@ -131,3 +131,104 @@ class ContactBlock(blocks.StructBlock):
         icon = "placeholder"
         label = "Contacto (06)"
         template = "home/blocks/contact.html"
+
+
+# ============================================================
+# Bloques de páginas interiores (ej. Nosotros)
+# ============================================================
+
+
+class PageHeroBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(help_text="Etiqueta superior, ej. 'Nosotros'")
+    title_pre = blocks.CharBlock(help_text="Título (parte normal)")
+    title_hi = blocks.CharBlock(required=False, help_text="Parte resaltada con gradiente")
+    lead = blocks.TextBlock(required=False)
+    cta_label = blocks.CharBlock(required=False)
+    cta_href = blocks.CharBlock(required=False, default="/contacto/")
+
+    class Meta:
+        icon = "doc-full"
+        label = "Hero de página interior"
+        template = "home/blocks/page_hero.html"
+
+
+class StoryBlock(blocks.StructBlock):
+    badge = blocks.CharBlock()
+    title_pre = blocks.CharBlock()
+    title_hi = blocks.CharBlock(required=False)
+    paragraphs = blocks.ListBlock(blocks.TextBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Historia / Quiénes somos"
+        template = "home/blocks/story.html"
+
+
+class InteriorStatsBlock(blocks.StructBlock):
+    badge = blocks.CharBlock()
+    title = blocks.CharBlock()
+    stats = blocks.ListBlock(StatBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Números (interior)"
+        template = "home/blocks/interior_stats.html"
+
+
+class SectorCardBlock(blocks.StructBlock):
+    num = blocks.CharBlock(default="01")
+    title = blocks.CharBlock()
+    tag = blocks.CharBlock(required=False, help_text="Tecnologías / etiqueta")
+    points = blocks.ListBlock(blocks.TextBlock(), min_num=1)
+
+
+class SectorsBlock(blocks.StructBlock):
+    badge = blocks.CharBlock()
+    title = blocks.CharBlock()
+    cards = blocks.ListBlock(SectorCardBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Experiencia por sector"
+        template = "home/blocks/sectors.html"
+
+
+class MissionVisionBlock(blocks.StructBlock):
+    badge = blocks.CharBlock()
+    title_pre = blocks.CharBlock()
+    title_hi = blocks.CharBlock(required=False)
+    mission = blocks.TextBlock()
+    vision = blocks.TextBlock()
+
+    class Meta:
+        icon = "doc-full"
+        label = "Misión y Visión"
+        template = "home/blocks/mission_vision.html"
+
+
+class ValueItemBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    body = blocks.TextBlock()
+
+
+class ValuesBlock(blocks.StructBlock):
+    badge = blocks.CharBlock()
+    title = blocks.CharBlock()
+    items = blocks.ListBlock(ValueItemBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Valores"
+        template = "home/blocks/values.html"
+
+
+class CTABandBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    body = blocks.TextBlock(required=False)
+    cta_label = blocks.CharBlock(default="Contáctenos ahora")
+    cta_href = blocks.CharBlock(default="/contacto/")
+
+    class Meta:
+        icon = "doc-full"
+        label = "Banda CTA"
+        template = "home/blocks/cta_band.html"
