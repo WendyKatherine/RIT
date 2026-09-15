@@ -1,10 +1,10 @@
 <section class="section section--dark">
   <div class="container" style="position:relative">
-    <span class="badge badge--dark rit-rv">{{ value.badge }}</span>
-    <h2 class="h-display h-display--lg h-display--white rit-rv" style="margin-top:20px;max-width:24ch">{{ value.title }}</h2>
+    <span class="badge badge--dark">{{ value.badge }}</span>
+    <h2 class="h-display h-display--lg h-display--white" style="margin-top:20px;max-width:24ch">{{ value.title }}</h2>
     <div class="industry-grid">
       {% for c in value.cards %}
-      <article class="industry-card rit-rv">
+      <article class="industry-card">
         <div class="industry-num">{{ c.num }}</div>
         <h3>{{ c.title }}</h3>
         {% if c.tag %}<div class="industry-tag">{{ c.tag }}</div>{% endif %}

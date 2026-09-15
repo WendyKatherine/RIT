@@ -1,12 +1,12 @@
-<section class="page-hero">
-  <div class="page-hero-dots" aria-hidden="true"></div>
-  <div class="page-hero-glow" aria-hidden="true"></div>
-  <div class="container page-hero-inner">
-    <span class="badge badge--dark rit-rv">{{ value.badge }}</span>
-    <h1 class="h-display h-display--lg h-display--white rit-rv">{{ value.title_pre }} {% if value.title_hi %}<span class="grad-text--hero">{{ value.title_hi }}</span>{% endif %}</h1>
-    {% if value.lead %}<p class="page-hero-lead rit-rv">{{ value.lead }}</p>{% endif %}
+<section class="hero hero--interior">
+  <div class="hero-bg-glow" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-interior">
+    <span class="badge badge--dark">{{ value.badge }}</span>
+    <h1 class="h-display h-display--xl h-display--white">{{ value.title_pre }} {% if value.title_hi %}<span class="grad-text--hero">{{ value.title_hi }}</span>{% endif %}</h1>
+    {% if value.lead %}<p class="hero-lead">{{ value.lead }}</p>{% endif %}
     {% if value.cta_label %}
-    <div class="rit-rv" style="margin-top:28px"><a class="btn" href="{{ value.cta_href }}">{{ value.cta_label }}</a></div>
+    <div class="hero-ctas"><a class="btn btn--white btn--pill-icon" href="{{ value.cta_href }}">{{ value.cta_label }} <span class="btn-ico">→</span></a></div>
     {% endif %}
   </div>
 </section>

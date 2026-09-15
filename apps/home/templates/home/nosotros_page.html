@@ -2,8 +2,9 @@
 {% load static wagtailcore_tags %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/pages.css' %}">
+{# home.css primero (hero, stats); pages.css después para los ajustes de página interior #}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/pages.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
