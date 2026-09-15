@@ -428,7 +428,7 @@
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--r-16);
-  padding: 30px;
+  padding: 40px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .stat-card:hover {
@@ -437,7 +437,7 @@
 }
 .stat-num {
   font-size: clamp(44px, 4.6vw, 64px);
-  font-weight: 900;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--red);
@@ -456,7 +456,6 @@
    mismo bloque sirve en fondo oscuro, claro o blanco. */
 .section--light .stat-card,
 .section--white .stat-card {
-  background: #fff;
   border-color: var(--line);
 }
 .section--light .stat-card:hover,
