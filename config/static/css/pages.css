@@ -684,3 +684,93 @@
 .value-item:hover { transform: translateY(-4px); box-shadow: var(--sh-card-h); }
 .value-item h3 { font-size: 19px; font-weight: 900; color: var(--navy-800); }
 .value-item p { margin-top: 10px; font-size: 15px; line-height: 1.6; color: var(--gray); }
+
+/* ============================================================
+   Paginas de Soluciones (bloques reutilizables)
+   ============================================================ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+  margin-top: 48px;
+}
+.item-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.sec-lead {
+  margin-top: 18px;
+  max-width: 70ch;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--gray);
+}
+.sec-lead--dark { color: rgba(232, 241, 248, 0.85); margin-left: auto; margin-right: auto; }
+
+/* Checklist (2 columnas) */
+.checklist {
+  list-style: none;
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 40px;
+}
+.checklist li {
+  position: relative;
+  padding-left: 34px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--navy-800);
+}
+.checklist li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--grad-btn);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Acordeon (details/summary, sin JS) */
+.acc { margin-top: 44px; border-top: 1px solid var(--line); }
+.acc-item { border-bottom: 1px solid var(--line); }
+.acc-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 4px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--navy-800);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.acc-item summary::-webkit-details-marker { display: none; }
+.acc-item summary::after { content: "\25B8"; color: var(--red); transition: transform 0.25s var(--ease); }
+.acc-item[open] summary { color: var(--red); }
+.acc-item[open] summary::after { transform: rotate(90deg); }
+.acc-body {
+  padding: 0 4px 22px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--gray);
+  max-width: 80ch;
+}
+
+@media (max-width: 768px) {
+  .checklist { grid-template-columns: 1fr; }
+}
