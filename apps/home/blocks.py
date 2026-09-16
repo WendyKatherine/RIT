@@ -232,3 +232,47 @@ class CTABandBlock(blocks.StructBlock):
         icon = "doc-full"
         label = "Banda CTA"
         template = "home/blocks/cta_band.html"
+
+
+# ============================================================
+# Bloques de la página Contacto
+# ============================================================
+
+
+class ContactCardBlock(blocks.StructBlock):
+    k = blocks.CharBlock(help_text="Etiqueta, ej. Oficina")
+    v = blocks.CharBlock(help_text="Valor, ej. AV Kra 9 # 115-06 OF 1207")
+    href = blocks.CharBlock(required=False, help_text="Enlace opcional (mailto:, tel:, URL)")
+
+
+class ContactInfoBlock(blocks.StructBlock):
+    badge = blocks.CharBlock()
+    title = blocks.CharBlock()
+    cards = blocks.ListBlock(ContactCardBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Datos de contacto"
+        template = "home/blocks/contact_info.html"
+
+
+class ContactFormBlock(blocks.StructBlock):
+    badge = blocks.CharBlock()
+    title = blocks.CharBlock()
+    note = blocks.CharBlock(required=False, help_text="Nota legal (Habeas Data)")
+    privacy_href = blocks.CharBlock(required=False, default="/politica-de-privacidad/")
+
+    class Meta:
+        icon = "doc-full"
+        label = "Formulario de contacto"
+        template = "home/blocks/contact_form.html"
+
+
+class MapBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=False)
+    query = blocks.CharBlock(help_text="Dirección para el mapa")
+
+    class Meta:
+        icon = "doc-full"
+        label = "Mapa"
+        template = "home/blocks/map.html"
