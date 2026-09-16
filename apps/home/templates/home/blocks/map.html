@@ -1,0 +1,8 @@
+<section class="section section--white">
+  <div class="container">
+    {% if value.title %}<span class="badge badge--bar">{{ value.title }}</span>{% endif %}
+  </div>
+  <div class="map-wrap" style="margin-top:32px">
+    <iframe src="https://maps.google.com/maps?q={{ value.query|urlencode }}&amp;output=embed" title="Mapa — {{ value.query }}" loading="lazy"></iframe>
+  </div>
+</section>
