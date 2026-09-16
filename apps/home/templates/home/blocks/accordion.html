@@ -1,0 +1,14 @@
+<section class="section section--light">
+  <div class="container">
+    {% if value.badge %}<span class="badge badge--bar">{{ value.badge }}</span>{% endif %}
+    {% if value.title %}<h2 class="h-display h-display--lg h-display--navy" style="margin-top:20px;max-width:26ch">{{ value.title }}</h2>{% endif %}
+    <div class="acc">
+      {% for it in value.items %}
+      <details class="acc-item"{% if forloop.first %} open{% endif %}>
+        <summary>{{ it.title }}</summary>
+        <div class="acc-body">{{ it.body }}</div>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>

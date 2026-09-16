@@ -276,3 +276,69 @@ class MapBlock(blocks.StructBlock):
         icon = "doc-full"
         label = "Mapa"
         template = "home/blocks/map.html"
+
+
+# ============================================================
+# Bloques reutilizables de páginas de Soluciones
+# ============================================================
+
+
+class IconCardBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False, help_text="Etiqueta superior de la tarjeta")
+    icon = blocks.CharBlock(required=False, default="server")
+    title = blocks.CharBlock()
+    body = blocks.TextBlock()
+    cta_label = blocks.CharBlock(required=False)
+    cta_href = blocks.CharBlock(required=False)
+
+
+class CardsBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    title = blocks.CharBlock(required=False)
+    intro = blocks.TextBlock(required=False)
+    cards = blocks.ListBlock(IconCardBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Tarjetas"
+        template = "home/blocks/cards.html"
+
+
+class ChecklistBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    title = blocks.CharBlock(required=False)
+    items = blocks.ListBlock(blocks.CharBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Checklist (2 columnas)"
+        template = "home/blocks/checklist.html"
+
+
+class AccordionItemBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    body = blocks.TextBlock()
+
+
+class AccordionBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    title = blocks.CharBlock(required=False)
+    items = blocks.ListBlock(AccordionItemBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Acordeón"
+        template = "home/blocks/accordion.html"
+
+
+class HighlightBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    title = blocks.CharBlock()
+    body = blocks.TextBlock(required=False)
+    cta_label = blocks.CharBlock(required=False)
+    cta_href = blocks.CharBlock(required=False)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Destacado (dark)"
+        template = "home/blocks/highlight.html"
