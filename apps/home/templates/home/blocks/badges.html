@@ -1,0 +1,10 @@
+<section class="section section--light">
+  <div class="container">
+    {% if value.badge %}<span class="badge badge--bar">{{ value.badge }}</span>{% endif %}
+    {% if value.title %}<h2 class="h-display h-display--lg h-display--navy" style="margin-top:20px;max-width:26ch">{{ value.title }}</h2>{% endif %}
+    {% if value.subtitle %}<p class="sec-lead">{{ value.subtitle }}</p>{% endif %}
+    <ul class="badges-grid">
+      {% for it in value.items %}<li class="badge-pill">{{ it }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>

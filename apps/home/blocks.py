@@ -335,6 +335,7 @@ class HighlightBlock(blocks.StructBlock):
     badge = blocks.CharBlock(required=False)
     title = blocks.CharBlock()
     body = blocks.TextBlock(required=False)
+    bullets = blocks.ListBlock(blocks.CharBlock(), required=False)
     cta_label = blocks.CharBlock(required=False)
     cta_href = blocks.CharBlock(required=False)
 
@@ -342,3 +343,27 @@ class HighlightBlock(blocks.StructBlock):
         icon = "doc-full"
         label = "Destacado (dark)"
         template = "home/blocks/highlight.html"
+
+
+class BadgesBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    title = blocks.CharBlock(required=False)
+    subtitle = blocks.CharBlock(required=False)
+    items = blocks.ListBlock(blocks.CharBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Credenciales (badges)"
+        template = "home/blocks/badges.html"
+
+
+class AlliesBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    title = blocks.CharBlock(required=False)
+    subtitle = blocks.CharBlock(required=False)
+    items = blocks.ListBlock(blocks.CharBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Aliados"
+        template = "home/blocks/allies.html"

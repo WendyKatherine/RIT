@@ -774,3 +774,60 @@
 @media (max-width: 768px) {
   .checklist { grid-template-columns: 1fr; }
 }
+
+/* Destacado con bullets (dark) */
+.hl-bullets {
+  list-style: none;
+  margin: 26px auto 0;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+.hl-bullets li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(232, 241, 248, 0.9);
+}
+.hl-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+/* Credenciales (badges) */
+.badges-grid { list-style: none; margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px; }
+.badge-pill {
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy-800);
+}
+
+/* Aliados */
+.allies { margin-top: 44px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.ally {
+  padding: 22px 34px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-16);
+  background: #fff;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--navy-800);
+}
+
+/* Checklist adaptativo (2-3 columnas segun ancho) */
+.checklist { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+@media (max-width: 768px) { .checklist { grid-template-columns: 1fr; } }

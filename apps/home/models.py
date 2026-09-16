@@ -4,6 +4,8 @@ from wagtail.models import Page
 
 from apps.home.blocks import (
     AccordionBlock,
+    AlliesBlock,
+    BadgesBlock,
     CardsBlock,
     CasesBlock,
     ChecklistBlock,
@@ -142,6 +144,8 @@ class SolucionPage(Page):
             ("checklist", ChecklistBlock()),
             ("accordion", AccordionBlock()),
             ("highlight", HighlightBlock()),
+            ("badges", BadgesBlock()),
+            ("allies", AlliesBlock()),
             ("cta", CTABandBlock()),
         ],
         blank=True,
