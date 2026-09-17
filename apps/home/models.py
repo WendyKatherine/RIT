@@ -22,10 +22,13 @@ from apps.home.blocks import (
     NosotrosBlock,
     PageHeroBlock,
     PartnersBlock,
+    QuoteBlock,
     SectorsBlock,
     ServicesBlock,
+    SplitBulletsBlock,
     StatsBlock,
     StoryBlock,
+    TimelineBlock,
     ValuesBlock,
 )
 
@@ -140,12 +143,16 @@ class SolucionPage(Page):
     body = StreamField(
         [
             ("page_hero", PageHeroBlock()),
+            ("story", StoryBlock()),
             ("cards", CardsBlock()),
             ("checklist", ChecklistBlock()),
             ("accordion", AccordionBlock()),
             ("highlight", HighlightBlock()),
             ("badges", BadgesBlock()),
             ("allies", AlliesBlock()),
+            ("timeline", TimelineBlock()),
+            ("split_bullets", SplitBulletsBlock()),
+            ("quote", QuoteBlock()),
             ("cta", CTABandBlock()),
         ],
         blank=True,

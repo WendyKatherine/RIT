@@ -367,3 +367,47 @@ class AlliesBlock(blocks.StructBlock):
         icon = "doc-full"
         label = "Aliados"
         template = "home/blocks/allies.html"
+
+
+class TimelineStepBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    body = blocks.TextBlock(required=False)
+
+
+class TimelineBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    title = blocks.CharBlock(required=False)
+    steps = blocks.ListBlock(TimelineStepBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Timeline (pasos)"
+        template = "home/blocks/timeline.html"
+
+
+class SplitItemBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    body = blocks.TextBlock()
+
+
+class SplitBulletsBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    title = blocks.CharBlock(required=False)
+    intro = blocks.TextBlock(required=False)
+    items = blocks.ListBlock(SplitItemBlock(), min_num=1)
+    note = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Split con bullets"
+        template = "home/blocks/split_bullets.html"
+
+
+class QuoteBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    text = blocks.TextBlock()
+
+    class Meta:
+        icon = "doc-full"
+        label = "Cita / propósito"
+        template = "home/blocks/quote.html"
