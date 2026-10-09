@@ -925,3 +925,17 @@
   display: block;
 }
 .rtab-radio:focus-visible ~ .rtab-labels { outline: 2px solid var(--red); outline-offset: 4px; }
+
+/* Bullets dentro de una tarjeta (cards) */
+.card-bullets { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.card-bullets li { position: relative; padding-left: 20px; font-size: 15px; line-height: 1.5; color: var(--gray); }
+.card-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+}
