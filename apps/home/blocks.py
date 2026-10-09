@@ -411,3 +411,21 @@ class QuoteBlock(blocks.StructBlock):
         icon = "doc-full"
         label = "Cita / propósito"
         template = "home/blocks/quote.html"
+
+
+class TabItemBlock(blocks.StructBlock):
+    label = blocks.CharBlock(help_text="Texto de la pestaña")
+    title = blocks.CharBlock()
+    body = blocks.TextBlock()
+
+
+class TabsBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False)
+    title = blocks.CharBlock(required=False)
+    subtitle = blocks.CharBlock(required=False)
+    tabs = blocks.ListBlock(TabItemBlock(), min_num=1)
+
+    class Meta:
+        icon = "doc-full"
+        label = "Pestañas (tabs)"
+        template = "home/blocks/tabs.html"
