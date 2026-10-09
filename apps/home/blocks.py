@@ -288,6 +288,7 @@ class IconCardBlock(blocks.StructBlock):
     icon = blocks.CharBlock(required=False, default="server")
     title = blocks.CharBlock()
     body = blocks.TextBlock()
+    bullets = blocks.ListBlock(blocks.CharBlock(), required=False)
     cta_label = blocks.CharBlock(required=False)
     cta_href = blocks.CharBlock(required=False)
 
