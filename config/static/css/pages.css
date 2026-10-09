@@ -886,3 +886,42 @@
 }
 
 @media (max-width: 768px) { .split { grid-template-columns: 1fr; gap: 28px; } }
+
+/* Tabs (sin JS, radio-hack) */
+.rtabs { margin-top: 44px; position: relative; }
+.rtab-radio { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.rtab-labels { display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 1px solid var(--line); }
+.rtab-label {
+  cursor: pointer;
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--gray);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.rtab-label:hover { color: var(--navy-800); }
+.rtab-panels { margin-top: 34px; }
+.rtab-panel { display: none; }
+.rtab-panel h3 { font-size: 22px; font-weight: 900; color: var(--navy-800); }
+.rtab-panel p { margin-top: 12px; font-size: 17px; line-height: 1.65; color: var(--gray); max-width: 70ch; }
+
+.rtab-radio:nth-of-type(1):checked ~ .rtab-labels > .rtab-label:nth-of-type(1),
+.rtab-radio:nth-of-type(2):checked ~ .rtab-labels > .rtab-label:nth-of-type(2),
+.rtab-radio:nth-of-type(3):checked ~ .rtab-labels > .rtab-label:nth-of-type(3),
+.rtab-radio:nth-of-type(4):checked ~ .rtab-labels > .rtab-label:nth-of-type(4),
+.rtab-radio:nth-of-type(5):checked ~ .rtab-labels > .rtab-label:nth-of-type(5),
+.rtab-radio:nth-of-type(6):checked ~ .rtab-labels > .rtab-label:nth-of-type(6) {
+  color: var(--navy-800);
+  border-bottom-color: var(--red);
+}
+.rtab-radio:nth-of-type(1):checked ~ .rtab-panels > .rtab-panel:nth-of-type(1),
+.rtab-radio:nth-of-type(2):checked ~ .rtab-panels > .rtab-panel:nth-of-type(2),
+.rtab-radio:nth-of-type(3):checked ~ .rtab-panels > .rtab-panel:nth-of-type(3),
+.rtab-radio:nth-of-type(4):checked ~ .rtab-panels > .rtab-panel:nth-of-type(4),
+.rtab-radio:nth-of-type(5):checked ~ .rtab-panels > .rtab-panel:nth-of-type(5),
+.rtab-radio:nth-of-type(6):checked ~ .rtab-panels > .rtab-panel:nth-of-type(6) {
+  display: block;
+}
+.rtab-radio:focus-visible ~ .rtab-labels { outline: 2px solid var(--red); outline-offset: 4px; }

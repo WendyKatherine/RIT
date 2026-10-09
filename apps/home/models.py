@@ -28,6 +28,7 @@ from apps.home.blocks import (
     SplitBulletsBlock,
     StatsBlock,
     StoryBlock,
+    TabsBlock,
     TimelineBlock,
     ValuesBlock,
 )
@@ -166,3 +167,56 @@ class SolucionPage(Page):
 
     class Meta:
         verbose_name = "Página de Solución"
+
+
+class SeccionIndexPage(Page):
+    """Índice de sección (/productos/, /servicios/, /consultoria/) — hub con lista de hijos."""
+
+    body = StreamField(
+        [
+            ("page_hero", PageHeroBlock()),
+            ("cta", CTABandBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+    )
+
+    # Lista declarativa de Wagtail (config, nunca se muta) — RUF012 es falso positivo aquí
+    content_panels = [*Page.content_panels, FieldPanel("body")]  # noqa: RUF012
+
+    template = "home/seccion_index.html"
+
+    class Meta:
+        verbose_name = "Índice de sección"
+
+
+class InteriorPage(Page):
+    """Página interior genérica (Productos / Servicios / Consultoría)."""
+
+    body = StreamField(
+        [
+            ("page_hero", PageHeroBlock()),
+            ("story", StoryBlock()),
+            ("cards", CardsBlock()),
+            ("tabs", TabsBlock()),
+            ("checklist", ChecklistBlock()),
+            ("accordion", AccordionBlock()),
+            ("highlight", HighlightBlock()),
+            ("badges", BadgesBlock()),
+            ("allies", AlliesBlock()),
+            ("timeline", TimelineBlock()),
+            ("split_bullets", SplitBulletsBlock()),
+            ("quote", QuoteBlock()),
+            ("cta", CTABandBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+    )
+
+    # Lista declarativa de Wagtail (config, nunca se muta) — RUF012 es falso positivo aquí
+    content_panels = [*Page.content_panels, FieldPanel("body")]  # noqa: RUF012
+
+    template = "home/interior_page.html"
+
+    class Meta:
+        verbose_name = "Página interior"
