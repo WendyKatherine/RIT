@@ -5,7 +5,9 @@ Productos · Servicios · Consultoría) y enlaces directos (Inicio · Nosotros �
 Contacto). El estilo del menú lo define components.css (base de Wendy).
 """
 
-NAV = [
+from typing import Any
+
+NAV: list[dict[str, Any]] = [
     {"label": "Inicio", "href": "/", "route": "home"},
     {
         "label": "Soluciones",
@@ -63,20 +65,19 @@ NAV = [
     {"label": "Contacto", "href": "/contacto/", "route": "contacto"},
 ]
 
-FOOTER_SERVICES = [
-    {"label": "Ciberseguridad", "href": "/que-hacemos#ciberseguridad"},
-    {"label": "Multicloud", "href": "/que-hacemos#multicloud"},
-    {"label": "Estaciones", "href": "/que-hacemos#estaciones"},
-    {"label": "Centro de Servicios", "href": "/que-hacemos#centro-de-servicios"},
-    {"label": "Comunicaciones", "href": "/que-hacemos#comunicaciones"},
-]
+# Columnas del footer derivadas del árbol del menú (NAV) — una sola fuente de verdad.
+FOOTER_SECTIONS = [item for item in NAV if item.get("children")]
 
 FOOTER_COMPANY = [
-    {"label": "Nosotros", "href": "/nosotros"},
-    {"label": "Industrias", "href": "/industrias"},
-    {"label": "Casos de éxito", "href": "/casos"},
-    {"label": "Recursos", "href": "/recursos"},
-    {"label": "Contacto", "href": "/contacto"},
+    {"label": "Inicio", "href": "/"},
+    {"label": "Nosotros", "href": "/nosotros/"},
+    {"label": "Contacto", "href": "/contacto/"},
+]
+
+FOOTER_LEGAL = [
+    {"label": "Política de Tratamiento de Datos", "href": "/politicas/tratamiento-datos/"},
+    {"label": "Código de Ética y Buena Conducta", "href": "/politicas/codigo-etica/"},
+    {"label": "Política SIG", "href": "/politicas/politica-sig/"},
 ]
 
 
@@ -84,6 +85,7 @@ def global_nav(request: object) -> dict:
     """Expone NAV y footer en todas las plantillas."""
     return {
         "nav": NAV,
-        "footer_services": FOOTER_SERVICES,
+        "footer_sections": FOOTER_SECTIONS,
         "footer_company": FOOTER_COMPANY,
+        "footer_legal": FOOTER_LEGAL,
     }

@@ -939,3 +939,30 @@
   border-radius: 50%;
   background: var(--red);
 }
+
+/* Prose (páginas legales / políticas) */
+.prose { max-width: 78ch; }
+.prose h2 {
+  margin-top: 44px;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--navy-800);
+}
+.prose h2:first-child { margin-top: 0; }
+.prose h3 { margin-top: 30px; font-size: 19px; font-weight: 800; color: var(--navy-800); }
+.prose p { margin-top: 16px; font-size: 16px; line-height: 1.75; color: var(--gray); }
+.prose ul,
+.prose ol { margin-top: 16px; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
+.prose li { font-size: 16px; line-height: 1.7; color: var(--gray); }
+.prose strong { color: var(--navy-800); }
+.prose a { color: var(--steel); text-decoration: underline; }
+.prose-note {
+  max-width: 78ch;
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--gray);
+}
+.prose-note a { color: var(--steel); }

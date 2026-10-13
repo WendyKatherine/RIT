@@ -6,14 +6,6 @@
       <p class="footer-tagline">Impulsamos la tecnología de tu empresa hacia el futuro.</p>
     </div>
     <div class="footer-col">
-      <h4>Servicios</h4>
-      <ul>
-        {% for item in footer_services %}
-        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="footer-col">
       <h4>Compañía</h4>
       <ul>
         {% for item in footer_company %}
@@ -21,6 +13,16 @@
         {% endfor %}
       </ul>
     </div>
+    {% for sec in footer_sections %}
+    <div class="footer-col">
+      <h4>{{ sec.label }}</h4>
+      <ul>
+        {% for item in sec.children %}
+        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
     <div class="footer-col">
       <h4>Newsletter</h4>
       <form class="newsletter" action="/newsletter" method="post">
@@ -33,10 +35,11 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 RIT ENTERPRISE SOLUTIONS SAS · NIT 901.106.159-8</span>
+    <span>© 2026 RIT ENTERPRISE SOLUTIONS SAS</span>
     <nav aria-label="Legal">
-      <a href="#top">AVISO DE PRIVACIDAD</a>
-      <a href="#top">TÉRMINOS</a>
+      {% for item in footer_legal %}
+      <a href="{{ item.href }}">{{ item.label }}</a>
+      {% endfor %}
     </nav>
   </div>
 </footer>

@@ -245,26 +245,27 @@
   max-width: var(--container);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 40px;
 }
+.footer-brand { grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; }
 .footer-brand img { height: 40px; width: auto; }
 .footer-tagline {
-  margin: 18px 0 0;
-  max-width: 30ch;
+  margin: 0;
+  max-width: 60ch;
   font-size: 15px;
   line-height: 1.6;
   color: rgba(232, 241, 248, 0.6);
 }
 .footer-col h4 {
   margin: 0 0 16px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.5);
 }
-.footer-col ul { display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
+.footer-col ul { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
 .footer-col a { color: rgba(232, 241, 248, 0.8); }
 .footer-col a:hover { color: var(--red); }
 
