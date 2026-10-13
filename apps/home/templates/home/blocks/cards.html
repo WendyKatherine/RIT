@@ -9,6 +9,11 @@
         {% if c.badge %}<div class="item-badge">{{ c.badge }}</div>{% endif %}
         <h3>{{ c.title }}</h3>
         <p>{{ c.body }}</p>
+        {% if c.bullets %}
+        <ul class="card-bullets">
+          {% for b in c.bullets %}<li>{{ b }}</li>{% endfor %}
+        </ul>
+        {% endif %}
         {% if c.cta_label %}<p style="margin-top:16px"><a class="btn" href="{{ c.cta_href }}">{{ c.cta_label }}</a></p>{% endif %}
       </article>
       {% endfor %}
