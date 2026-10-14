@@ -107,7 +107,9 @@ class CaseBlock(blocks.StructBlock):
     tag = blocks.CharBlock()
     title = blocks.CharBlock()
     body = blocks.TextBlock()
-    result = blocks.CharBlock(help_text="Métrica de resultado, ej. '-30% en costos'")
+    result = blocks.CharBlock(
+        required=False, help_text="Métrica de resultado, ej. '-30% en costos'"
+    )
 
 
 class CasesBlock(blocks.StructBlock):
