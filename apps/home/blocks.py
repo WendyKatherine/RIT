@@ -260,7 +260,7 @@ class ContactFormBlock(blocks.StructBlock):
     badge = blocks.CharBlock()
     title = blocks.CharBlock()
     note = blocks.CharBlock(required=False, help_text="Nota legal (Habeas Data)")
-    privacy_href = blocks.CharBlock(required=False, default="/politica-de-privacidad/")
+    privacy_href = blocks.CharBlock(required=False, default="/politicas/tratamiento-datos/")
 
     class Meta:
         icon = "doc-full"

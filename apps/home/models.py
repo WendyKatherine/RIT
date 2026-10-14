@@ -1,5 +1,6 @@
-from wagtail.admin.panels import FieldPanel
-from wagtail.fields import StreamField
+from django.db import models
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 
 from apps.home.blocks import (
@@ -220,3 +221,28 @@ class InteriorPage(Page):
 
     class Meta:
         verbose_name = "Página interior"
+
+
+class PoliticaPage(Page):
+    """Documento legal (política) — página independiente enlazada desde el footer."""
+
+    codigo = models.CharField(blank=True, max_length=40, verbose_name="Código")
+    version_doc = models.CharField(blank=True, max_length=10, verbose_name="Versión")
+    fecha_doc = models.CharField(blank=True, max_length=40, verbose_name="Fecha")
+
+    body = RichTextField(blank=True, verbose_name="Contenido")
+
+    # Lista declarativa de Wagtail (config, nunca se muta) — RUF012 es falso positivo aquí
+    content_panels = [  # noqa: RUF012
+        *Page.content_panels,
+        MultiFieldPanel(
+            [FieldPanel("codigo"), FieldPanel("version_doc"), FieldPanel("fecha_doc")],
+            heading="Documento",
+        ),
+        FieldPanel("body"),
+    ]
+
+    template = "home/politica_page.html"
+
+    class Meta:
+        verbose_name = "Página de Política"

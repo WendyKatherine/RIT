@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/pages.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="site">
+  <section class="hero hero--interior">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="badge badge--dark">Políticas</span>
+        <h1 class="h-display h-display--xl h-display--white">{{ page.title }}</h1>
+        {% if page.codigo or page.version_doc or page.fecha_doc %}
+        <p class="sec-lead sec-lead--dark">
+          {% if page.codigo %}{{ page.codigo }}{% endif %}
+          {% if page.version_doc %} · Versión {{ page.version_doc }}{% endif %}
+          {% if page.fecha_doc %} · {{ page.fecha_doc }}{% endif %}
+        </p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="container">
+      <article class="prose">
+        {{ page.body|richtext }}
+      </article>
+      <p class="prose-note">
+        Documento de <strong>RIT Enterprise Solutions S.A.S.</strong> ·
+        Clasificación: pública · Para consultas: <a href="mailto:info@ritenterprise.com.co">info@ritenterprise.com.co</a>
+      </p>
+    </div>
+  </section>
+</div>
+{% endblock content %}
