@@ -6,6 +6,7 @@ Los valores por defecto (seed) se cargan desde la migración de datos
 """
 
 from wagtail import blocks
+from wagtail.images.blocks import ImageChooserBlock
 
 
 class HeroSlideBlock(blocks.StructBlock):
@@ -14,11 +15,18 @@ class HeroSlideBlock(blocks.StructBlock):
     kicker = blocks.TextBlock(help_text="Frase corta bajo el título")
     index = blocks.CharBlock(default="01", help_text="Índice del slide (01, 02…)")
     sub = blocks.TextBlock(help_text="Párrafo lateral del slide")
+    image = ImageChooserBlock(
+        required=False,
+        help_text="Foto de fondo (eventos, sede, equipo…). Si no hay, se ve el fondo de marca.",
+    )
 
 
 class HeroBlock(blocks.StructBlock):
     slides = blocks.ListBlock(HeroSlideBlock(), min_num=1)
     pills = blocks.ListBlock(blocks.CharBlock(), max_num=3, help_text="Hasta 3 pills")
+    autoplay_seconds = blocks.IntegerBlock(
+        default=10, min_value=0, max_value=30, help_text="Segundos por slide. 0 = sin autoplay."
+    )
 
     class Meta:
         icon = "placeholder"

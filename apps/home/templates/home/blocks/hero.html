@@ -1,8 +1,8 @@
-{% load icons %}
-<section class="hero" id="top">
+{% load icons wagtailimages_tags %}
+<section class="hero" id="top" data-hero-slider data-autoplay="{{ self.autoplay_seconds }}">
   <div class="hero-bg-glow" aria-hidden="true"></div>
 
-  {# Cordilleras ASCII: canvas 2D (config/static/js/hero-ascii.js) #}
+  {# Anillos ASCII: canvas 2D (config/static/js/hero-ascii-rings.js) #}
   <canvas class="hero-ascii-canvas" aria-hidden="true"></canvas>
   <div class="hero-scrim" aria-hidden="true"></div>
 
@@ -13,6 +13,10 @@
   <div class="hero-slides">
     {% for s in self.slides %}
     <div class="hero-slide hs-{{ forloop.counter }}">
+      {% if s.image %}
+        {% image s.image fill-1600x900 as bg %}
+        <div class="hero-slide-bg" aria-hidden="true" style="background-image:url('{{ bg.url }}')"></div>
+      {% endif %}
       <span class="badge badge--dark"><span class="hero-badge-dot"></span>Soluciones TI empresariales</span>
       <h1 class="h-display h-display--xl">{{ s.pre }}<span class="grad-text--hero">{{ s.hi }}</span></h1>
       <p class="hero-kicker">{{ s.kicker }}</p>
@@ -33,7 +37,7 @@
             </div>
           </div>
           <div class="hero-side">
-            <div class="hero-index">{{ s.index }} <span class="slash">/</span> <span class="dim">03</span></div>
+            <div class="hero-index">{{ s.index }} <span class="slash">/</span> <span class="dim">{{ self.slides|length|stringformat:"02d" }}</span></div>
             <p class="hero-sub">{{ s.sub }}</p>
             <div class="hero-ctas">
               <a href="/servicios/" class="btn btn--white btn--pill-icon">Conocer servicios <span class="btn-ico">→</span></a>
