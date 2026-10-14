@@ -83,7 +83,26 @@
   );
 }
 
-.hero-radio { position: absolute; opacity: 0; pointer-events: none; }
+/* Barra de progreso del autoplay (la anima js/hero-slider.js) */
+.hero-progress {
+  position: absolute;
+  left: 56px;
+  right: 56px;
+  bottom: 18px;
+  height: 2px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-progress span {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--grad-text);
+}
+
 .hero-slide {
   position: absolute;
   inset: 0;
@@ -97,15 +116,24 @@
   transform: translateY(14px);
 }
 
-/* Estado activo por radio */
-#h-1:checked ~ .hero-slides .hs-1,
-#h-2:checked ~ .hero-slides .hs-2,
-#h-3:checked ~ .hero-slides .hs-3 {
+/* Slide activo: lo marca js/hero-slider.js. Sin JS, el CSS muestra el primero
+   (así el hero nunca queda vacío y la sección no depende del JS). */
+.hero:not(.is-slider) .hero-slide:first-child,
+.hero-slide.is-active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: none;
 }
+
+/* El slide activo va por encima de los otros, y sus flechas por encima de todo
+   lo decorativo del slide: así ningún fondo le roba el clic al botón. */
+.hero-slide.is-active { z-index: 2; }
+.hero-nav {
+  position: relative;
+  z-index: 3;
+}
+
 
 .hero-slide .badge { 
   align-self: flex-start;
@@ -175,14 +203,6 @@
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
 /* Estado activo por radio */
-#h-1:checked ~ .hero-slides .hs-1,
-#h-2:checked ~ .hero-slides .hs-2,
-#h-3:checked ~ .hero-slides .hs-3 {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: none;
-}
 
 
 /* ------------------------------------------------------------
@@ -565,15 +585,11 @@
   .hero-slide {
     position: static;
     padding: 0;
-    opacity: 1;
-    visibility: visible;
     transform: none;
     display: none;
-    pointer-events: auto;
   }
-  #h-1:checked ~ .hero-slides .hs-1,
-  #h-2:checked ~ .hero-slides .hs-2,
-  #h-3:checked ~ .hero-slides .hs-3 { display: flex; }
+  .hero:not(.is-slider) .hero-slide:first-child,
+  .hero-slide.is-active { display: flex; }
   .hero-slides { display: flex; flex-direction: column; }
   .hero-bottom { padding-top: 48px; }
   .hero-bottom-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
