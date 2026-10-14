@@ -16,8 +16,8 @@
 
   const VERSION = '3.15.0';
   const SOURCES = [
-    'https://cdn.jsdelivr.net/npm/gsap@' + VERSION + '/dist/gsap.min.js',
-    'https://cdn.jsdelivr.net/npm/gsap@' + VERSION + '/dist/ScrollTrigger.min.js',
+    '/static/vendor/gsap/gsap.min.js',
+    '/static/vendor/gsap/ScrollTrigger.min.js',
   ];
 
   let pending = null;
