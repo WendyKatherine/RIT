@@ -6,6 +6,7 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 <link rel="stylesheet" href="{% static 'css/fan-carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/motion.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
@@ -17,8 +18,11 @@
 {% endblock content %}
 
 {% block extra_js %}
+{# El cargador de GSAP va PRIMERO: los efectos lo usan al arrancar #}
+<script src="{% static 'js/gsap-loader.js' %}" defer></script>
 <script src="{% static 'js/hero-ascii-rings.js' %}" defer></script>
 <script src="{% static 'js/fan-carousel.js' %}" defer></script>
 <script src="{% static 'js/carousel.js' %}" defer></script>
 <script src="{% static 'js/cases-shelf.js' %}" defer></script>
+<script src="{% static 'js/title-reveal.js' %}" defer></script>
 {% endblock extra_js %}

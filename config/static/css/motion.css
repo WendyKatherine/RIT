@@ -1,0 +1,17 @@
+/* ============================================================
+   RIT Enterprise — Utilidades de animación (compartidas)
+   Las reglas de acá las usan los componentes JS de motion
+   (ver config/static/js/gsap-loader.js y los efectos).
+   ============================================================ */
+
+/* Reveal de títulos por palabra (js/title-reveal.js) */
+.tr { display: inline; }
+.tr-w {
+  display: inline-block;
+  overflow: hidden; /* la máscara por la que sube la palabra */
+  vertical-align: bottom;
+  /* el relleno evita que la máscara recorte tildes y descendentes */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.tr-wi { display: inline-block; will-change: transform, opacity; }
