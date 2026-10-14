@@ -78,6 +78,8 @@
   @keyframes rit-count-24 { from { --rit-num: 0; } to { --rit-num: 24; } }
   @keyframes rit-count-47 { from { --rit-num: 0; } to { --rit-num: 47; } }
   @keyframes rit-count-120 { from { --rit-num: 0; } to { --rit-num: 120; } }
+  /* Genérico: cualquier valor de count (lee --target del elemento) */
+  @keyframes rit-count { from { --rit-num: 0; } to { --rit-num: var(--target, 0); } }
 }
 
 /* ------------------------------------------------------------

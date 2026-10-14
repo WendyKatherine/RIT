@@ -16,7 +16,7 @@
           <h3>{{ cs.title }}</h3>
           <p>{{ cs.body }}</p>
           <div class="case-foot">
-            <span class="case-result">{{ cs.result }}</span>
+            {% if cs.result %}<span class="case-result">{{ cs.result }}</span>{% endif %}
             <a class="case-link" href="/nosotros/">Leer más →</a>
           </div>
         </div>

@@ -7,7 +7,7 @@
     <div class="stats-grid">
       {% for st in self.stats %}
       <div class="stat-card rit-rv">
-        <div class="stat-num c-{{ st.count }}" data-pre="{{ st.pre }}" data-post="{{ st.post }}"><span>{{ st.pre }}{{ st.count }}{{ st.post }}</span></div>
+        <div class="stat-num c-{{ st.count }}" style="--target:{{ st.count }}" data-pre="{{ st.pre }}" data-post="{{ st.post }}"><span>{{ st.pre }}{{ st.count }}{{ st.post }}</span></div>
         <div class="stat-label">{{ st.label }}</div>
       </div>
       {% endfor %}
