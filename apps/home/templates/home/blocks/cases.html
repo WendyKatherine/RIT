@@ -1,27 +1,39 @@
-<section class="section" id="casos">
-  <div class="container">
-    <div class="cases-head">
-      <div>
-        <span class="badge badge--red rit-rv">05 · Casos de éxito</span>
-        <h2 class="h-display h-display--lg h-display--navy rit-rv" style="margin-top:20px">Proyectos que transforman negocios</h2>
-      </div>
-      <span class="rit-rv" style="font-size:14px;font-weight:600;color:var(--navy-800);display:flex;align-items:center;gap:6px">01 <span style="display:inline-block;transform:rotate(30deg);color:var(--gray)">/</span> 03</span>
-    </div>
-    <div class="cases-grid">
-      {% for cs in self.cases %}
-      <article class="case-card rit-rv">
-        <div class="case-media"><span class="ph">IMAGEN 16:9 · PLACEHOLDER</span></div>
-        <div class="case-body">
-          <div class="case-tag">{{ cs.tag }}</div>
-          <h3>{{ cs.title }}</h3>
-          <p>{{ cs.body }}</p>
-          <div class="case-foot">
-            {% if cs.result %}<span class="case-result">{{ cs.result }}</span>{% endif %}
-            <a class="case-link" href="/nosotros/">Leer más →</a>
-          </div>
+{% load icons %}
+<section class="section section--white cases-shelf" id="casos" data-shelf>
+  <div class="cases-shelf-pin" data-shelf-pin>
+    <div class="container">
+      <div class="cases-head">
+        <div>
+          <span class="badge badge--red">05 · Casos de éxito</span>
+          <h2 class="h-display h-display--lg h-display--navy" style="margin-top:20px">Proyectos que transforman negocios</h2>
         </div>
-      </article>
-      {% endfor %}
+        <span class="cases-index">
+          <span class="cases-current" data-shelf-current>01</span>
+          <span class="slash">/</span>
+          <span class="cases-total">{{ self.cases|length|stringformat:"02d" }}</span>
+        </span>
+      </div>
     </div>
+
+    <div class="cases-viewport" data-shelf-viewport>
+      <div class="cases-track" data-shelf-track>
+        {% for cs in self.cases %}
+        <article class="case-card" data-shelf-card>
+          <div class="case-media" data-shelf-media><span class="ph">IMAGEN 16:9 · PLACEHOLDER</span></div>
+          <div class="case-body">
+            <div class="case-tag">{{ cs.tag }}</div>
+            <h3>{{ cs.title }}</h3>
+            <p>{{ cs.body }}</p>
+            <div class="case-foot">
+              {% if cs.result %}<span class="case-result">{{ cs.result }}</span>{% endif %}
+              <a class="case-link" href="/nosotros/">Leer más →</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="cases-progress" aria-hidden="true"><span data-shelf-progress></span></div>
   </div>
 </section>

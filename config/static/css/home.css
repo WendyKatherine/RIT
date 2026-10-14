@@ -596,3 +596,120 @@
   .hero-ctas { flex-direction: column; align-items: stretch; }
   .hero-ctas .btn { justify-content: center; }
 }
+
+/* ------------------------------------------------------------
+   CASOS — "estante" horizontal anclado
+   Con JS (js/cases-shelf.js + GSAP): la sección se ancla y el riel se
+   desplaza en horizontal mientras scrolleás. Sin JS: scroll con snap.
+   ------------------------------------------------------------ */
+.cases-shelf { padding: 0; }
+.cases-shelf-pin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 44px;
+  min-height: 100vh;
+  padding: 90px 0;
+  background: var(--cloud);
+}
+.cases-index {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy-800);
+}
+.cases-index .slash { display: inline-block; transform: rotate(30deg); color: var(--gray); }
+.cases-total { color: var(--gray); }
+
+.cases-viewport { overflow: visible; }
+.cases-track {
+  display: flex;
+  gap: 32px;
+  padding: 0 var(--gutter);
+  /* Fallback sin JS: scroll horizontal con snap */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.cases-track::-webkit-scrollbar { display: none; }
+.is-shelf .cases-track { overflow: visible; will-change: transform; }
+
+.case-card {
+  flex: none;
+  width: min(560px, 78vw);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-20);
+  overflow: hidden;
+  scroll-snap-align: center;
+  box-shadow: var(--sh-card);
+  transition: box-shadow 0.4s var(--ease);
+}
+.case-card:hover { box-shadow: var(--sh-card-h); }
+.case-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.case-media .ph {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: rgba(232, 241, 248, 0.6);
+}
+.case-body { padding: 28px 30px 30px; }
+.case-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.case-body h3 {
+  margin: 12px 0 10px;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--navy-800);
+}
+.case-body p { font-size: 15px; line-height: 1.6; color: var(--gray); }
+.case-foot {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.case-result { font-size: 14px; font-weight: 600; color: var(--navy-800); }
+.case-link { font-size: 14px; font-weight: 600; color: var(--blue); }
+.case-link:hover { color: var(--red); }
+
+.cases-progress { height: 2px; margin: 0 var(--gutter); background: var(--line); }
+.cases-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--grad-text);
+  transition: width 0.2s linear;
+}
+
+/* El anclaje (pin) de GSAP se lleva mal con el scroll suave nativo */
+html.has-shelf { scroll-behavior: auto; }
+
+/* Tablet y móvil: sin anclaje — carrusel horizontal con snap */
+@media (max-width: 1024px) {
+  .cases-shelf-pin { min-height: 0; padding: 80px 0; gap: 32px; }
+  .case-card { width: min(420px, 82vw); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cases-progress span { transition: none; }
+}
