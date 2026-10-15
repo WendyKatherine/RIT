@@ -6,8 +6,12 @@ __pycache__/
 
 # Django
 db.sqlite3
-/static/          # salida de collectstatic (raíz del repo)
-/media/           # archivos subidos por usuarios (raíz del repo)
+
+# Salida de collectstatic y archivos subidos por los usuarios (raíz del repo)
+# OJO: en .gitignore los comentarios van en SU PROPIA línea — un "# ..." al
+# lado del patrón lo convierte en un patrón distinto y no ignora nada.
+/static/
+/media/
 
 # Entorno / secretos
 .env

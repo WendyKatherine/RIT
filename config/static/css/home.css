@@ -91,6 +91,17 @@
   z-index: 1;
 }
 
+/* Ken Burns: zoom lento de la foto mientras el slide está activo. La animación
+   se aplica con la clase .is-active, así que arranca de nuevo en cada entrada.
+   (El zoom de fondo es 100% CSS: no necesita JS ni GSAP.) */
+@keyframes hero-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+.hero-slide.is-active .hero-slide-bg {
+  animation: hero-kenburns 14s ease-out both;
+}
+
 /* Barra de progreso del autoplay (la anima js/hero-slider.js) */
 .hero-progress {
   position: absolute;
