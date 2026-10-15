@@ -83,6 +83,14 @@
   );
 }
 
+/* Orden de apilado dentro del slide: la foto atrás y el contenido adelante.
+   Un elemento 'position: absolute' pinta por encima del contenido estático,
+   así que hay que elevar el texto explícitamente. */
+.hero-slide > *:not(.hero-slide-bg) {
+  position: relative;
+  z-index: 1;
+}
+
 /* Barra de progreso del autoplay (la anima js/hero-slider.js) */
 .hero-progress {
   position: absolute;
@@ -94,6 +102,7 @@
   background: rgba(255, 255, 255, 0.16);
   overflow: hidden;
   pointer-events: none;
+  z-index: 3; /* por encima de los slides (z-index 2) */
 }
 .hero-progress span {
   display: block;
