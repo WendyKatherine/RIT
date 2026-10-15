@@ -156,6 +156,8 @@
     if (!canvas) return;
 
     const art = startAsciiRings(canvas, HERO_OPTIONS);
+    // API mínima para que otros componentes puedan pausar/reanudar el dibujo
+    window.ritHeroAscii = art;
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reduce) {

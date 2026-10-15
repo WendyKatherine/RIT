@@ -62,7 +62,67 @@
 }
 
 /* Slides del carrusel (radio hack) */
-.hero-radio { position: absolute; opacity: 0; pointer-events: none; }
+/* Fondo de foto por slide (full-bleed). El degradado propio mantiene
+   legible el texto encima, sin necesidad de más markup. */
+.hero-slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}
+.hero-slide-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 27, 58, 0.72) 0%,
+    rgba(0, 27, 58, 0.45) 45%,
+    rgba(0, 27, 58, 0.85) 100%
+  );
+}
+
+/* Orden de apilado dentro del slide: la foto atrás y el contenido adelante.
+   Un elemento 'position: absolute' pinta por encima del contenido estático,
+   así que hay que elevar el texto explícitamente. */
+.hero-slide > *:not(.hero-slide-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ken Burns: zoom lento de la foto mientras el slide está activo. La animación
+   se aplica con la clase .is-active, así que arranca de nuevo en cada entrada.
+   (El zoom de fondo es 100% CSS: no necesita JS ni GSAP.) */
+@keyframes hero-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+.hero-slide.is-active .hero-slide-bg {
+  animation: hero-kenburns 14s ease-out both;
+}
+
+/* Barra de progreso del autoplay (la anima js/hero-slider.js) */
+.hero-progress {
+  position: absolute;
+  left: 56px;
+  right: 56px;
+  bottom: 18px;
+  height: 2px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3; /* por encima de los slides (z-index 2) */
+}
+.hero-progress span {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--grad-text);
+}
+
 .hero-slide {
   position: absolute;
   inset: 0;
@@ -76,15 +136,24 @@
   transform: translateY(14px);
 }
 
-/* Estado activo por radio */
-#h-1:checked ~ .hero-slides .hs-1,
-#h-2:checked ~ .hero-slides .hs-2,
-#h-3:checked ~ .hero-slides .hs-3 {
+/* Slide activo: lo marca js/hero-slider.js. Sin JS, el CSS muestra el primero
+   (así el hero nunca queda vacío y la sección no depende del JS). */
+.hero:not(.is-slider) .hero-slide:first-child,
+.hero-slide.is-active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: none;
 }
+
+/* El slide activo va por encima de los otros, y sus flechas por encima de todo
+   lo decorativo del slide: así ningún fondo le roba el clic al botón. */
+.hero-slide.is-active { z-index: 2; }
+.hero-nav {
+  position: relative;
+  z-index: 3;
+}
+
 
 .hero-slide .badge { 
   align-self: flex-start;
@@ -154,14 +223,6 @@
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
 /* Estado activo por radio */
-#h-1:checked ~ .hero-slides .hs-1,
-#h-2:checked ~ .hero-slides .hs-2,
-#h-3:checked ~ .hero-slides .hs-3 {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: none;
-}
 
 
 /* ------------------------------------------------------------
@@ -544,22 +605,18 @@
   .hero-slide {
     position: static;
     padding: 0;
-    opacity: 1;
-    visibility: visible;
     transform: none;
     display: none;
-    pointer-events: auto;
   }
-  #h-1:checked ~ .hero-slides .hs-1,
-  #h-2:checked ~ .hero-slides .hs-2,
-  #h-3:checked ~ .hero-slides .hs-3 { display: flex; }
+  .hero:not(.is-slider) .hero-slide:first-child,
+  .hero-slide.is-active { display: flex; }
   .hero-slides { display: flex; flex-direction: column; }
   .hero-bottom { padding-top: 48px; }
   .hero-bottom-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
   .hero-side { max-width: 100%; }
   .hero-kicker { font-size: 13px; }
   .site-header { padding: 0 10px; } /* alineado con la sangría del hero en móvil */
-  .hero-ascii--far { display: none; } /* la capa de fondo en móvil no aporta */
+
 
   /* Servicios: el mismo carrusel (más cómodo que apilar tarjetas en el celular) */
   .svc-view { --svc-card: min(320px, 82vw); }
