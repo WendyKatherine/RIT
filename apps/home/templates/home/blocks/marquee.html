@@ -1,8 +1,9 @@
+{% load marcas %}
 <div class="mq" aria-hidden="true">
   <div class="mq-track">
     {% for i in "12" %}
       {% for t in self.items %}
-      <span class="mq-item">{{ t }}<span class="sep">✦</span></span>
+      <span class="mq-item">{% marca_logo t as logo %}{% if logo %}<img src="{{ logo }}" alt="{{ t }}" loading="lazy">{% else %}{{ t }}{% endif %}<span class="sep">✦</span></span>
       {% endfor %}
     {% endfor %}
   </div>
