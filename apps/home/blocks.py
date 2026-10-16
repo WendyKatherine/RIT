@@ -118,6 +118,7 @@ class CaseBlock(blocks.StructBlock):
     result = blocks.CharBlock(
         required=False, help_text="Métrica de resultado, ej. '-30% en costos'"
     )
+    image = ImageChooserBlock(required=False, help_text="Imagen del caso (16:9 recomendado)")
 
 
 class CasesBlock(blocks.StructBlock):
