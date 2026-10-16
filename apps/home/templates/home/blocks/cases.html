@@ -1,4 +1,4 @@
-{% load icons %}
+{% load icons wagtailimages_tags %}
 <section class="section section--white cases-shelf" id="casos" data-shelf>
   <div class="cases-shelf-pin" data-shelf-pin>
     <div class="container">
@@ -19,7 +19,7 @@
       <div class="cases-track" data-shelf-track>
         {% for cs in self.cases %}
         <article class="case-card" data-shelf-card>
-          <div class="case-media" data-shelf-media><span class="ph">IMAGEN 16:9 · PLACEHOLDER</span></div>
+          <div class="case-media" data-shelf-media>{% if cs.image %}{% image cs.image fill-900x506 class="case-img" %}{% else %}<span class="ph">IMAGEN 16:9 · PLACEHOLDER</span>{% endif %}</div>
           <div class="case-body">
             <div class="case-tag">{{ cs.tag }}</div>
             <h3>{{ cs.title }}</h3>

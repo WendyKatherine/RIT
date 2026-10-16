@@ -1,3 +1,4 @@
+{% load marcas %}
 <section class="section section--light">
   <div class="container" style="text-align:center">
     <span class="badge badge--red rit-rv">04 · Aliados</span>
@@ -5,10 +6,10 @@
   </div>
   <div class="partners" style="margin-top:44px">
     <div class="partners-row partners-row--a">
-      {% for i in "12" %}{% for p in self.row_a %}<span class="partner-pill">{{ p }}</span>{% endfor %}{% endfor %}
+      {% for i in "12" %}{% for p in self.row_a %}{% marca_logo p as logo %}<span class="partner-pill">{% if logo %}<img src="{{ logo }}" alt="{{ p }}" loading="lazy">{% else %}{{ p }}{% endif %}</span>{% endfor %}{% endfor %}
     </div>
     <div class="partners-row partners-row--b">
-      {% for i in "12" %}{% for p in self.row_b %}<span class="partner-pill">{{ p }}</span>{% endfor %}{% endfor %}
+      {% for i in "12" %}{% for p in self.row_b %}{% marca_logo p as logo %}<span class="partner-pill">{% if logo %}<img src="{{ logo }}" alt="{{ p }}" loading="lazy">{% else %}{{ p }}{% endif %}</span>{% endfor %}{% endfor %}
     </div>
   </div>
 
