@@ -46,6 +46,6 @@
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* --- Layout --- */
-  --container: 1280px;
+  --container: 1400px;
   --gutter: 48px;
 }
