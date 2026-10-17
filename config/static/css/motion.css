@@ -11,7 +11,7 @@
   overflow: hidden; /* la máscara por la que sube la palabra */
   vertical-align: bottom;
   /* el relleno evita que la máscara recorte tildes y descendentes */
-  padding-bottom: 0.14em;
-  margin-bottom: -0.14em;
+  padding-bottom: 0.3em;
+  margin-bottom: -0.3em;
 }
 .tr-wi { display: inline-block; will-change: transform, opacity; }

@@ -201,7 +201,7 @@
   color: var(--gray);
 }
 .mq-item .sep { color: var(--red); }
-.mq-item img { height: 36px; width: 148px; object-fit: contain; display: block; }
+.mq-item img { height: 48px; width: auto; object-fit: contain; display: block; }
 
 /* Marquee de aliados (filas dobles) */
 .partners { display: flex; flex-direction: column; gap: 18px; overflow: hidden; }

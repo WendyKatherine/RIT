@@ -120,7 +120,7 @@ ul, ol { list-style: none; }
 .section { padding: 150px 48px; }
 /* position: relative para que las decoraciones absolutas de cada sección
    (puntos, glows… inset: 0) no se escapen y tapen toda la página ✗ */
-.section--light { background: var(--cloud); position: relative; }
+.section--light { background: var(--cloud); position: relative; overflow: hidden; }
 .section--white { background: #fff; position: relative; }
 .section--dark { background: var(--navy-800); position: relative; overflow: hidden; }
 .section--deep { background: var(--cloud); position: relative; overflow: hidden; }

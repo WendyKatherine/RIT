@@ -144,8 +144,9 @@
     align-items: stretch;
     gap: 18px;
     /* El ancho de la tarjeta manda: el relleno lateral la centra y deja que
-       las vecinas asomen cortadas (el asomo = relleno − gap). */
-    --card-w: min(74%, 340px);
+       las vecinas asomen cortadas (el asomo = relleno − gap). Se usa vw (no
+       %) para evitar la resolución circular con el padding de centrado. */
+    --card-w: min(340px, 72vw);
     padding: 4px calc((100% - var(--card-w)) / 2) 26px;
     scroll-padding-inline: calc((100% - var(--card-w)) / 2);
     overflow-x: auto;

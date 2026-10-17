@@ -49,3 +49,15 @@
   --container: 1400px;
   --gutter: 48px;
 }
+
+/* Gutter responsivo: en pantallas chicas el margen lateral del contenedor
+   se reduce para no desperdiciar ancho (las secciones ya bajan su padding). */
+@media (max-width: 1024px) {
+  :root { --gutter: 32px; }
+}
+@media (max-width: 768px) {
+  :root { --gutter: 22px; }
+}
+@media (max-width: 480px) {
+  :root { --gutter: 18px; }
+}

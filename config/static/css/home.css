@@ -620,6 +620,7 @@
 
   /* Servicios: el mismo carrusel (más cómodo que apilar tarjetas en el celular) */
   .svc-view { --svc-card: min(320px, 82vw); }
+  .svc-card { width: var(--svc-card); }
 
   .vcard { max-width: none; min-height: 0; }
 
