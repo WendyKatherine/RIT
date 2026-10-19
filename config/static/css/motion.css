@@ -15,3 +15,15 @@
   margin-bottom: -0.3em;
 }
 .tr-wi { display: inline-block; will-change: transform, opacity; }
+.grad-text .tr-wi {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.grad-text--hero .tr-wi {
+  background: var(--grad-hero-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
