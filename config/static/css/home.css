@@ -13,10 +13,10 @@
   width: calc(100% - 28px);
   max-width: 1400px;
   margin: -62px auto 14px;
-  min-height: min(92vh, 880px);
+  min-height: min(88vh, 820px);
   display: flex;
   flex-direction: column;
-  padding: 120px 56px 56px;
+  padding: 120px 56px 96px;
   border-radius: 10px;
   overflow: hidden;
   background: var(--grad-hero);
@@ -126,7 +126,7 @@
 .hero-slide {
   position: absolute;
   inset: 0;
-  padding: 120px 56px 56px;
+  padding: 120px 56px 96px;
   display: flex;
   flex-direction: column;
   opacity: 0;
@@ -186,7 +186,7 @@
   color: rgba(232, 241, 248, 0.7);
 }
 
-.hero-bottom { margin-top: auto; padding-top: 72px; }
+.hero-bottom { margin-top: auto; padding-top: 34px; }
 .hero-bottom-inner {
   display: flex;
   flex-wrap: wrap;
@@ -620,6 +620,7 @@
 
   /* Servicios: el mismo carrusel (más cómodo que apilar tarjetas en el celular) */
   .svc-view { --svc-card: min(320px, 82vw); }
+  .svc-card { width: var(--svc-card); }
 
   .vcard { max-width: none; min-height: 0; }
 

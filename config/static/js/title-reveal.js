@@ -59,6 +59,35 @@
     return holder.querySelectorAll('.' + INNER);
   }
 
+  // Red de seguridad: si por cualquier motivo el ScrollTrigger no llega a
+  // dispararse (layout shift, pin de otra sección, refresh desactualizado) y
+  // las palabras quedan ocultas, las forzamos visibles cuando el título ya
+  // está claramente en pantalla. El retardo le da tiempo al ScrollTrigger de
+  // dispararse y animar antes de decidir que quedó atascado; así el título
+  // NUNCA queda invisible y no pisamos la animación en el camino normal.
+  function guard(title, words, lib) {
+    if (!('IntersectionObserver' in window)) return;
+    let timer = null;
+    const observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting || timer) return;
+          timer = setTimeout(function () {
+            const stuck = Array.prototype.some.call(words, function (w) {
+              return parseFloat(getComputedStyle(w).opacity) === 0;
+            });
+            if (stuck) {
+              lib.gsap.set(words, { yPercent: 0, opacity: 1, overwrite: true, clearProps: 'all' });
+            }
+            observer.disconnect();
+          }, 1600);
+        });
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(title);
+  }
+
   function boot() {
     const titles = document.querySelectorAll('[data-title-reveal]');
     if (!titles.length) return;
@@ -77,9 +106,19 @@
           stagger: 0.045,
           scrollTrigger: { trigger: title, start: 'top 88%', once: true },
         });
+        guard(title, words, lib);
       });
       lib.ScrollTrigger.refresh();
     }).catch(function () { /* sin red: títulos normales */ });
+
+    // Las fuentes/imágenes pueden llegar después de la primera medición y
+    // correr las posiciones: refrescamos al terminar la carga para que los
+    // triggers apunten al sitio correcto.
+    window.addEventListener('load', function () {
+      if (window.gsap && window.ScrollTrigger) {
+        window.ScrollTrigger.refresh();
+      }
+    });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
