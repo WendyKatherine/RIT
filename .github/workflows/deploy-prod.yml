@@ -1,0 +1,19 @@
+name: Deploy Producción
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Desplegar en producción (VPS Contabo)
+        env:
+          KEY: ${{ secrets.VPS_SSH_KEY }}
+          HOST: ${{ secrets.VPS_HOST }}
+          USER: ${{ secrets.VPS_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${USER}@${HOST} 'cd /opt/rit && git fetch origin main && git reset --hard origin/main && /root/.local/bin/uv sync --frozen && /root/.local/bin/uv run python manage.py migrate --noinput && /root/.local/bin/uv run python manage.py collectstatic --noinput && systemctl restart rit-prod && echo DEPLOY_OK'
