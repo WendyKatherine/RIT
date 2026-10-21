@@ -117,7 +117,7 @@ ul, ol { list-style: none; }
 .lead strong { color: var(--navy-800); }
 
 /* Secciones */
-.section { padding: 150px 48px; }
+.section { padding: 100px 48px; }
 /* position: relative para que las decoraciones absolutas de cada sección
    (puntos, glows… inset: 0) no se escapen y tapen toda la página ✗ */
 .section--light { background: var(--cloud); position: relative; overflow: hidden; }
