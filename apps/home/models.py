@@ -253,7 +253,7 @@ class PoliticaPage(Page):
 class EventPopup(models.Model):
     """Popup de evento — se muestra una vez por sesión."""
 
-    title = models.CharField(max_length=120, verbose_name="Nombre_Interno")
+    title = models.CharField(max_length=120, verbose_name="Nombre interno")
     is_active = models.BooleanField(default=True)
     logo = models.ForeignKey(
         "wagtailimages.Image",
