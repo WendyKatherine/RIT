@@ -28,10 +28,19 @@ def _marcas_dir() -> str | None:
     return None
 
 
+def _slug(name: str) -> str:
+    key = re.sub(r"[^a-z0-9]", "", (name or "").lower())
+    return _OVERRIDES.get(key, key)
+
+
+@register.simple_tag
+def marca_slug(name: str) -> str:
+    return _slug(name)
+
+
 @register.simple_tag
 def marca_logo(name: str) -> str:
-    key = re.sub(r"[^a-z0-9]", "", (name or "").lower())
-    key = _OVERRIDES.get(key, key)
+    key = _slug(name)
     root = _marcas_dir()
     if not root:
         return ""

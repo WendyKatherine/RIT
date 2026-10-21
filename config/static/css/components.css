@@ -201,7 +201,20 @@
   color: var(--gray);
 }
 .mq-item .sep { color: var(--red); }
-.mq-item img { height: 48px; width: auto; object-fit: contain; display: block; }
+.mq-item img { height: 34px; width: auto; object-fit: contain; display: block; }
+/* Ajuste fino por marca (edita el alto/lo que quieras de cada logo).
+   data-brand = slug: dell, epson, logitech, microsoft, lenovo, qnap, samsung, ricoh, veeam, cisco, hp */
+.mq-item img[data-brand="dell"] { height: 60px; }
+.mq-item img[data-brand="epson"] { height: 25px; }
+.mq-item img[data-brand="logitech"] { height: 40px; }
+.mq-item img[data-brand="microsoft"] { height: 34px; }
+.mq-item img[data-brand="lenovo"] { height: 34px; }
+.mq-item img[data-brand="qnap"] { height: 25px; }
+.mq-item img[data-brand="samsung"] { height: 25px; }
+.mq-item img[data-brand="ricoh"] { height: 42px; }
+.mq-item img[data-brand="veeam"] { height: 26px; }
+.mq-item img[data-brand="cisco"] { height: 45px; }
+.mq-item img[data-brand="hp"] { height: 60px; }
 
 /* Marquee de aliados (filas dobles) */
 .partners { display: flex; flex-direction: column; gap: 18px; overflow: hidden; }
