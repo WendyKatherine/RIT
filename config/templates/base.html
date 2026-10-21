@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <link rel="stylesheet" href="{% static 'css/components.css' %}">
   <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+  <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+  <script defer src="{% static 'js/event-popup.js' %}"></script>
   {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -36,5 +38,8 @@
   {% include "partials/footer.html" %}
 
   {% block extra_js %}{% endblock %}
+
+  {% include "partials/event_popup.html" %}
 </body>
+
 </html>

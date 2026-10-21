@@ -1,0 +1,23 @@
+{% load static wagtailimages_tags %}
+{% if event_popup %}
+    <dialog class="event-popup" data-event-popup="{{ event_popup.id }}" aria-label="{{ event_popup.title }}">
+        <div class="event-popup-card">
+            <button type="button" class="event-popup-close" data-event-popup-close aria-label="Cerrar">✕</button>
+
+            {% if event_popup.logo %}{% image event_popup.logo max-160x60 %}{% endif %}
+            <p class="event-popup-dates">{{ event_popup.dates }}</p>
+            <p class="event-popup-place">{{ event_popup.place }}</p>
+            <p class="event-popup-address">{{ event_popup.address }}</p>
+            {% if event_popup.map_url %}<a href="{{ event_popup.map_url }}">Ver en el mapa</a>{% endif %}
+            <p class="event-popup-city">{{ event_popup.city }}</p>
+
+            {% if event_popup.image %}{% image event_popup.image max-900x600 %}{% endif %}
+
+            <div class="event-popup-foot">
+                <img src="{% static 'img/logo-rit-color.png' %}" alt="RIT Enterprise" class="event-popup-brand">
+                <span class="event-popup-url">{{ event_popup.site_url }}</span>
+                {% if event_popup.partner_logo %}{% image event_popup.partner_logo max-120x40 %}{% endif %}
+            </div>
+        </div>
+    </dialog>
+{% endif %}

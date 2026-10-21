@@ -1,0 +1,30 @@
+.event-popup:not([open]) { display: none; }
+
+.event-popup {
+  width: min(560px, 92vw);
+  max-height: 90vh;
+  overflow: auto;  
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-20);
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+.event-popup::backdrop {
+  background: rgba(0, 27, 58, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.event-popup-card { position: relative; display: grid; gap: 12px; padding: 24px; }
+
+.event-popup-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 36px; height: 36px; border-radius: 99px; border: 0;
+  background: var(--cloud); color: var(--navy-800);
+  font-size: 16px; cursor: pointer;
+}
+.event-popup-close:hover { background: var(--red); color: #fff; }
+
+/* Bloquea el scroll del fondo mientras el popup está abierto (lo pone el JS). */
+body.has-modal { overflow: hidden; }
