@@ -17,12 +17,17 @@ urlpatterns: list[URLPattern | URLResolver] = [
 ]
 
 
-if settings.DEBUG:
+# Estáticos y media: en desarrollo los sirve Django. En staging/prod los
+# estáticos salen por Whitenoise, pero /media/ (uploads del admin) necesita
+# nginx o S3; DJANGO_SERVE_MEDIA=True hace que Django los sirva igual, que es
+# aceptable en staging pero no recomendable en producción (gunicorn no está
+# pensado para servir archivos).
+if settings.DEBUG or getattr(settings, "SERVE_MEDIA", False):
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-    # Serve static and media files from development server
-    urlpatterns += staticfiles_urlpatterns()
+    if settings.DEBUG:
+        urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Rutas localizadas: /es/..., /en/... Wagtail va DENTRO de i18n_patterns para
