@@ -254,9 +254,7 @@ class EventPopup(models.Model):
     """Popup de evento — se muestra una vez por sesión."""
 
     title = models.CharField(max_length=120, verbose_name="Nombre interno")
-    subtitle = models.CharField(
-        max_length=120, blank=True, default="", verbose_name="Subtítulo"
-    )
+    subtitle = models.CharField(max_length=120, blank=True, default="", verbose_name="Subtítulo")
     title_tag_line = models.CharField(
         max_length=120, blank=True, default="", verbose_name="Tagline"
     )
@@ -271,12 +269,8 @@ class EventPopup(models.Model):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    day_start = models.CharField(
-        max_length=20, blank=True, default="", verbose_name="Día inicial"
-    )
-    day_finish = models.CharField(
-        max_length=20, blank=True, default="", verbose_name="Día final"
-    )
+    day_start = models.CharField(max_length=20, blank=True, default="", verbose_name="Día inicial")
+    day_finish = models.CharField(max_length=20, blank=True, default="", verbose_name="Día final")
     month = models.CharField(max_length=40, blank=True, default="", verbose_name="Mes")
     place = models.CharField(max_length=120, verbose_name="Lugar")
     address = models.CharField(max_length=160, verbose_name="Dirección")
