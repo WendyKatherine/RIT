@@ -192,7 +192,8 @@
     font-weight: 900;
     font-size: clamp(44px, 9.2vw, 103px);
     line-height: 0.9;
-    padding-block: -0.94em;
+    /* padding negativo no existe en CSS (se ignora): usar 0 y ajustar line-height. */
+    padding-block: 0;
     letter-spacing: -0.03em;
     overflow-wrap: break-word;
     background: linear-gradient(180deg, var(--blue-soft) 10%, #4a9bd1 100%);
@@ -394,6 +395,79 @@
     top: 14px;
     right: 14px;
   }
+
+  /* Fechas: el clamp de escritorio llega a 103px y no entra en pantalla chica. */
+  .event-popup-days {
+    font-size: clamp(26px, 6vw, 44px);
+    line-height: 1.04;
+  }
+  .event-popup-month {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+  }
+  .event-popup-slash {
+    margin: 0 0.04em;
+  }
+
+  /* Las fechas del grid usan estas clases (3rem fijos en escritorio). */
+  .event-popup-days-date,
+  .event-popup-days-date-guion {
+    font-size: clamp(24px, 7vw, 34px);
+  }
+  .event-popup-venue {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center !important;
+
+  }
+  .dates {
+    padding: 0;
+    border-right: 0;
+    border-right: transparent !important;
+  }
+  .places {
+    padding: 0;
+  }
+
+  .event-popup-tags {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .event-popup-grid {
+    padding-top: 0;
+  }
+
+  .event-popup-eyebrow{
+    gap: 5px;
+    padding-top: 1.5rem;
+  }
+
+  .event-popup-brandblock{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Pantallas muy chicas: un paso mas abajo, sin romper la jerarquia. */
+@media (max-width: 480px) {
+  span.event-popup-days {
+    font-size: 30px;
+  }
+  .event-popup-name {
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+  }
+  .event-popup-tag {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+  .event-popup-days-date,
+  .event-popup-days-date-guion {
+    font-size: 26px;
+  }
+
 }
 
 /* 11. Accesibilidad: sin animaciones si el sistema lo pide. */
