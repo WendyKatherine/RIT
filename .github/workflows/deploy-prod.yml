@@ -13,7 +13,48 @@ jobs:
           HOST: ${{ secrets.VPS_HOST }}
           USER: ${{ secrets.VPS_USER }}
         run: |
+          set -euo pipefail
           mkdir -p ~/.ssh
-          echo "$KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${USER}@${HOST} 'cd /opt/rit && git fetch origin main && git reset --hard origin/main && /root/.local/bin/uv sync --frozen && /root/.local/bin/uv run python manage.py migrate --noinput && /root/.local/bin/uv run python manage.py collectstatic --noinput && systemctl restart rit-prod && echo DEPLOY_OK'
+
+          # El script remoto va por stdin para que `set -e` corte el despliegue
+          # ante cualquier fallo y no quede producción a medias.
+          ssh -i ~/.ssh/deploy_key \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              "${USER}@${HOST}" 'bash -s' <<'REMOTE'
+          set -euo pipefail
+          cd /opt/rit
+          git fetch origin main
+          git reset --hard origin/main
+
+          # OJO: manage.py hace setdefault(..., "config.settings.dev"). Sin este
+          # export, collectstatic usa StaticFilesStorage (no escribe
+          # staticfiles.json) y la web responde 500 al pedir {% static %} de
+          # assets nuevos. Es la causa del incidente del 2026-10-22.
+          export DJANGO_SETTINGS_MODULE=config.settings.production
+
+          /root/.local/bin/uv sync --frozen
+          /root/.local/bin/uv run python manage.py migrate --noinput
+          # --clear borra assets viejos y regenera el manifest con hash.
+          /root/.local/bin/uv run python manage.py collectstatic --noinput --clear
+
+          # El manifest debe resolver los assets: falla aquí, no en el usuario.
+          /root/.local/bin/uv run python manage.py shell -c "from django.contrib.staticfiles.storage import staticfiles_storage as s; print(s.url('css/base.css'))"
+
+          systemctl restart rit-prod
+
+          # Smoke test público: sin 200 no hay deploy válido.
+          for i in $(seq 1 10); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' https://ritenterprise.com/es/ || true)
+            if [ "$code" = "200" ]; then
+              echo "DEPLOY_OK smoke=200"
+              exit 0
+            fi
+            echo "smoke intento $i -> $code"
+            sleep 3
+          done
+          echo "DEPLOY_FAIL smoke!=200"
+          exit 1
+          REMOTE
