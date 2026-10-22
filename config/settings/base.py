@@ -176,6 +176,11 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
+# Servir los uploads del admin (media) con Django fuera de desarrollo.
+# Whitenoise sirve /static/ pero NO /media/. En producción lo correcto es
+# nginx o un storage externo (S3); esto es para staging, donde no hay proxy.
+SERVE_MEDIA = env.bool("DJANGO_SERVE_MEDIA", default=False)
+
 # Default storage settings
 # See https://docs.djangoproject.com/en/5.2/ref/settings/#std-setting-STORAGES
 STORAGES = {
