@@ -18,18 +18,61 @@
         // La clave lleva el id del popup: si cambia el evento, se vuelve a mostrar.
         var key = KEY_PREFIX + (dialog.dataset.eventPopup || 'default');
 
+        // Modo diseno (?popup=1): fuerza el popup y NO guarda nada, para
+        // iterar estilos sin pelear con la marca de "visto".
+        // ?popup=reset limpia la marca y lo muestra una vez.
+        var mode = new URLSearchParams(window.location.search).get('popup');
+        var forced = mode === '1';
+
+        if (mode === 'reset') {
+            try {
+                window.localStorage.removeItem(key);
+            } catch (e) {
+                /* sin storage: nada que limpiar */
+            }
+        }
+
         var seen = false;
         try {
             seen = window.localStorage.getItem(key) === '1';
         } catch (e) {
             seen = false;
         }
-        if (seen) return;
+        if (seen && !forced) return;
 
         document.body.classList.add('has-modal');
         dialog.showModal();
 
+        // Dona ASCII: se monta al abrir (el canvas necesita tamaño real) y se
+        // detiene al cerrar, para no gastar CPU con el popup oculto.
+        var rings = null;
+
+        function startRings() {
+            var canvas = dialog.querySelector('[data-popup-rings]');
+            if (!canvas || !window.ritStartAsciiRings) return;
+            if (!rings) {
+                rings = window.ritStartAsciiRings(canvas, {
+                    centerX: 0.62,
+                    centerY: 0.5,
+                    scale: 1.25,
+                    rings: 38,
+                    dotSpacing: 6
+                });
+            }
+            var reduce = window.matchMedia &&
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce) rings.redraw();
+            else rings.start();
+        }
+
+        function stopRings() {
+            if (rings) rings.stop();
+        }
+
+        startRings();
+
         function markSeen() {
+            if (forced) return; // modo diseno: no persiste nada
             try {
                 window.localStorage.setItem(key, '1');
             } catch (e) {
@@ -53,6 +96,7 @@
         // Cualquier cierre (✕, ESC, backdrop) marca el popup como visto.
         dialog.addEventListener('close', function () {
             markSeen();
+            stopRings();
             document.body.classList.remove('has-modal');
         });
     }

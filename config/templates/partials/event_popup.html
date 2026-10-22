@@ -2,21 +2,83 @@
 {% if event_popup %}
     <dialog class="event-popup" data-event-popup="{{ event_popup.id }}" aria-label="{{ event_popup.title }}">
         <div class="event-popup-card">
+            {% if event_popup.image %}
+                {% image event_popup.image fill-1200x900 as popup_photo %}
+                <img class="event-popup-photo" src="{{ popup_photo.url }}" alt="" aria-hidden="true">
+            {% endif %}
+            <canvas class="event-popup-rings" data-popup-rings aria-hidden="true"></canvas>
+            <div class="event-popup-wash" aria-hidden="true"></div>
+            <div class="event-popup-accent" aria-hidden="true"></div>
+
             <button type="button" class="event-popup-close" data-event-popup-close aria-label="Cerrar">✕</button>
 
-            {% if event_popup.logo %}{% image event_popup.logo max-160x60 %}{% endif %}
-            <p class="event-popup-dates">{{ event_popup.dates }}</p>
-            <p class="event-popup-place">{{ event_popup.place }}</p>
-            <p class="event-popup-address">{{ event_popup.address }}</p>
-            {% if event_popup.map_url %}<a href="{{ event_popup.map_url }}">Ver en el mapa</a>{% endif %}
-            <p class="event-popup-city">{{ event_popup.city }}</p>
+            <div class="event-popup-body">
+                <div class="event-popup-eyebrow">
+                    <span class="event-popup-status">
+                        <span class="event-popup-dot" aria-hidden="true"></span>Mañana
+                    </span>
+                    {% if event_popup.title_tag_line %}· {{ event_popup.title_tag_line }}{% endif %}
+                    {% if event_popup.city %}· <span class="event-popup-where">{{ event_popup.city }}</span>{% endif %}
+                </div>
 
-            {% if event_popup.image %}{% image event_popup.image max-900x600 %}{% endif %}
+                <div class="event-popup-head">
+                    <span class="event-popup-dates">
+                        <span class="event-popup-days">16</span>
+                    </span>
+                    <span class="event-popup-name">
+                        {{ event_popup.title }}
+                        {% if event_popup.subtitle %}<span class="event-popup-subtitle">{{ event_popup.subtitle }}</span>{% endif %}
+                    </span>
+                </div>
+
+                {% if event_popup.tag_1 or event_popup.tag_2 or event_popup.tag_3 %}
+                <div class="event-popup-tags">
+                    {% if event_popup.tag_1 %}<span class="event-popup-tag">{{ event_popup.tag_1 }}</span>{% endif %}
+                    {% if event_popup.tag_2 %}<span class="event-popup-tag event-popup-tag--solid">{{ event_popup.tag_2 }}</span>{% endif %}
+                    {% if event_popup.tag_3 %}<span class="event-popup-tag">{{ event_popup.tag_3 }}</span>{% endif %}
+                </div>
+                {% endif %}
+
+                <div class="event-popup-grid">
+                    <div class="event-popup-venue">
+                        <div class="dates">
+                            <div class="days">
+                                 {% if event_popup.day_start %}<span class="event-popup-days-date">{{ event_popup.day_start }}</span>
+                                {% if event_popup.day_finish %}<span class="event-popup-days-date-guion">/</span><span class="event-popup-days-date">{{ event_popup.day_finish }}</span>
+                            </div>
+                            <div class="months">
+                                {% endif %}{% if event_popup.month %}<span class="event-popup-month">{{ event_popup.month }}</span>{% endif %}{% else %}<span class="event-popup-days">{{ event_popup.dates }}</span>{% endif %}
+                            </div>
+                        </div>
+                        <div class="places">
+                            {% if event_popup.place %}<div class="event-popup-place">{{ event_popup.place }}</div>{% endif %}
+                            {% if event_popup.address %}<div class="event-popup-address">{{ event_popup.address }}</div>{% endif %}
+                        </div>
+                        
+                    </div>
+                    {% if event_popup.map_url %}
+                    <a class="event-popup-map" href="{{ event_popup.map_url }}" target="_blank" rel="noopener">Ver en el mapa ↗</a>
+                    {% endif %}
+                </div>
+            </div>
 
             <div class="event-popup-foot">
-                <img src="{% static 'img/logo-rit-color.png' %}" alt="RIT Enterprise" class="event-popup-brand">
-                <span class="event-popup-url">{{ event_popup.site_url }}</span>
-                {% if event_popup.partner_logo %}{% image event_popup.partner_logo max-120x40 %}{% endif %}
+                <div class="event-popup-brandblock">
+                    <span class="event-popup-sep" aria-hidden="true"></span>
+                    <img src="{% static 'img/logo-rit-color.png' %}" alt="RIT Enterprise" class="event-popup-brand">
+                    <span class="event-popup-sep" aria-hidden="true"></span>
+                    <a class="event-popup-url" href="https://{{ event_popup.site_url }}" target="_blank" rel="noopener">{{ event_popup.site_url }} ↗</a>
+                    {% if event_popup.partner_logo %}
+                    <div class="event-popup-partner">{% image event_popup.partner_logo max-120x40 %}</div><span class="event-popup-sep" aria-hidden="true"></span>
+                    {% endif %}
+                    {% if event_popup.foot_image %}
+                    <div class="event-popup-foot-image">{% image event_popup.foot_image max-760x220 %}</div><span class="event-popup-sep" aria-hidden="true"></span>
+                    {% endif %}
+                    {% if event_popup.logo %}
+                    <div class="event-popup-logo">{% image event_popup.logo max-140x54 %}</div><span class="event-popup-sep" aria-hidden="true"></span>
+                    {% endif %}
+                </div>
+                
             </div>
         </div>
     </dialog>

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "wagtail",
     "wagtail.locales",
     "wagtail.contrib.simple_translation",
+    "wagtail.contrib.settings",
     "modelcluster",
     "taggit",
     "django_filters",
