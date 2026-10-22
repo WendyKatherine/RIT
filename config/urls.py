@@ -2,10 +2,13 @@ from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import URLPattern, URLResolver, include, path
+from django.views.generic import RedirectView
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 
+from apps.common.views import robots_txt
 from apps.search import views as search_views
 
 # Anotación explícita: django-stubs no infiere bien la mezcla URLPattern|URLResolver
@@ -31,6 +34,16 @@ if settings.DEBUG or getattr(settings, "SERVE_MEDIA", False):
         urlpatterns += staticfiles_urlpatterns()
     # static() devuelve [] con DEBUG=False; servir media con serve() directo.
     urlpatterns += [re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT})]
+
+# Rutas SEO fuera del prefijo de idioma: robots.txt y sitemap.xml deben vivir
+# en la raiz del dominio, no en /es/.
+urlpatterns += [
+    path("robots.txt", robots_txt, name="robots_txt"),
+    path("sitemap.xml", sitemap, name="sitemap"),
+    # 301 explicito: i18n_patterns redirige con 302 y un 302 no transfiere
+    # autoridad. Esta ruta solo captura "/" exacto.
+    path("", RedirectView.as_view(url="/es/", permanent=True)),
+]
 
 # Rutas localizadas: /es/..., /en/... Wagtail va DENTRO de i18n_patterns para
 # que las páginas se sirvan con prefijo de idioma. La raíz "/" redirige al

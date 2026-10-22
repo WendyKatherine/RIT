@@ -91,6 +91,19 @@ def global_nav(request: object) -> dict:
     }
 
 
+def seo(request: object) -> dict:
+    """Expone URL canonica y el interruptor de indexado a las plantillas."""
+    from django.conf import settings
+
+    site_url = getattr(settings, "SITE_URL", "").rstrip("/")
+    path = getattr(request, "path", "/")
+    return {
+        "seo_indexable": getattr(settings, "SEO_INDEXABLE", False),
+        "site_url": site_url,
+        "canonical_url": f"{site_url}{path}",
+    }
+
+
 def event_popup(request: object) -> dict:
     from apps.home.models import EventPopup
 

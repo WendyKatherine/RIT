@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "apps.common",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
+    "wagtail.contrib.sitemaps",
+    "django.contrib.sitemaps",
     "wagtail.embeds",
     "wagtail.sites",
     "wagtail.users",
@@ -68,6 +70,7 @@ AUTH_USER_MODEL = "users.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "apps.common.middleware.SeoHeadersMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -96,6 +99,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "config.context_processors.global_nav",
                 "config.context_processors.event_popup",
+                "config.context_processors.seo",
             ],
         },
     },
@@ -118,6 +122,15 @@ DATABASES = {
 # por entorno (separados por coma):
 #   DJANGO_CSRF_TRUSTED_ORIGINS=https://staging.ritenterprise.com,https://ritenterprise.com.co
 CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
+
+# --- SEO ---------------------------------------------------------------
+# SEO_INDEXABLE controla robots.txt, la meta robots y X-Robots-Tag. Por
+# defecto False: local y staging quedan bloqueados aunque alguien olvide
+# configurar la variable. Solo produccion la pone en True.
+SEO_INDEXABLE = env.bool("SEO_INDEXABLE", default=False)
+
+# URL publica canonica. Se usa para canonical, hreflang, OG y JSON-LD.
+SITE_URL = env("SITE_URL", default="http://localhost:8000")
 
 
 # Password validation
