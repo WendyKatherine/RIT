@@ -23,12 +23,14 @@ urlpatterns: list[URLPattern | URLResolver] = [
 # aceptable en staging pero no recomendable en producción (gunicorn no está
 # pensado para servir archivos).
 if settings.DEBUG or getattr(settings, "SERVE_MEDIA", False):
-    from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    from django.urls import re_path
+    from django.views.static import serve
 
     if settings.DEBUG:
         urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # static() devuelve [] con DEBUG=False; servir media con serve() directo.
+    urlpatterns += [re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT})]
 
 # Rutas localizadas: /es/..., /en/... Wagtail va DENTRO de i18n_patterns para
 # que las páginas se sirvan con prefijo de idioma. La raíz "/" redirige al
