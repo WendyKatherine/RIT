@@ -89,3 +89,10 @@ def global_nav(request: object) -> dict:
         "footer_company": FOOTER_COMPANY,
         "footer_legal": FOOTER_LEGAL,
     }
+
+
+def event_popup(request: object) -> dict:
+    from apps.home.models import EventPopup
+
+    popup = EventPopup.objects.filter(is_active=True).order_by("-id").first()
+    return {"event_popup": popup}

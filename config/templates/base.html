@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags wagtailsettings_tags %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,14 +17,20 @@
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <link rel="stylesheet" href="{% static 'css/components.css' %}">
   <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+  <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+  <script defer src="{% static 'js/hero-ascii-rings.js' %}"></script>
+  <script defer src="{% static 'js/event-popup.js' %}"></script>
   {% block extra_css %}{% endblock %}
 </head>
 <body>
+  {% get_settings %}
   {% block preloader %}
+  {% if settings.common.SiteSettings.show_preloader %}
   <div class="preloader" aria-hidden="true">
     <img src="{% static 'img/logo-rit-color.png' %}" alt="">
     <div class="preloader-dots"><span></span><span></span><span></span></div>
   </div>
+  {% endif %}
   {% endblock %}
 
   {% include "partials/header.html" %}
@@ -36,5 +42,8 @@
   {% include "partials/footer.html" %}
 
   {% block extra_js %}{% endblock %}
+
+  {% include "partials/event_popup.html" %}
 </body>
+
 </html>

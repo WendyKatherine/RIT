@@ -50,6 +50,10 @@
   // > 1 para que los anillos se salgan del marco.
   const HERO_OPTIONS = { centerX: 0.72, scale: 1.1 };
 
+  // Fábrica para otros componentes (p. ej. el popup de evento): cada uno monta
+  // su propio canvas con sus opciones y controla start/stop por su cuenta.
+  window.ritStartAsciiRings = startAsciiRings;
+
   function startAsciiRings(canvas, options) {
     if (!canvas) {
       return { start: function () {}, stop: function () {}, redraw: function () {} };
