@@ -4,8 +4,8 @@
 
   <div class="svc-head">
     <div>
-      <span class="badge badge--dark rit-rv">03 · Servicios</span>
-      <h2 class="h-display h-display--lg h-display--white rit-rv" style="margin-top:20px;max-width:22ch">Soluciones que <span class="grad-text--hero">impulsan</span> tu empresa</h2>
+      <span class="badge badge--dark rit-rv">{{ value.badge|default:"03 · Servicios" }}</span>
+      <h2 class="h-display h-display--lg h-display--white rit-rv" style="margin-top:20px;max-width:22ch">{{ value.title_pre|default:"Soluciones que" }} <span class="grad-text--hero">{{ value.title_hi|default:"impulsan" }}</span> {{ value.title_post|default:"tu empresa" }}</h2>
     </div>
     <div class="svc-pager rit-rv">
       <span class="svc-index">

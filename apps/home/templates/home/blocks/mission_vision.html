@@ -4,11 +4,11 @@
     <h2 class="h-display h-display--lg h-display--navy" style="margin-top:20px">{{ value.title_pre }} {% if value.title_hi %}<span class="grad-text">{{ value.title_hi }}</span>{% endif %}</h2>
     <div class="mv-grid">
       <div class="mv-card">
-        <div class="k">Misión</div>
+        <div class="k">{{ value.mission_label|default:"Misión" }}</div>
         <p>{{ value.mission }}</p>
       </div>
       <div class="mv-card">
-        <div class="k">Visión</div>
+        <div class="k">{{ value.vision_label|default:"Visión" }}</div>
         <p>{{ value.vision }}</p>
       </div>
     </div>
