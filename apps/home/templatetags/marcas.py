@@ -19,6 +19,12 @@ _OVERRIDES = {
     "western": "wdgreen",
 }
 
+# El carrusel superior del home usa logos distintos a los de la sección de
+# aliados (p. ej. Dell se muestra como "Dell Titanium Partner").
+_MARQUEE_OVERRIDES = {
+    "dell": "dell-titanium",
+}
+
 
 def _marcas_dir() -> str | None:
     for d in getattr(settings, "STATICFILES_DIRS", []):
@@ -33,6 +39,16 @@ def _slug(name: str) -> str:
     return _OVERRIDES.get(key, key)
 
 
+def _logo_for_key(key: str) -> str:
+    root = _marcas_dir()
+    if not root:
+        return ""
+    for cand in (f"{key}.svg", f"{key}.png", f"{key}.webp", f"bf-{key}.svg", f"bf-{key}.webp"):
+        if os.path.exists(os.path.join(root, cand)):
+            return static(f"img/marcas/{cand}")
+    return ""
+
+
 @register.simple_tag
 def marca_slug(name: str) -> str:
     return _slug(name)
@@ -40,11 +56,11 @@ def marca_slug(name: str) -> str:
 
 @register.simple_tag
 def marca_logo(name: str) -> str:
+    return _logo_for_key(_slug(name))
+
+
+@register.simple_tag
+def marca_logo_marquee(name: str) -> str:
+    """Logo para el carrusel superior (con overrides propios del marquee)."""
     key = _slug(name)
-    root = _marcas_dir()
-    if not root:
-        return ""
-    for cand in (f"{key}.svg", f"{key}.webp", f"bf-{key}.svg", f"bf-{key}.webp"):
-        if os.path.exists(os.path.join(root, cand)):
-            return static(f"img/marcas/{cand}")
-    return ""
+    return _logo_for_key(_MARQUEE_OVERRIDES.get(key, key))
