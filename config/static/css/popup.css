@@ -162,6 +162,17 @@
     padding: 30px 22px 0;
     gap: 22px;
   }
+  /* Solo móvil: los banners no deben desbordar ni deformarse.
+     El diseño de desktop queda intacto. */
+  .wrapper_banner_1 img,
+  .wrapper_banner_2 img,
+  .wrapper_banner_3 img {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 
   .event-popup-close {
     top: 14px;
@@ -207,16 +218,26 @@
 /* Bloquea el scroll del fondo mientras el popup está abierto (lo pone el JS). */
 body.has-modal { overflow: hidden; }
 
-/* Banners: siempre fluidos. `min-width` fijo desbordaba en móvil y
-   `object-fit: fill` deformaba la imagen. */
-.wrapper_banner_1 img,
-.wrapper_banner_2 img,
-.wrapper_banner_3 img {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
+.wrapper_banner_1{
+  img {
+    min-width: 30rem;
+    height: 100%;
+    object-fit: fill;
+  }
+}
+
+.wrapper_banner_2{
+  img {
+    width: 100%;
+    height: stretch;
+  }
+}
+
+.wrapper_banner_3{
+  img {
+    width: 100%;
+    height: stretch;
+  }
 }
 
 .mini-banner{
