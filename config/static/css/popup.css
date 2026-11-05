@@ -178,6 +178,16 @@
     top: 14px;
     right: 14px;
   }
+
+  .wrapper_banner_1{
+    img {
+      min-width: 19rem !important;
+    }
+  }
+
+  .mini-banner{
+    flex-direction: row !important;
+  }
 }
 
 /* Pantallas muy chicas: un paso mas abajo, sin romper la jerarquia. */
@@ -205,6 +215,16 @@
   }
   .mini-banner {
     gap: 16px;
+  }
+
+  .wrapper_banner_1{
+    img {
+      min-width: 19rem !important;
+    }
+  }
+
+  .mini-banner{
+    flex-direction: row !important;
   }
 }
 
