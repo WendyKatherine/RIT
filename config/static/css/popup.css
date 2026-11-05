@@ -185,8 +185,9 @@ body.has-modal { overflow: hidden; }
 
 .wrapper_banner_1{
   img {
-    width: 100%;
-    height: stretch;
+    min-width: 30rem;
+    height: 100%;
+    object-fit: fill;
   }
 }
 
@@ -208,4 +209,13 @@ body.has-modal { overflow: hidden; }
   display: flex;
   flex-direction: column;
   gap: 30px;
+  justify-content: center;
+}
+
+.event-popup-body img {
+    transition: opacity 300ms ease;
+}
+
+.event-popup-body.is-swapping img {
+    opacity: 0;
 }

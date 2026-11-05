@@ -281,13 +281,14 @@ class EventPopup(models.Model):
         related_name="+",
     )
 
-    panels = [ # noqa: RUF012
+    panels = [  # noqa: RUF012
         FieldPanel("title"),
         FieldPanel("is_active"),
         FieldPanel("banner_1"),
         FieldPanel("banner_2"),
         FieldPanel("banner_3"),
     ]
+
     class Meta:
         verbose_name = "Popup de evento"
         verbose_name_plural = "Popups de evento"

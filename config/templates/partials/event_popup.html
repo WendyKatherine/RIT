@@ -8,20 +8,20 @@
             <button type="button" class="event-popup-close" data-event-popup-close aria-label="Cerrar">✕</button>
 
             <div class="event-popup-body">
-                <div class="wrapper_banner_1">
+                <div class="wrapper_banner_1"  data-gallery-event="1">
                     {% if event_popup.banner_1 %}
-                        {% image event_popup.banner_1 max-900x400 %}
+                        {% image event_popup.banner_1 width-900 %}
                     {% endif %}
                 </div>
                 <div class="mini-banner">
-                    <div class="wrapper_banner_2">
+                    <div class="wrapper_banner_2" data-gallery-event="2">
                         {% if event_popup.banner_2 %}
-                            {% image event_popup.banner_2 max-760x220 %}
+                            {% image event_popup.banner_2 width-900 %}
                         {% endif %}
                     </div>
-                    <div class="wrapper_banner_3">
+                    <div class="wrapper_banner_3" data-gallery-event="3">
                         {% if event_popup.banner_3 %}
-                            {% image event_popup.banner_3 max-760x220 %}
+                            {% image event_popup.banner_3 width-900 %}
                         {% endif %}
                     </div>
                 </div>
