@@ -61,7 +61,9 @@ def website_schema(site_url: str) -> dict[str, Any]:
 
 def breadcrumb_schema(page: Any, site_url: str, canonical_url: str) -> dict[str, Any] | None:
     """Migas de pan a partir de los ancestros reales de la pagina."""
-    if page is None:
+    # En 404/redirect el contexto puede traer un str u otro objeto sin API de
+    # pagina; en ese caso no hay migas que generar (antes reventaba con 500).
+    if page is None or not hasattr(page, "get_ancestors"):
         return None
     items: list[dict[str, Any]] = []
     for ancestor in page.get_ancestors().live().filter(depth__gt=1):
@@ -88,7 +90,8 @@ def breadcrumb_schema(page: Any, site_url: str, canonical_url: str) -> dict[str,
 
 def service_schema(page: Any, site_url: str, canonical_url: str) -> dict[str, Any] | None:
     """Marca como Service las paginas de solucion."""
-    if page is None or page.specific_class.__name__ != "SolucionPage":
+    specific = getattr(page, "specific_class", None)
+    if specific is None or specific.__name__ != "SolucionPage":
         return None
     return {
         "@type": "Service",
