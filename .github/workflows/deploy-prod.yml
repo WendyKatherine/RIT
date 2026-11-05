@@ -47,7 +47,7 @@ jobs:
 
           # Smoke test público: sin 200 no hay deploy válido.
           for i in $(seq 1 10); do
-            code=$(curl -s -o /dev/null -w '%{http_code}' https://ritenterprise.com/es/ || true)
+            code=$(curl -s -o /dev/null -w '%{http_code}' https://ritenterprise.com.co/es/ || true)
             if [ "$code" = "200" ]; then
               echo "DEPLOY_OK smoke=200"
               exit 0
