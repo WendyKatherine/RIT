@@ -105,6 +105,7 @@ ul, ol { list-style: none; }
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700;
+  margin-left: 0.16em;
 }
 
 /* Body copy */

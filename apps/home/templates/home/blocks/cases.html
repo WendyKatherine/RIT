@@ -4,8 +4,8 @@
     <div class="container">
       <div class="cases-head">
         <div>
-          <span class="badge badge--red">05 · Casos de éxito</span>
-          <h2 class="h-display h-display--lg h-display--navy" style="margin-top:20px" data-title-reveal>Proyectos que transforman negocios</h2>
+          <span class="badge badge--red">{{ value.badge|default:"05 · Casos de éxito" }}</span>
+          <h2 class="h-display h-display--lg h-display--navy" style="margin-top:20px" data-title-reveal>{{ value.title|default:"Proyectos que transforman negocios" }}</h2>
         </div>
         <span class="cases-index">
           <span class="cases-current" data-shelf-current>01</span>
@@ -26,7 +26,7 @@
             <p>{{ cs.body }}</p>
             <div class="case-foot">
               {% if cs.result %}<span class="case-result">{{ cs.result }}</span>{% endif %}
-              <a class="case-link" href="/nosotros/">Leer más →</a>
+              <a class="case-link" href="{{ value.link_href|default:'/nosotros/' }}">{{ value.link_label|default:"Leer más" }} →</a>
             </div>
           </div>
         </article>

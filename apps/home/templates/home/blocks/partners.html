@@ -1,15 +1,15 @@
-{% load marcas %}
+{% load marcas wagtailimages_tags %}
 <section class="section section--light">
   <div class="container" style="text-align:center">
-    <span class="badge badge--red rit-rv">04 · Aliados</span>
-    <h2 class="h-display h-display--lg h-display--navy rit-rv" style="margin:20px auto 0;max-width:24ch">Trabajamos con los <span class="grad-text">mejores</span> del mundo</h2>
+    <span class="badge badge--red rit-rv">{{ value.badge|default:"04 · Aliados" }}</span>
+    <h2 class="h-display h-display--lg h-display--navy rit-rv" style="margin:20px auto 0;max-width:24ch">{{ value.title_pre|default:"Trabajamos con los" }} <span class="grad-text">{{ value.title_hi|default:"mejores" }}</span> {{ value.title_post|default:"del mundo" }}</h2>
   </div>
   <div class="partners" style="margin-top:44px">
     <div class="partners-row partners-row--a">
-      {% for i in "12" %}{% for p in self.row_a %}{% marca_logo p as logo %}<span class="partner-pill">{% if logo %}<img src="{{ logo }}" alt="{{ p }}" loading="lazy">{% else %}{{ p }}{% endif %}</span>{% endfor %}{% endfor %}
+      {% for i in "12" %}{% for p in value.row_a %}<span class="partner-pill">{% if p.logo %}{% image p.logo max-160x60 as logo_img %}<img src="{{ logo_img.url }}" alt="{{ p.name }}" loading="lazy">{% else %}{% marca_logo p.name as logo %}{% if logo %}<img src="{{ logo }}" alt="{{ p.name }}" loading="lazy">{% else %}{{ p.name }}{% endif %}{% endif %}</span>{% endfor %}{% endfor %}
     </div>
     <div class="partners-row partners-row--b">
-      {% for i in "12" %}{% for p in self.row_b %}{% marca_logo p as logo %}<span class="partner-pill">{% if logo %}<img src="{{ logo }}" alt="{{ p }}" loading="lazy">{% else %}{{ p }}{% endif %}</span>{% endfor %}{% endfor %}
+      {% for i in "12" %}{% for p in value.row_b %}<span class="partner-pill">{% if p.logo %}{% image p.logo max-160x60 as logo_img %}<img src="{{ logo_img.url }}" alt="{{ p.name }}" loading="lazy">{% else %}{% marca_logo p.name as logo %}{% if logo %}<img src="{{ logo }}" alt="{{ p.name }}" loading="lazy">{% else %}{{ p.name }}{% endif %}{% endif %}</span>{% endfor %}{% endfor %}
     </div>
   </div>
 

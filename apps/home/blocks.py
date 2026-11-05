@@ -24,6 +24,17 @@ class HeroSlideBlock(blocks.StructBlock):
 class HeroBlock(blocks.StructBlock):
     slides = blocks.ListBlock(HeroSlideBlock(), min_num=1)
     pills = blocks.ListBlock(blocks.CharBlock(), max_num=3, help_text="Hasta 3 pills")
+    badge = blocks.CharBlock(
+        required=False,
+        default="Soluciones TI empresariales",
+        help_text="Etiqueta superior del hero",
+    )
+    cta_primary_label = blocks.CharBlock(
+        required=False, default="Conocer servicios", help_text="Botón principal"
+    )
+    cta_primary_href = blocks.CharBlock(required=False, default="/servicios/")
+    cta_secondary_label = blocks.CharBlock(required=False, default="Hablar con un experto")
+    cta_secondary_href = blocks.CharBlock(required=False, default="/contacto")
     autoplay_seconds = blocks.IntegerBlock(
         default=10, min_value=0, max_value=30, help_text="Segundos por slide. 0 = sin autoplay."
     )
@@ -34,8 +45,31 @@ class HeroBlock(blocks.StructBlock):
         template = "home/blocks/hero.html"
 
 
+class BrandItemBlock(blocks.StructBlock):
+    name = blocks.CharBlock(
+        help_text="Nombre de la marca. Si no subes logo, se usa el logo estático con este nombre."
+    )
+    logo = ImageChooserBlock(
+        required=False,
+        help_text=(
+            "Logo de la marca (PNG/SVG con fondo transparente). Opcional: "
+            "si se deja vacío se usa el logo estático por nombre."
+        ),
+    )
+
+    class Meta:
+        icon = "image"
+        label = "Marca"
+
+    def get_prep_value(self, value: object) -> object:
+        """Permite leer datos viejos (solo el nombre) sin romper migraciones."""
+        if isinstance(value, str):
+            return value
+        return super().get_prep_value(value)
+
+
 class MarqueeBlock(blocks.StructBlock):
-    items = blocks.ListBlock(blocks.CharBlock(), help_text="Tecnologías del marquee")
+    items = blocks.ListBlock(BrandItemBlock(), help_text="Marcas del marquee")
 
     class Meta:
         icon = "placeholder"
@@ -56,6 +90,10 @@ class ValueCardBlock(blocks.StructBlock):
 class NosotrosBlock(blocks.StructBlock):
     leads = blocks.ListBlock(blocks.TextBlock(), min_num=1, help_text="Párrafos de presentación")
     cards = blocks.ListBlock(ValueCardBlock(), min_num=1, help_text="Tarjetas de valor")
+    badge = blocks.CharBlock(required=False, default="01 · Nosotros")
+    title_pre = blocks.CharBlock(required=False, default="Expertos en TI,")
+    title_hi = blocks.CharBlock(required=False, default="aliados", help_text="Parte con gradiente")
+    title_post = blocks.CharBlock(required=False, default="de tu negocio")
 
     class Meta:
         icon = "placeholder"
@@ -69,9 +107,15 @@ class ServiceCardBlock(blocks.StructBlock):
     title = blocks.CharBlock()
     body = blocks.TextBlock()
     icon = blocks.CharBlock(default="server")
+    cta_label = blocks.CharBlock(required=False, default="Conocer más")
+    cta_href = blocks.CharBlock(required=False, default="/servicios/")
 
 
 class ServicesBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False, default="03 · Servicios")
+    title_pre = blocks.CharBlock(required=False, default="Soluciones que")
+    title_hi = blocks.CharBlock(required=False, default="impulsan", help_text="Parte con gradiente")
+    title_post = blocks.CharBlock(required=False, default="tu empresa")
     cards = blocks.ListBlock(
         ServiceCardBlock(),
         min_num=1,
@@ -86,8 +130,12 @@ class ServicesBlock(blocks.StructBlock):
 
 
 class PartnersBlock(blocks.StructBlock):
-    row_a = blocks.ListBlock(blocks.CharBlock())
-    row_b = blocks.ListBlock(blocks.CharBlock())
+    badge = blocks.CharBlock(required=False, default="04 · Aliados")
+    title_pre = blocks.CharBlock(required=False, default="Trabajamos con los")
+    title_hi = blocks.CharBlock(required=False, default="mejores", help_text="Parte con gradiente")
+    title_post = blocks.CharBlock(required=False, default="del mundo")
+    row_a = blocks.ListBlock(BrandItemBlock())
+    row_b = blocks.ListBlock(BrandItemBlock())
 
     class Meta:
         icon = "placeholder"
@@ -103,6 +151,11 @@ class StatBlock(blocks.StructBlock):
 
 
 class StatsBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False, default="02 · Resultados")
+    title_pre = blocks.CharBlock(required=False, default="Números que respaldan nuestra")
+    title_hi = blocks.CharBlock(
+        required=False, default="experiencia.", help_text="Parte con gradiente"
+    )
     stats = blocks.ListBlock(StatBlock(), min_num=1)
 
     class Meta:
@@ -122,6 +175,10 @@ class CaseBlock(blocks.StructBlock):
 
 
 class CasesBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False, default="05 · Casos de éxito")
+    title = blocks.CharBlock(required=False, default="Proyectos que transforman negocios")
+    link_label = blocks.CharBlock(required=False, default="Leer más")
+    link_href = blocks.CharBlock(required=False, default="/nosotros/")
     cases = blocks.ListBlock(CaseBlock(), min_num=1)
 
     class Meta:
@@ -136,6 +193,13 @@ class ContactRowBlock(blocks.StructBlock):
 
 
 class ContactBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False, default="06 · Contacto")
+    title = blocks.CharBlock(required=False, default="¿Listo para transformar tu tecnología?")
+    intro = blocks.TextBlock(
+        required=False,
+        default="Cuéntanos tu reto y te respondemos en menos de 24 horas.",
+    )
+    submit_label = blocks.CharBlock(required=False, default="Enviar mensaje")
     rows = blocks.ListBlock(ContactRowBlock(), help_text="Datos de contacto")
 
     class Meta:
@@ -161,6 +225,16 @@ class PageHeroBlock(blocks.StructBlock):
         icon = "doc-full"
         label = "Hero de página interior"
         template = "home/blocks/page_hero.html"
+
+
+class IndexListingBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(required=False, default="Soluciones")
+    title = blocks.CharBlock(required=False, default="Nuestras soluciones")
+
+    class Meta:
+        icon = "list-ul"
+        label = "Listado de páginas hijas"
+        template = "home/blocks/index_listing.html"
 
 
 class StoryBlock(blocks.StructBlock):
@@ -210,6 +284,8 @@ class MissionVisionBlock(blocks.StructBlock):
     title_hi = blocks.CharBlock(required=False)
     mission = blocks.TextBlock()
     vision = blocks.TextBlock()
+    mission_label = blocks.CharBlock(required=False, default="Misión")
+    vision_label = blocks.CharBlock(required=False, default="Visión")
 
     class Meta:
         icon = "doc-full"
@@ -272,6 +348,7 @@ class ContactFormBlock(blocks.StructBlock):
     title = blocks.CharBlock()
     note = blocks.CharBlock(required=False, help_text="Nota legal (Habeas Data)")
     privacy_href = blocks.CharBlock(required=False, default="/politicas/tratamiento-datos/")
+    submit_label = blocks.CharBlock(required=False, default="Enviar mensaje")
 
     class Meta:
         icon = "doc-full"

@@ -3,9 +3,9 @@
   <div class="contact-glow" aria-hidden="true"></div>
   <div class="contact-grid">
     <div>
-      <span class="badge badge--dark rit-rv">06 · Contacto</span>
-      <h2 class="h-display h-display--lg h-display--white rit-rv" style="margin-top:20px;max-width:20ch">¿Listo para transformar tu tecnología?</h2>
-      <p class="rit-rv" style="margin:18px 0 0;max-width:44ch;font-size:17px;line-height:1.6;color:rgba(232,241,248,.75)">Cuéntanos tu reto y te respondemos en menos de 24 horas.</p>
+      <span class="badge badge--dark rit-rv">{{ value.badge|default:"06 · Contacto" }}</span>
+      <h2 class="h-display h-display--lg h-display--white rit-rv" style="margin-top:20px;max-width:20ch">{{ value.title|default:"¿Listo para transformar tu tecnología?" }}</h2>
+      <p class="rit-rv" style="margin:18px 0 0;max-width:44ch;font-size:17px;line-height:1.6;color:rgba(232,241,248,.75)">{{ value.intro|default:"Cuéntanos tu reto y te respondemos en menos de 24 horas." }}</p>
       <div class="contact-info">
         {% for r in self.rows %}
         <div class="contact-row rit-rv">
@@ -54,7 +54,7 @@
         <span>Mensaje</span>
         <textarea rows="4" name="mensaje" placeholder="Cuéntanos brevemente tu reto…"></textarea>
       </label>
-      <button type="submit" class="btn">Enviar mensaje</button>
+      <button type="submit" class="btn">{{ value.submit_label|default:"Enviar mensaje" }}</button>
     </form>
   </div>
 </section>

@@ -17,6 +17,7 @@ from apps.home.blocks import (
     CTABandBlock,
     HeroBlock,
     HighlightBlock,
+    IndexListingBlock,
     InteriorStatsBlock,
     MapBlock,
     MarqueeBlock,
@@ -122,6 +123,7 @@ class SolucionesIndexPage(Page):
 
     body = StreamField(
         [
+            ("index_listing", IndexListingBlock()),
             ("page_hero", PageHeroBlock()),
             ("cta", CTABandBlock()),
         ],
@@ -129,7 +131,7 @@ class SolucionesIndexPage(Page):
         use_json_field=True,
     )
 
-    # Lista declarativa de Wagtail (config, nunca se muta) — RUF012 es falso positivo aquí
+    # Lista declarativa de Wagtail (config, nunca se muta) - RUF012 es falso positivo aquí
     content_panels = [*Page.content_panels, FieldPanel("body")]  # noqa: RUF012
 
     max_count = 1

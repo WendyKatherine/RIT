@@ -17,6 +17,6 @@ Contexto: `c` = datos de la tarjeta.
   {% if clone %}
   <span class="svc-link">Conocer más <span>→</span></span>
   {% else %}
-  <a href="/servicios/" class="svc-link">Conocer más <span>→</span></a>
+  <a href="{{ c.cta_href|default:'/servicios/' }}" class="svc-link">{{ c.cta_label|default:"Conocer más" }} <span>→</span></a>
   {% endif %}
 </article>
