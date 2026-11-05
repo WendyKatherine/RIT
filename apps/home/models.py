@@ -256,72 +256,39 @@ class EventPopup(models.Model):
     """Popup de evento — se muestra una vez por sesión."""
 
     title = models.CharField(max_length=120, verbose_name="Nombre interno")
-    subtitle = models.CharField(max_length=120, blank=True, default="", verbose_name="Subtítulo")
-    title_tag_line = models.CharField(
-        max_length=120, blank=True, default="", verbose_name="Tagline"
-    )
-    tag_1 = models.CharField(max_length=60, blank=True, default="", verbose_name="Tag 1")
-    tag_2 = models.CharField(max_length=60, blank=True, default="", verbose_name="Tag 2")
-    tag_3 = models.CharField(max_length=60, blank=True, default="", verbose_name="Tag 3")
+
     is_active = models.BooleanField(default=True)
-    logo = models.ForeignKey(
+
+    banner_1 = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    day_start = models.CharField(max_length=20, blank=True, default="", verbose_name="Día inicial")
-    day_finish = models.CharField(max_length=20, blank=True, default="", verbose_name="Día final")
-    month = models.CharField(max_length=40, blank=True, default="", verbose_name="Mes")
-    place = models.CharField(max_length=120, verbose_name="Lugar")
-    address = models.CharField(max_length=160, verbose_name="Dirección")
-    map_url = models.URLField(blank=True, verbose_name="URL de ubicación")
-    city = models.CharField(max_length=80, verbose_name="Ciudad")
-    image = models.ForeignKey(
+
+    banner_2 = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    partner_logo = models.ForeignKey(
+
+    banner_3 = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    foot_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        verbose_name="Imagen del pie",
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    site_url = models.CharField(max_length=120, default="www.ritenterprise.com.co")
 
     panels = [  # noqa: RUF012
         FieldPanel("title"),
-        FieldPanel("subtitle"),
-        FieldPanel("title_tag_line"),
-        FieldPanel("tag_1"),
-        FieldPanel("tag_2"),
-        FieldPanel("tag_3"),
         FieldPanel("is_active"),
-        FieldPanel("logo"),
-        FieldPanel("day_start"),
-        FieldPanel("day_finish"),
-        FieldPanel("month"),
-        FieldPanel("place"),
-        FieldPanel("address"),
-        FieldPanel("map_url"),
-        FieldPanel("city"),
-        FieldPanel("image"),
-        FieldPanel("partner_logo"),
-        FieldPanel("foot_image"),
-        FieldPanel("site_url"),
+        FieldPanel("banner_1"),
+        FieldPanel("banner_2"),
+        FieldPanel("banner_3"),
     ]
 
     class Meta:
