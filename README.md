@@ -59,10 +59,6 @@ uv run python manage.py runserver
 - Django admin: <http://localhost:8000/django-admin/>
 - La raíz `/` redirige con 301 a `/es/`
 
-> **Nombres de variables.** `config/settings/dev.py` y `production.py` leen `DJANGO_SECRET_KEY`, `DJANGO_DEBUG` y `DJANGO_ALLOWED_HOSTS`. `.env.example` todavía declara `SECRET_KEY`, `DEBUG` y `ALLOWED_HOSTS` sin prefijo: copia el archivo, pero renombra esas tres claves. En local `dev.py` tiene defaults y arranca igual; esos defaults no sirven para staging ni producción.
-
-> Si `uv sync` falla tras agregar dependencias, borra `.venv` y repite. Nunca crees un `requirements.txt`: todo vive en `pyproject.toml`/`uv.lock`.
-
 ## Comandos
 
 | Comando | Qué hace |
