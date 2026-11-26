@@ -7,6 +7,10 @@ Contacto). El estilo del menú lo define components.css (base de Wendy).
 
 from typing import Any
 
+from django.http import HttpRequest
+
+from apps.common.theme import dic_theme_values, get_cookie_theme, theme_next_state
+
 NAV: list[dict[str, Any]] = [
     {"label": "Inicio", "href": "/", "route": "home"},
     {
@@ -109,3 +113,17 @@ def event_popup(request: object) -> dict:
 
     popup = EventPopup.objects.filter(is_active=True).order_by("-id").first()
     return {"event_popup": popup}
+
+
+def theme(request: HttpRequest) -> dict[str, str]:
+    data_theme = get_cookie_theme(request)
+    next_theme = theme_next_state(data_theme)
+    theme_toggle_label = "Cambiar a tema " + dic_theme_values[next_theme]
+
+    dict_theme = {
+        "theme": data_theme,
+        "next_theme": next_theme,
+        "theme_toggle_label": theme_toggle_label,
+    }
+
+    return dict_theme

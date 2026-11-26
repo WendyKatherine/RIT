@@ -100,6 +100,7 @@ TEMPLATES = [
                 "config.context_processors.global_nav",
                 "config.context_processors.event_popup",
                 "config.context_processors.seo",
+                "config.context_processors.theme",
             ],
         },
     },
