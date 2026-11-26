@@ -64,7 +64,7 @@ BODY_ETICA = (
     "laboral o contractual con la empresa; por ello, nos obligamos a reportar de buena fe "
     "cualquier situación que contraríe estos principios por los canales establecidos y "
     "aceptamos que su incumplimiento dará lugar a la aplicación de las medidas "
-    "disciplinarias y legales correspondientes.</p><p>__________________________ JUAN ALVARO "
+    "disciplinarias y legales correspondientes.</p><p>JUAN ALVARO "
     "ROJAS ERASO Representante legal</p>"
 )
 
@@ -101,8 +101,8 @@ BODY_SIG = (
     "comprendida y aplicada en todos los niveles de la organización y estará disponible para "
     "las partes interesadas, siendo revisada periódicamente para asegurar su pertinencia y "
     "alineación con la estrategia organizacional.</p><p>Se firma en la ciudad de Bogotá a "
-    "los 30 días del mes de abril del 2026</p><p>_______________________________________ "
-    "JUAN ALVARO ROJAS C.C: 12.991.662 de San Juan (Pasto) Representante Legal Gerente "
+    "los 30 días del mes de abril del 2026</p><p>"
+    "JUAN ALVARO ROJAS Representante Legal Gerente "
     "General</p>"
 )
 
@@ -369,8 +369,8 @@ BODY_DATOS = (
     "día 31 de Diciembre de 2015 y entra en vigencia a partir del día 1 de Enero de 2016. "
     "Cualquier cambio que se presente respecto de la presente política, se informará a "
     "través del correo electrónico "
-    "info@ritenterprise.com.co</p><p>Atentamente,</p><p>_______________________________________ "
-    "JUAN ALVARO ROJAS C.C: 12.991.662 de San Juan (Pasto) Representante Legal Gerente "
+    "info@ritenterprise.com.co</p><p>Atentamente,</p><p>"
+    "JUAN ALVARO ROJAS Representante Legal Gerente "
     "General</p>"
 )
 

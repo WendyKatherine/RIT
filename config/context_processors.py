@@ -76,6 +76,7 @@ FOOTER_COMPANY = [
 
 FOOTER_LEGAL = [
     {"label": "Política de Tratamiento de Datos", "href": "/politicas/tratamiento-datos/"},
+    {"label": "Términos y Condiciones", "href": "/politicas/terminos-condiciones/"},
     {"label": "Código de Ética y Buena Conducta", "href": "/politicas/codigo-etica/"},
     {"label": "Política SIG", "href": "/politicas/politica-sig/"},
 ]
