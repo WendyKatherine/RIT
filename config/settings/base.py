@@ -132,6 +132,11 @@ SEO_INDEXABLE = env.bool("SEO_INDEXABLE", default=False)
 # URL publica canonica. Se usa para canonical, hreflang, OG y JSON-LD.
 SITE_URL = env("SITE_URL", default="http://localhost:8000")
 
+# Analitica: GTM es el contenedor; GA4 directo es el fallback si no hay GTM.
+# Vacios por defecto: local y staging no envian datos (ademas del gate SEO_INDEXABLE).
+GTM_ID = env("GTM_ID", default="")
+GA4_MEASUREMENT_ID = env("GA4_MEASUREMENT_ID", default="")
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

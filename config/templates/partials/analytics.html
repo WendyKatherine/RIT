@@ -1,0 +1,35 @@
+{% load static %}
+{% comment %}
+Analitica solo en produccion (SEO_INDEXABLE=True): staging y local no deben
+enviar datos. Si hay GTM se usa el contenedor (GA4 se configura dentro de GTM);
+si no, cae a gtag.js directo con GA4_MEASUREMENT_ID.
+{% endcomment %}
+{% if seo_indexable %}
+{% if gtm_id %}
+<script>
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({ "event": "rit_pageview", "page_language": "{{ LANGUAGE_CODE|default:'es' }}" });
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ "gtm.start": new Date().getTime(), "event": "gtm.js" });
+    var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l !== "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", "{{ gtm_id }}");
+</script>
+{% elif ga4_id %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ ga4_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag("js", new Date());
+  gtag("config", "{{ ga4_id }}", { anonymize_ip: true });
+</script>
+{% endif %}
+{% if gtm_id or ga4_id %}
+<script defer src="{% static 'js/analytics-events.js' %}"></script>
+{% endif %}
+{% endif %}

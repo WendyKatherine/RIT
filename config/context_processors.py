@@ -102,6 +102,8 @@ def seo(request: object) -> dict:
         "seo_indexable": getattr(settings, "SEO_INDEXABLE", False),
         "site_url": site_url,
         "canonical_url": f"{site_url}{path}",
+        "gtm_id": getattr(settings, "GTM_ID", ""),
+        "ga4_id": getattr(settings, "GA4_MEASUREMENT_ID", ""),
     }
 
 
