@@ -82,18 +82,18 @@
   to {
     padding-top: 7px;
     padding-bottom: 7px;
-    background-color: var(--cloud);
+    background-color: var(--bg-alt);
     backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
-    border-color: var(--line);
-    box-shadow: 0 12px 30px rgba(0, 42, 83, 0.14);
+    border-color: var(--border);
+    box-shadow: 0 12px 30px rgba(var(--shadow-rgb), 0.14);
   }
 }
 @keyframes header-ink {
-  to { color: var(--navy-800); }
+  to { color: var(--fg); }
 }
 @keyframes header-burger {
-  to { color: var(--navy-800); border-color: var(--line); }
+  to { color: var(--fg); border-color: var(--border); }
 }
 
 .brand { display: flex; align-items: center; gap: 10px; color: #fff; }
@@ -178,9 +178,9 @@
    ------------------------------------------------------------ */
 .mq {
   overflow: hidden;
-  background: var(--cloud);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
+  border1px solid var(--border)
+  border1px solid var(--border)
   padding: 18px 0;
 }
 .mq-track {
@@ -198,7 +198,7 @@
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.14em;
-  color: var(--gray);
+  color: var(--fg-muted);
 }
 .mq-item .sep { color: var(--red); }
 .mq-item img { height: 34px; width: auto; object-fit: contain; display: block; }
@@ -230,13 +230,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  border: 1px solid var(--line);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 14px;
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.08em;
-  color: var(--gray);
+  color: var(--fg-muted);
   opacity: 0.55;
   transition: all 0.3s ease;
 }
@@ -244,7 +244,7 @@
   opacity: 1;
   transform: scale(1.05);
   border-color: var(--blue);
-  color: var(--navy-800);
+  color: var(--fg);
 }
 .partner-pill img { max-width: 116px; max-height: 46px; object-fit: contain; filter: grayscale(1); transition: filter 0.3s ease; }
 .partner-pill:hover img { filter: none; }
@@ -413,7 +413,7 @@
   box-shadow: 0 0 0 2px rgba(227, 6, 19, 0.25);
 }
 .form-card select { appearance: none; }
-.form-card select option { color: var(--navy-800); }
+.form-card select option { color: var(--fg); }
 .form-card textarea { resize: vertical; }
 .form-card .btn { grid-column: 1 / -1; justify-content: center; }
 .form-card .field--error input,
@@ -470,8 +470,8 @@
    Tarjetas
    ------------------------------------------------------------ */
 .card {
-  background: #fff;
-  border: 1px solid var(--line);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--r-16);
   box-shadow: var(--sh-card);
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
@@ -484,10 +484,10 @@
 
 /* Tarjeta de caso de éxito */
 .case-card {
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   border-radius: var(--r-20);
   overflow: hidden;
-  background: #fff;
+  background: var(--surface);
   box-shadow: var(--sh-card);
   transition: all 0.3s ease;
 }
@@ -537,13 +537,13 @@
   font-size: 23px;
   font-weight: 900;
   letter-spacing: -0.01em;
-  color: var(--navy-800);
+  color: var(--fg);
 }
-.case-body p { font-size: 15px; line-height: 1.6; color: var(--gray); }
+.case-body p { font-size: 15px; line-height: 1.6; color: var(--fg-muted); }
 .case-foot {
   margin: 20px 0 0;
   padding-top: 18px;
-  border-top: 1px solid var(--line);
+  border1px solid var(--border)
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -702,4 +702,47 @@
 
   /* CTA al final del panel */
   .nav-panel .btn { align-self: center; margin-top: 28px; }
+}
+
+/* ------------------------------------------------------------
+   Selector de tema — ADR-0003 (solo estilos)
+   El markup, la cookie y la resolución en servidor son del template/vista.
+   Variantes esperadas: .theme-toggle con dos SVG hijos,
+   .theme-toggle__icon--light y .theme-toggle__icon--dark.
+   ------------------------------------------------------------ */
+.theme-form { display: flex; align-items: center; margin-left: 10px; }
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: var(--on-dark);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.theme-toggle:hover { border-color: var(--red); }
+.theme-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.theme-toggle svg { width: 18px; height: 18px; display: block; }
+.theme-toggle__icon--dark { display: none; }
+[data-theme="dark"] .theme-toggle__icon--light { display: none; }
+[data-theme="dark"] .theme-toggle__icon--dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] .theme-toggle__icon--light { display: none; }
+  [data-theme="system"] .theme-toggle__icon--dark { display: block; }
+}
+
+/* Logo a color sobre fondo oscuro: plato claro mientras no exista variante */
+@media (max-width: 768px) {
+  .theme-toggle { width: 36px; height: 36px; }
+}
+
+[data-theme="dark"] .brand img { background: var(--logo-plate); padding: 4px 6px; border-radius: 6px; }
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] .brand img { background: var(--logo-plate); padding: 4px 6px; border-radius: 6px; }
 }

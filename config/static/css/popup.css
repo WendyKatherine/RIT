@@ -105,8 +105,8 @@
 .event-popup-close:hover,
 .event-popup-close:focus-visible {
   background: var(--white);
-  color: var(--navy-800);
-  border-color: var(--white);
+  color: var(--fg-inverse);
+  border-color: var(--on-dark);
 }
 
 /* 7. Contenido */
@@ -125,7 +125,7 @@
   gap: 8px;
   padding: 5px 10px;
   background: var(--red);
-  color: var(--white);
+  color: var(--on-dark);
 }
 
 .event-popup-dot {

@@ -167,13 +167,13 @@
   }
   /* Sin "tarjeta central": todas iguales, tema claro */
   .is-fan .fan-card.is-center {
-    background: #fff;
-    border-color: var(--line);
-    color: var(--navy-800);
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--fg);
     box-shadow: var(--sh-card);
   }
-  .is-fan .fan-card.is-center h3 { color: var(--navy-800); }
-  .is-fan .fan-card.is-center p { color: var(--gray); }
+  .is-fan .fan-card.is-center h3 { color: var(--fg); }
+  .is-fan .fan-card.is-center p { color: var(--fg-muted); }
   .is-fan .fan-card.is-center .vcard-icon { color: var(--red); }
   .is-fan .fan-card.is-center .vcard-num { color: var(--red); }
   .is-fan .fan-card.is-center .vcard-rule { background: var(--line); }
