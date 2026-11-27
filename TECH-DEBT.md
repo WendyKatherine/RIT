@@ -9,7 +9,7 @@
 | Prioridad | Entradas |
 |---|---|
 | Alta | D-02 · D-03 · D-04 · D-05 · D-06 · D-07 |
-| Media | D-08 · D-11 |
+| Media | D-08 · D-11 · D-14 |
 | Baja | D-09 · D-10 · D-12 · D-13 |
 | Pagadas | D-01 |
 
@@ -145,6 +145,16 @@
 - **Fix propuesto:** documentar la excepción en el ADR/mapa; no repetir SQL crudo para cambios de contenido; evaluar squash al estabilizar el esquema.
 - **Prioridad:** baja.
 - **Trigger:** próxima migración de datos.
+
+### D-14 — El Makefile no levanta el proyecto
+
+- **Área:** tooling / onboarding
+- **Atajo:** el Makefile solo tiene targets de calidad (`check`, `fix`, `lint`, `format`, `mypy`, `test`, `migrate`). Levantar el sitio son cuatro pasos manuales del README: `uv sync`, `docker compose up -d postgres`, `migrate` y `runserver`. No hay `up`, `run`, `setup` ni `down`.
+- **Por qué:** el Makefile nació para replicar el CI, no para el flujo local. El arranque se documentó en prosa y nunca se automatizó.
+- **Costo si se deja:** cada onboarding y cada regreso al proyecto repite el mismo ritual. El fallo más caro es olvidar Postgres: `migrate` muere con `Connect call failed` y el mensaje no dice que falta el contenedor. No hay un comando único que verifique `.env`, contenedor arriba y base migrada.
+- **Fix propuesto:** `make up` (levanta Postgres y espera el healthcheck), `make run` (runserver), `make setup` (sync + crea `.env` desde el ejemplo si falta + migra), `make down`, y hacer que `test` dependa de `up`. README con un solo bloque de arranque.
+- **Prioridad:** media (frena cada semana y en cada onboarding).
+- **Trigger:** próximo onboarding o la próxima vez que levantar el proyecto cueste más de 15 minutos.
 
 ## Top 3 para el próximo sprint
 

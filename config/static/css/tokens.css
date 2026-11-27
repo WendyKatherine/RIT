@@ -61,3 +61,90 @@
 @media (max-width: 480px) {
   :root { --gutter: 18px; }
 }
+
+/* ============================================================
+   Capa semántica de tema — ADR-0003
+   Las primitivas de marca de arriba NO cambian con el tema.
+   Estas claves sí: el componente pide --bg/--fg, nunca #fff.
+   El tema se resuelve en el servidor: <html data-theme="light|dark|system">.
+   "system" deja decidir a la preferencia del SO (ver bloque final).
+   ============================================================ */
+:root {
+  color-scheme: light;
+
+  /* Superficies */
+  --bg: #ffffff;            /* sección blanca / tarjeta base */
+  --bg-alt: #eff3f9;        /* fondo de página y secciones alternas */
+  --surface: #ffffff;       /* tarjeta sobre bg-alt */
+  --surface-2: #ffffff;     /* menú, popup, modal */
+
+  /* Texto */
+  --fg: #001b3a;            /* texto primario sobre superficie clara */
+  --fg-muted: #5a6b7a;
+  --fg-inverse: #001b3a;   /* texto oscuro sobre chip claro; no cambia con el tema */      /* texto secundario sobre superficie clara */
+
+  /* Líneas y foco */
+  --border: #e2e8f0;
+  --focus: #0069b4;
+
+  /* Sobre superficies de marca u oscuras (no cambia con el tema) */
+  --on-dark: #ffffff;
+  --on-dark-muted: rgba(232, 241, 248, 0.8);
+
+  /* Logo a color sobre fondo oscuro: plato claro mientras no exista variante */
+  --logo-plate: transparent;
+}
+
+/* Oscuro explícito */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #001b3a;
+  --bg-alt: #00162e;
+  --surface: #002a53;
+  --surface-2: #003a6b;
+
+  --fg: #eff3f9;
+  --fg-muted: #a9bacd;
+
+  --border: rgba(255, 255, 255, 0.14);
+  --focus: #1e86c9;
+
+  --on-dark: #ffffff;
+  --on-dark-muted: rgba(232, 241, 248, 0.8);
+
+  --logo-plate: #ffffff;
+  --shadow-rgb: 0, 0, 0;
+
+  /* Sombras: más profundas sobre navy, nunca negro puro */
+  --sh-card: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --sh-card-h: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* "system": el CSS resuelve según el SO. Mismo bloque que arriba,
+   duplicado a propósito: un media query no puede heredar selectores. */
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="system"] {
+    color-scheme: dark;
+
+    --bg: #001b3a;
+    --bg-alt: #00162e;
+    --surface: #002a53;
+    --surface-2: #003a6b;
+
+    --fg: #eff3f9;
+    --fg-muted: #a9bacd;
+
+    --border: rgba(255, 255, 255, 0.14);
+    --focus: #1e86c9;
+
+    --on-dark: #ffffff;
+    --on-dark-muted: rgba(232, 241, 248, 0.8);
+
+    --logo-plate: #ffffff;
+  --shadow-rgb: 0, 0, 0;
+
+    --sh-card: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --sh-card-h: 0 16px 40px rgba(0, 0, 0, 0.45);
+  }
+}

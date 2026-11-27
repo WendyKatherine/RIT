@@ -240,8 +240,8 @@
   position: relative;
   flex: 1 1 230px;
   max-width: 290px;
-  background: #fff;
-  border: 1px solid var(--line);
+  background: var(--surface);
+  border1px solid var(--border)
   border-radius: var(--r-16);
   box-shadow: var(--sh-card);
   padding: 26px;
@@ -278,11 +278,11 @@
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.01em;
-  color: var(--navy-800);
+  color: var(--fg);
   overflow-wrap: anywhere;
 }
 .vcard-rule { height: 1px; background: var(--line); margin: 16px 0 14px; }
-.vcard p { font-size: 14px; line-height: 1.55; color: var(--gray); }
+.vcard p { font-size: 14px; line-height: 1.55; color: var(--fg-muted); }
 .vcard-tab {
   position: absolute;
   right: 14px;
@@ -455,7 +455,7 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: var(--gray);
+  color: var(--fg-muted);
   opacity: 0.75;
 }
 
@@ -517,15 +517,15 @@
    mismo bloque sirve en fondo oscuro, claro o blanco. */
 .section--light .stat-card,
 .section--white .stat-card {
-  border-color: var(--line);
+  border-color: var(--border);
 }
 .section--light .stat-card:hover,
 .section--white .stat-card:hover {
-  box-shadow: 0 12px 40px rgba(0, 42, 83, 0.12);
+  box-shadow: 0 12px 40px rgba(var(--shadow-rgb), 0.12);
 }
 .section--light .stat-label,
 .section--white .stat-label {
-  color: var(--gray);
+  color: var(--fg-muted);
 }
 .section--light .stats-bg-dots,
 .section--white .stats-bg-dots {
@@ -668,7 +668,7 @@
   gap: 44px;
   min-height: 100vh;
   padding: 90px 0;
-  background: var(--cloud);
+  background: var(--bg-alt);
 }
 .cases-index {
   display: flex;
@@ -676,10 +676,10 @@
   gap: 6px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--navy-800);
+  color: var(--fg);
 }
-.cases-index .slash { display: inline-block; transform: rotate(30deg); color: var(--gray); }
-.cases-total { color: var(--gray); }
+.cases-index .slash { display: inline-block; transform: rotate(30deg); color: var(--fg-muted); }
+.cases-total { color: var(--fg-muted); }
 
 .cases-viewport { overflow: visible; }
 .cases-track {
@@ -697,8 +697,8 @@
 .case-card {
   flex: none;
   width: min(560px, 78vw);
-  background: #fff;
-  border: 1px solid var(--line);
+  background: var(--surface);
+  border1px solid var(--border)
   border-radius: var(--r-20);
   overflow: hidden;
   scroll-snap-align: center;
@@ -734,20 +734,20 @@
   font-size: clamp(20px, 2.2vw, 28px);
   font-weight: 500;
   letter-spacing: -0.01em;
-  color: var(--navy-800);
+  color: var(--fg);
 }
-.case-body p { font-size: 15px; line-height: 1.6; color: var(--gray); }
+.case-body p { font-size: 15px; line-height: 1.6; color: var(--fg-muted); }
 .case-foot {
   margin-top: 22px;
   padding-top: 18px;
-  border-top: 1px solid var(--line);
+  border1px solid var(--border)
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
   justify-content: space-between;
 }
-.case-result { font-size: 14px; font-weight: 600; color: var(--navy-800); }
+.case-result { font-size: 14px; font-weight: 600; color: var(--fg); }
 .case-link { font-size: 14px; font-weight: 600; color: var(--blue); }
 .case-link:hover { color: var(--red); }
 
