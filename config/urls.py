@@ -8,7 +8,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 
-from apps.common.views import robots_txt
+from apps.common.views import robots_txt, set_theme
 from apps.search import views as search_views
 
 # Anotación explícita: django-stubs no infiere bien la mezcla URLPattern|URLResolver
@@ -40,6 +40,7 @@ if settings.DEBUG or getattr(settings, "SERVE_MEDIA", False):
 urlpatterns += [
     path("robots.txt", robots_txt, name="robots_txt"),
     path("sitemap.xml", sitemap, name="sitemap"),
+    path("theme/<str:theme>/", set_theme, name="set_theme"),
     # 301 explicito: i18n_patterns redirige con 302 y un 302 no transfiere
     # autoridad. Esta ruta solo captura "/" exacto.
     path("", RedirectView.as_view(url="/es/", permanent=True)),
